@@ -3792,5 +3792,25 @@ DEFINE CLASS MessageTimer AS Timer
    ENDPROC
 ENDDEFINE  && CLASS MessageTimer AS Timer
 
+  
+*************************************************************
+* Lockscreem
+*************************************************************
+*-- Lockscreen management.  Doesn't completely fit with the envlib classes but
+*-- a-propos nonetheless because it resets when it goes out of scope.
+DEFINE CLASS SetLockScreen AS CUSTOM
+  PROTECTED lOldLockScreen, loForm
+  loForm= .F.
+  lOldLockScreen= .F.
+
+  FUNCTION Init( loCurrentForm, lNewSetting)
+  This.loForm= loCurrentForm
+  This.lOldLockScreen= loCurrentForm.LockScreen
+  loCurrentForm.LockScreen= lNewSetting
+
+  FUNCTION Destroy
+  This.loForm.LockScreen= This.lOldLockScreen
+ENDDEFINE
+
 *** EnvLib.prg **********************************************
 
