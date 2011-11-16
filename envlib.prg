@@ -3794,7 +3794,7 @@ ENDDEFINE  && CLASS MessageTimer AS Timer
 
   
 *************************************************************
-* Lockscreem
+* Lockscreen
 *************************************************************
 *-- Lockscreen management.  Doesn't completely fit with the envlib classes but
 *-- a-propos nonetheless because it resets when it goes out of scope.
