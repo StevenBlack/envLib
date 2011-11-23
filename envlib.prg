@@ -1953,6 +1953,27 @@ DEFINE CLASS SetNull AS SetOnOff
    ENDPROC  && Destroy
 ENDDEFINE  && CLASS SetNull AS SetOnOff
 
+DEFINE CLASS SetNullDisplay AS Set
+   uDefault = ""
+
+   PROTECTED PROCEDURE Init(tcValue, tlNoReset)
+      IF tlNoReset
+         THIS.lNoReset = .T.
+      ENDIF
+      IF DODEFAULT("NULLDISPLAY", tcValue)
+         SET NULLDISPLAY TO THIS.uNewSet
+      ELSE
+         RETURN .F.
+      ENDIF
+   ENDPROC  && Init
+
+   PROTECTED PROCEDURE Destroy
+      IF NOT THIS.lNoReset
+         SET NULLDISPLAY TO THIS.uOldSet
+      ENDIF
+   ENDPROC  && Destroy
+ENDDEFINE  && CLASS SetNullDisplay AS Set
+
 
 DEFINE CLASS SetOdometer AS Set
    uDefault = 100
