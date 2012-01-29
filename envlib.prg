@@ -5,12 +5,10 @@
 *        : subject to the Warranty Disclaimer below.
 *  Author: Tom Rettig
 *        : Rettig Micro Corporation
-*        : 2532 Lincoln Boulevard, Suite 110
-*        : Marina del Rey, CA  90291-5978
-*        :  Telephone: 310-301-0911
-*        :        Fax: 310-821-1162
-*        : CompuServe: 75066,352
-*        :           : in FOXUSER forum's 3rd-Party section or MAIL
+*        :
+* Updates: Steven Black
+*        : Steven Black Consulting
+*        : http://stevenblack.com
 * Version: ENV Version 1.0 July 15, 1995 (#defined in True.h)
 *  Action: Save, set, and restore SET, ON, open table, system varaible,
 *        :    and object property environments.
