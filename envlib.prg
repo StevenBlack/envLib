@@ -2186,12 +2186,16 @@ ENDDEFINE  && CLASS SetPalette AS SetOnOff
 DEFINE CLASS SetPath AS Set
    uDefault = ""
 
-   PROTECTED PROCEDURE Init( tcValue, tlNoReset )
+   PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
       IF tlNoReset
          THIS.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "PATH", tcValue )
-         SET PATH TO ( THIS.uNewSet )
+         IF ( NOT EMPTY( tcOption )) AND UPPER( ALLTRIM( tcOption )) == "ADDITIVE"
+            SET PATH TO ( THIS.uNewSet ) ADDITIVE
+         ELSE
+            SET PATH TO ( THIS.uNewSet )
+         ENDIF
       ELSE
          RETURN .F.
       ENDIF
