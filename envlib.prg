@@ -2739,6 +2739,28 @@ DEFINE CLASS SetSysMenu AS Set
 ENDDEFINE  && CLASS SetSysMenu AS Set
 
 
+DEFINE CLASS SetTableValidate AS Set
+   uDefault = 2
+
+   PROTECTED PROCEDURE Init( tnValue, tlNoReset )
+      IF tlNoReset
+         THIS.lNoReset = .T.
+      ENDIF
+      IF DODEFAULT( "TableValidate", tnValue )
+         SET TableValidate TO THIS.uNewSet
+      ELSE
+         RETURN .F.
+      ENDIF
+   ENDPROC  && Init
+
+   PROTECTED PROCEDURE Destroy
+      IF NOT THIS.lNoReset
+         SET TableValidate TO THIS.uOldSet
+      ENDIF
+   ENDPROC  && Destroy
+ENDDEFINE  && CLASS SetTableValidate AS Set
+
+
 DEFINE CLASS SetTalk AS SetOnOff
    uDefault = "ON"
 
