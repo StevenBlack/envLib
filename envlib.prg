@@ -285,6 +285,36 @@ DEFINE CLASS SetAsserts AS SetOnOff
 ENDDEFINE  && CLASS SetAsserts AS SetOnOff
 
 
+DEFINE CLASS SetAutoIncError AS SetOnOff
+   uDefault = "ON"
+
+   PROTECTED PROCEDURE Init( tcValue, tlNoReset )
+      IF tlNoReset
+         THIS.lNoReset = .T.
+      ENDIF
+      DO CASE
+         CASE NOT DODEFAULT( "AutoIncError", tcValue )
+            RETURN .F.  && early exit
+         CASE THIS.uNewSet == "ON"
+            SET AutoIncError ON
+         OTHERWISE
+            SET AutoIncError OFF
+      ENDCASE
+   ENDPROC  && Init
+
+   PROTECTED PROCEDURE Destroy
+      DO CASE
+         CASE THIS.lNoReset
+            * Do nothing.
+         CASE THIS.uOldSet == "ON"
+            SET AutoIncError ON
+         OTHERWISE
+            SET AutoIncError OFF
+      ENDCASE
+   ENDPROC  && Destroy
+ENDDEFINE  && CLASS SetAutoIncError AS SetOnOff
+
+
 DEFINE CLASS SetAutosave AS SetOnOff
    uDefault = "OFF"
 
@@ -1045,7 +1075,7 @@ DEFINE CLASS SetDefault AS Set
       IF tlNoReset
          THIS.lNoReset = .F.   && Note: this is different than some other classes here.
       ENDIF
-      
+
       THIS.uOldSet = SYS( 5 )+CURDIR()
       THIS.uNewSet = EVL( tcValue, THIS.uDefault )
       cd ( THIS.uNewSet )
@@ -3935,7 +3965,7 @@ DEFINE CLASS MessageTimer AS Timer
    ENDPROC
 ENDDEFINE  && CLASS MessageTimer AS Timer
 
-  
+
 *************************************************************
 * Lockscreen
 *************************************************************
