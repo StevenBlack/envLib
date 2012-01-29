@@ -575,6 +575,37 @@ DEFINE CLASS SetCollate AS Set
 ENDDEFINE  && CLASS SetCollate AS Set
 
 
+DEFINE CLASS SetCoverage AS Set
+   uDefault = ""
+
+   PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
+      IF tlNoReset
+         THIS.lNoReset = .T.
+      ENDIF
+      IF DODEFAULT( "Coverage", tcValue )
+         LOCAL lcTemp
+         lcTemp = THIS.uNewSet
+         IF ( NOT EMPTY( tcOption )) AND;
+            ( UPPER( ALLTRIM( tcOption ))="ADDITIVE" )
+            SET Coverage TO &lcTemp ADDITIVE  && macro alert
+         ELSE
+            SET Coverage TO &lcTemp  && macro alert
+         ENDIF
+      ELSE
+         RETURN .F.
+      ENDIF
+   ENDPROC  && Init
+
+   PROTECTED PROCEDURE Destroy
+      IF NOT THIS.lNoReset
+         LOCAL lcTemp
+         lcTemp = THIS.uOldSet
+         SET Coverage TO &lcTemp  && macro alert
+      ENDIF
+   ENDPROC  && Destroy
+ENDDEFINE  && CLASS SetCoverage AS Set
+
+
 DEFINE CLASS SetColor AS Set
    uDefault = ""
 
