@@ -980,22 +980,21 @@ ENDDEFINE  && CLASS SetDecimals AS Set
 
 
 DEFINE CLASS SetDefault AS Set
-   uDefault = ""
+   uDefault = SYS(5)+CURDIR()
 
    PROTECTED PROCEDURE Init(tcValue, tlNoReset)
       IF tlNoReset
-         THIS.lNoReset = .T.
+         THIS.lNoReset = .F.   && Note: this is different than some other classes here.
       ENDIF
-      IF DODEFAULT("DEFAULT", tcValue)
-         SET DEFAULT TO (THIS.uNewSet)
-      ELSE
-         RETURN .F.
-      ENDIF
+      
+      THIS.uOldSet = SYS(5)+CURDIR()
+      THIS.uNewSet = EVL(tcValue, THIS.uDefault)
+      cd (THIS.uNewSet)
    ENDPROC  && Init
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
-         SET DEFAULT TO (THIS.uOldSet)
+         cd (THIS.uOldSet)
       ENDIF
    ENDPROC  && Destroy
 ENDDEFINE  && CLASS SetDefault AS Set
