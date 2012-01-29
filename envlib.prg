@@ -9,12 +9,12 @@
 * Updates: Steven Black
 *        : Steven Black Consulting
 *        : http://stevenblack.com
-* Version: ENV Version 1.0 July 15, 1995 ( #defined in True.h )
+* Version: ENV Version 1.0 July 15, 1995 (#defined in True.h)
 *  Action: Save, set, and restore SET, ON, open table, system varaible,
 *        :    and object property environments.
 *   Usage: See Env.doc for examples.
 *Requires: Visual FoxPro for Windows version 3.0 or later
-*        : True.h named constant file ( #included below )
+*        : True.h named constant file (#included below)
 *   Notes: - May be freely used, modified, and distributed in
 *        : compiled and/or source code form.
 *        : - The author appreciates acknowledgment in commercial
