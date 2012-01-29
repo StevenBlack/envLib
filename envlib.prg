@@ -1209,6 +1209,44 @@ DEFINE CLASS SetEcho AS SetOnOff
 ENDDEFINE  && CLASS SetEcho AS SetOnOff
 
 
+DEFINE CLASS SetEngineBehavior AS Set
+   uDefault = "OFF"
+
+   PROTECTED PROCEDURE Init( tcValue, tlNoReset )
+      IF tlNoReset
+         THIS.lNoReset = .T.
+      ENDIF
+      DO CASE
+         CASE NOT DODEFAULT( "EngineBehavior", tcValue )
+            RETURN .F.  && early exit
+         CASE THIS.uNewSet == "70"
+            SET EngineBehavior 70
+         CASE THIS.uNewSet == "80"
+            SET EngineBehavior 80
+         CASE THIS.uNewSet == "90"
+            SET EngineBehavior 90
+         OTHERWISE
+            SET EngineBehavior 90
+      ENDCASE
+   ENDPROC  && Init
+
+   PROTECTED PROCEDURE Destroy
+      DO CASE
+         CASE THIS.lNoReset
+            * Do nothing.
+         CASE THIS.uOldSet == "70"
+            SET EngineBehavior 70
+         CASE THIS.uOldSet == "80"
+            SET EngineBehavior 80
+         CASE THIS.uOldSet == "90"
+            SET EngineBehavior 90
+         OTHERWISE
+            SET EngineBehavior 90
+      ENDCASE
+   ENDPROC  && Destroy
+ENDDEFINE  && CLASS SetEngineBehavior AS Set
+
+
 DEFINE CLASS SetEscape AS SetOnOff
    uDefault = "ON"
 
