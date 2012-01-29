@@ -255,6 +255,36 @@ DEFINE CLASS SetAnsi AS SetOnOff
 ENDDEFINE  && CLASS SetAnsi AS SetOnOff
 
 
+DEFINE CLASS SetAsserts AS SetOnOff
+   uDefault = "OFF"
+
+   PROTECTED PROCEDURE Init( tcValue, tlNoReset )
+      IF tlNoReset
+         THIS.lNoReset = .T.
+      ENDIF
+      DO CASE
+         CASE NOT DODEFAULT( "Asserts", tcValue )
+            RETURN .F.  && early exit
+         CASE THIS.uNewSet == "ON"
+            SET Asserts ON
+         OTHERWISE
+            SET Asserts OFF
+      ENDCASE
+   ENDPROC  && Init
+
+   PROTECTED PROCEDURE Destroy
+      DO CASE
+         CASE THIS.lNoReset
+            * Do nothing.
+         CASE THIS.uOldSet == "ON"
+            SET Asserts ON
+         OTHERWISE
+            SET Asserts OFF
+      ENDCASE
+   ENDPROC  && Destroy
+ENDDEFINE  && CLASS SetAsserts AS SetOnOff
+
+
 DEFINE CLASS SetAutosave AS SetOnOff
    uDefault = "OFF"
 
