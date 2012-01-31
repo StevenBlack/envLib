@@ -9,12 +9,11 @@
 * Updates: Steven Black
 *        : Steven Black Consulting
 *        : http://stevenblack.com
-* Version: ENV Version 1.0 July 15, 1995 (#defined in True.h)
+* Version: ENV Version 1.0 July 15, 1995 
 *  Action: Save, set, and restore SET, ON, open table, system varaible,
 *        :    and object property environments.
 *   Usage: See Env.doc for examples.
 *Requires: Visual FoxPro for Windows version 3.0 or later
-*        : True.h named constant file (#included below)
 *   Notes: - May be freely used, modified, and distributed in
 *        : compiled and/or source code form.
 *        : - The author appreciates acknowledgment in commercial
@@ -37,9 +36,6 @@
 *        : SUSTAINED BY THIRD PARTIES OR A FAILURE OF THE PROGRAM TO
 *        : OPERATE WITH ANY OTHER PROGRAMS, EVEN IF YOU OR OTHER PARTIES
 *        : HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-
-* Multiple set parameters are defined in True.h.
-#INCLUDE True.h
 
 
 *************************************************************
@@ -93,23 +89,23 @@ DEFINE CLASS SetTwo AS Set   && abstract class
                             tuValueTwo, tnParams )
       DO CASE  && of which to set
          CASE EMPTY( tnParams )
-            ERROR cnVF_ERR_PARAM_INVALID
+            ERROR 11  &&  was: cnVF_ERR_PARAM_INVALID
             RETURN .F.  && early exit
          CASE tnParams == 1
-            THIS.cSet = ccSET_ONE
+            THIS.cSet = "1"
          CASE EMPTY( tuValueOne )  && never a valid value
-            THIS.cSet = ccSET_TWO
+            THIS.cSet = "2"
          OTHERWISE
-            THIS.cSet = ccSET_BOTH
+            THIS.cSet = "3"
       ENDCASE  && of which to set
 
       * Primary value as returned by SET( "whatever" ).
-      IF INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+      IF INLIST( THIS.cSet, "1", "3" )
          =DODEFAULT( tcSet, tuValueOne )
       ENDIF
 
       * Secondary value as returned by SET( "whatever", 1 ).
-      IF INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+      IF INLIST( THIS.cSet, "2", "3" )
          THIS.uOldSetTwo = SET( tcSet, 1 )
          THIS.uNewSetTwo = NVL( tuValueTwo, THIS.uDefaultTwo )
       ENDIF
@@ -123,7 +119,7 @@ DEFINE CLASS SetOnOff AS Set   && abstract class
          CASE ISNULL( tcValue )
             =DODEFAULT( tcSet, tcValue )
          CASE NOT INLIST( UPPER( ALLTRIM( tcValue )), "ON", "OFF" )
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
          OTHERWISE
             =DODEFAULT( tcSet, UPPER( ALLTRIM( tcValue )) )
@@ -144,7 +140,7 @@ DEFINE CLASS SetOnOffTwo AS SetTwo   && abstract class
                           tuValueTwo, ;
                           tnParams )
          CASE NOT INLIST( UPPER( ALLTRIM( tcValueOne )), "ON", "OFF" )
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
          OTHERWISE
             =DODEFAULT( tcSet, ;
@@ -174,7 +170,7 @@ DEFINE CLASS SetAlternate AS SetOnOffTwo
                                     tcOnOff, tcTo, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "1", "3" )
             * Do nothing.
          CASE THIS.uNewSet == "ON"
             SET ALTERNATE ON
@@ -183,7 +179,7 @@ DEFINE CLASS SetAlternate AS SetOnOffTwo
       ENDCASE  && of primary set
 
       DO CASE  && of secondary set
-         CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "2", "3" )
             * Do nothing.
          CASE EMPTY( THIS.uNewSetTwo )
             SET ALTERNATE TO
@@ -204,7 +200,7 @@ DEFINE CLASS SetAlternate AS SetOnOffTwo
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "1", "3" )
                * Do nothing.
             CASE THIS.uOldSet == "ON"
                SET ALTERNATE ON
@@ -213,7 +209,7 @@ DEFINE CLASS SetAlternate AS SetOnOffTwo
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "2", "3" )
                * Do nothing.
             CASE EMPTY( THIS.uOldSetTwo )
                SET ALTERNATE TO
@@ -684,7 +680,7 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
                                     lcOnOff, lcPrompt, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT THIS.cSet == ccSET_ONE
+         CASE NOT THIS.cSet == "1"
             * Do nothing.
          CASE THIS.uNewSet == "ON"
             SET COMPATIBLE ON
@@ -693,7 +689,7 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
       ENDCASE  && of primary set
 
       DO CASE  && of secondary set
-         CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "2", "3" )
             * Do nothing.
          CASE THIS.uNewSetTwo == "PROMPT"
             IF THIS.uNewSet == "ON"
@@ -708,7 +704,7 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
                SET COMPATIBLE OFF NOPROMPT
             ENDIF
          OTHERWISE
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
       ENDCASE  && of secondary set
    ENDPROC  && Init
@@ -716,7 +712,7 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          DO CASE  && of primary set
-            CASE NOT THIS.cSet == ccSET_ONE
+            CASE NOT THIS.cSet == "1"
                * Do nothing.
             CASE THIS.uOldSet == "ON"
                SET COMPATIBLE ON
@@ -725,7 +721,7 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "2", "3" )
                * Do nothing.
             CASE THIS.uOldSetTwo == "NOPROMPT"
                IF THIS.uOldSet == "ON"
@@ -873,10 +869,10 @@ DEFINE CLASS SetCurrency AS SetTwo
                                    UPPER( ALLTRIM( tcLeftRight )) ), ;
                                tcTo, ;
                                PARAMETERS() )
-         CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "1", "3" )
             * Do nothing.
          CASE NOT INLIST( THIS.uNewSet, "LEFT", "RIGHT" )
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
          CASE THIS.uNewSet == "LEFT"
             SET CURRENCY LEFT
@@ -885,7 +881,7 @@ DEFINE CLASS SetCurrency AS SetTwo
       ENDCASE  && of primary set
 
       * Secondary set.
-      IF INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+      IF INLIST( THIS.cSet, "2", "3" )
          SET CURRENCY TO ( THIS.uNewSetTwo )
       ENDIF
    ENDPROC  && Init
@@ -893,7 +889,7 @@ DEFINE CLASS SetCurrency AS SetTwo
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "1", "3" )
                * Do nothing.
             CASE THIS.uOldSet == "LEFT"
                SET CURRENCY LEFT
@@ -902,7 +898,7 @@ DEFINE CLASS SetCurrency AS SetTwo
          ENDCASE  && of primary set
 
          * Secondary set.
-         IF INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+         IF INLIST( THIS.cSet, "2", "3" )
             SET CURRENCY TO ( THIS.uOldSetTwo )
          ENDIF
       ENDIF
@@ -1140,7 +1136,7 @@ DEFINE CLASS SetDelimiters AS SetOnOffTwo
                                     lcOnOff, lcDelimiter, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT THIS.cSet == ccSET_ONE
+         CASE NOT THIS.cSet == "1"
             * Do nothing.
          CASE THIS.uNewSet == "ON"
             SET DELIMITERS ON
@@ -1157,7 +1153,7 @@ DEFINE CLASS SetDelimiters AS SetOnOffTwo
       IF NOT THIS.lNoReset
 
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "1", "3" )
                * Do nothing.
             CASE THIS.uOldSet == "ON"
                SET DELIMITERS ON
@@ -1166,7 +1162,7 @@ DEFINE CLASS SetDelimiters AS SetOnOffTwo
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "2", "3" )
                * Do nothing.
             CASE NOT EMPTY( THIS.uOldSetTwo )
                SET DELIMITERS TO ( THIS.uOldSetTwo )
@@ -1576,7 +1572,7 @@ DEFINE CLASS SetHelp AS SetOnOffTwo
                                     tcOnOff, tcTo, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "1", "3" )
             * Do nothing.
          CASE THIS.uNewSet == "ON"
             SET HELP ON
@@ -1585,7 +1581,7 @@ DEFINE CLASS SetHelp AS SetOnOffTwo
       ENDCASE  && of primary set
 
       DO CASE  && of secondary set
-         CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "2", "3" )
             * Do nothing.
          CASE EMPTY( THIS.uNewSetTwo )
             SET HELP TO
@@ -1597,7 +1593,7 @@ DEFINE CLASS SetHelp AS SetOnOffTwo
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "1", "3" )
                * Do nothing.
             CASE THIS.uOldSet == "ON"
                SET HELP ON
@@ -1606,7 +1602,7 @@ DEFINE CLASS SetHelp AS SetOnOffTwo
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "2", "3" )
                * Do nothing.
             CASE EMPTY( THIS.uOldSetTwo )
                SET HELP TO
@@ -1659,7 +1655,7 @@ DEFINE CLASS SetHours AS Set
          * SET HOURS ignores decimals, i.e. 12.5 is legal
          CASE NOT TYPE( "THIS.uNewSet" )="N" OR ;
             NOT INLIST( INT( THIS.uNewSet ), 12, 24 )
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
          OTHERWISE
             SET HOURS TO THIS.uNewSet
@@ -1728,7 +1724,7 @@ DEFINE CLASS SetKeycomp AS Set
             RETURN .F.
          CASE NOT INLIST( UPPER( THIS.uNewSet ), "DOS", "WIND", ;
                "WINDO", "WINDOW", "WINDOWS" )
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
          CASE "DOS" $ THIS.uNewSet
             SET KEYCOMP TO DOS
@@ -2255,7 +2251,7 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
                                     tcOnOff, tcTo, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "1", "3" )
             * Do nothing.
          CASE THIS.uNewSet == "ON"
             SET PRINTER ON
@@ -2264,7 +2260,7 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
       ENDCASE  && of primary set
 
       DO CASE  && of secondary set
-         CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "2", "3" )
             * Do nothing.
          CASE EMPTY( THIS.uNewSetTwo ) OR THIS.uOldSetTwo == "PRN"
             SET PRINTER TO
@@ -2279,7 +2275,7 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "1", "3" )
                * Do nothing.
             CASE THIS.uOldSet == "ON"
                SET PRINTER ON
@@ -2288,7 +2284,7 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "2", "3" )
                * Do nothing.
             CASE EMPTY( THIS.uOldSetTwo ) OR THIS.uOldSetTwo == "PRN"
                SET PRINTER TO
@@ -2402,12 +2398,12 @@ DEFINE CLASS SetRefresh AS SetTwo
          CASE NOT DODEFAULT( "REFRESH", tnEditSeconds, ;
                                tnBufferSeconds, PARAMETERS() )
             * Do nothing.
-         CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "1", "3" )
             * Do nothing.
          CASE ISNULL( tnEditSeconds ) AND ISNULL( tnBufferSeconds )
             * Do nothing.
          CASE tnEditSeconds < 0 OR tnBufferSeconds < 0
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
          CASE tnEditSeconds >= 0 AND tnBufferSeconds >= 0
             * Set both
@@ -2463,7 +2459,7 @@ DEFINE CLASS SetReprocess AS Set
                              IIF( THIS.cType=="C", ;
                                  UPPER( ALLTRIM( tuValue )), ;
                                  tuValue )) )
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
          CASE THIS.cType == "C"
             DO CASE
@@ -2472,7 +2468,7 @@ DEFINE CLASS SetReprocess AS Set
                CASE RIGHT( THIS.uNewSet, 7 ) == "SECONDS"
                   SET REPROCESS TO VAL( THIS.uNewSet ) SECONDS
                OTHERWISE
-                  ERROR cnVF_ERR_SETARGINVALID
+                  ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
                   RETURN .F.  && early exit
             ENDCASE
          OTHERWISE
@@ -2503,7 +2499,7 @@ DEFINE CLASS SetResource AS SetOnOffTwo
                                     tcOnOff, tcTo, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "2", "3" )
             * Do nothing.
          CASE EMPTY( THIS.uNewSetTwo )
             SET RESOURCE TO
@@ -2512,7 +2508,7 @@ DEFINE CLASS SetResource AS SetOnOffTwo
       ENDCASE  && of secondary set
 
       DO CASE  && of primary set
-         CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "1", "3" )
             * Do nothing.
          CASE THIS.uNewSet == "ON"
             SET RESOURCE ON
@@ -2525,7 +2521,7 @@ DEFINE CLASS SetResource AS SetOnOffTwo
       IF NOT THIS.lNoReset
          * SET RESOURCE TO is first because it also sets it ON.
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "2", "3" )
                * Do nothing.
             CASE EMPTY( THIS.uOldSetTwo )
                SET RESOURCE TO
@@ -2534,7 +2530,7 @@ DEFINE CLASS SetResource AS SetOnOffTwo
          ENDCASE  && of secondary set
 
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "1", "3" )
                * Do nothing.
             CASE THIS.uOldSet == "ON"
                SET RESOURCE ON
@@ -2560,7 +2556,7 @@ DEFINE CLASS SetResourceCreate AS SetResource
    ENDPROC  && Init
 
    PROTECTED PROCEDURE Destroy
-      IF ( NOT THIS.lNoReset ) AND INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+      IF ( NOT THIS.lNoReset ) AND INLIST( THIS.cSet, "2", "3" )
          LOCAL lcTo
          lcTo = IIF( EMPTY( THIS.uOldSetTwo ), ;
                     HOME() + "FoxUser.dbf", ;
@@ -2840,7 +2836,7 @@ DEFINE CLASS SetSysMenu AS Set
             =DODEFAULT( "SYSMENU", tcValue )
          CASE NOT INLIST( UPPER( ALLTRIM( tcValue )), ;
                          "ON", "OFF", "AUTOMATIC" )
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
          OTHERWISE
             LOCAL lcValue
@@ -2938,7 +2934,7 @@ DEFINE CLASS SetTopic AS SetTwo
                                tcTopic, ;
                                tcID, ;
                                PARAMETERS() )
-         CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+         CASE NOT INLIST( THIS.cSet, "1", "3" )
             * Do nothing.
          OTHERWISE
             LOCAL lcTopic
@@ -2947,7 +2943,7 @@ DEFINE CLASS SetTopic AS SetTwo
       ENDCASE  && of primary set
 
       * Secondary set.
-      IF INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+      IF INLIST( THIS.cSet, "2", "3" )
          SET TOPIC ID TO THIS.uNewSetTwo
       ENDIF
    ENDPROC  && Init
@@ -2955,7 +2951,7 @@ DEFINE CLASS SetTopic AS SetTwo
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, ccSET_ONE, ccSET_BOTH )
+            CASE NOT INLIST( THIS.cSet, "1", "3" )
                * Do nothing.
             OTHERWISE
                LOCAL lcTopic
@@ -2964,7 +2960,7 @@ DEFINE CLASS SetTopic AS SetTwo
          ENDCASE  && of primary set
 
          * Secondary set.
-         IF INLIST( THIS.cSet, ccSET_TWO, ccSET_BOTH )
+         IF INLIST( THIS.cSet, "2", "3" )
             SET TOPIC ID TO THIS.uOldSetTwo
          ENDIF
       ENDIF
@@ -3041,7 +3037,7 @@ DEFINE CLASS SetUdfParms AS Set
          CASE THIS.uNewSet == "REFERENCE"
             SET UDFPARMS REFERENCE
          OTHERWISE
-            ERROR cnVF_ERR_SETARGINVALID
+            ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
       ENDCASE
    ENDPROC  && Init
@@ -3422,7 +3418,7 @@ DEFINE CLASS SaveArea AS Custom  && abstract class
             THIS.nSelect = SELECT( tuArea )
       ENDCASE
       IF EMPTY( THIS.nSelect )
-         ERROR cnVF_ERR_TABLE_NUMINVALID
+         ERROR 17  &&  was: cnVF_ERR_TABLE_NUMINVALID
          RETURN .F.
       ENDIF
    ENDPROC  && Init
@@ -3435,7 +3431,7 @@ DEFINE CLASS SaveUsedArea AS SaveArea  && abstract class
          CASE NOT DODEFAULT( tuArea )
             RETURN .F.  && early exit
          CASE NOT USED( THIS.nSelect )
-            ERROR cnVF_ERR_TABLE_NOTOPEN
+            ERROR 52  &&  was: cnVF_ERR_TABLE_NOTOPEN
             RETURN .F.  && early exit
       ENDCASE
    ENDPROC  && Init
@@ -3736,7 +3732,7 @@ DEFINE CLASS SaveTable AS SaveUsedArea
          ENDIF
          THIS.cAlias = ALIAS()
          THIS.cFile  = DBF()
-         THIS.cLock  = SYS( cnVF_SYS_LOCKSTATUS )
+         THIS.cLock  = SYS( 2011 )
       ELSE
          RETURN .F.
       ENDIF
