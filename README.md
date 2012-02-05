@@ -66,19 +66,20 @@ With **Envlib**, you do this:
 
 ## Classes in EnvLib
 
-### Abstract classes
+### Abstract Classes
 <table>
 	<tr><th>Class</th><th>Parent</th><th>Notes</th></tr>
-	<tr><td>Set</td><td>Custom</td><td>abstract class </td></tr>
-	<tr><td>SetTwo</td><td>Set </td><td>abstract class</td></tr>
-	<tr><td>SetOnOff</td><td>Set </td><td>abstract class</td></tr>
-	<tr><td>SetOnOffTwo</td><td>SetTwo </td><td>abstract class</td></tr>
-	<tr><td>On</td><td>Custom</td><td>abstract class</td></tr>
-	<tr><td>SaveArea</td><td>Custom</td><td>abstract class</td></tr>
-	<tr><td>SaveUsedArea</td><td>SaveArea</td><td>abstract class</td></tr>
+	<tr><td>Set</td><td>Custom</td><td>Abstract class </td></tr>
+	<tr><td>SetTwo</td><td>Set </td><td>Abstract class</td></tr>
+	<tr><td>SetOnOff</td><td>Set </td><td>Abstract class</td></tr>
+	<tr><td>SetOnOffTwo</td><td>SetTwo </td><td>Abstract class</td></tr>
+	<tr><td>On</td><td>Custom</td><td>Abstract class</td></tr>
+	<tr><td>SaveArea</td><td>Custom</td><td>Abstract class</td></tr>
+	<tr><td>SaveUsedArea</td><td>SaveArea</td><td>Abstract class</td></tr>
 </table>
 
 ### SET Classes
+These classes save, set, and restore the various VFP `SET` commands that have corresponding `SET()` functions.
 <table>
 	<tr><th>Class</th><th>Parent</th></tr>
 	<tr><td>SetAlternate</td><td>SetOnOffTwo</td></tr>
@@ -178,6 +179,7 @@ With **Envlib**, you do this:
 </table>
 
 ### ON Classes
+These classes save, set, and restore the various VFP `ON` commands that have corresponding `ON()` functions.
 <table>
 	<tr><th>Class</th><th>Parent</th></tr>
 	<tr><td>OnError</td><td>On</td></tr>
@@ -187,6 +189,7 @@ With **Envlib**, you do this:
 </table>
 
 ### Workarea Helper Classes
+These classes save, set, and restore the various aspects of saving the properties of work areas.
 <table>
 	<tr><th>Class</th><th>Parent</th></tr>
 	<tr><td>SaveSelect</td><td>SaveArea</td></tr>
@@ -202,15 +205,16 @@ With **Envlib**, you do this:
 	<tr><td>SetRelation</td><td>SaveRelation</td></tr>
 	<tr><td>SaveTable</td><td>SaveUsedArea</td></tr>
 	<tr><td>SaveAllTables</td><td>Custom</td></tr>
-	<tr><td>OpenAliasCheckpoint</td><td>CUSTOM</td></tr>
+	<tr><td>OpenAliasCheckpoint</td><td>Custom</td></tr>
 </table>
 
 ### Miscellaneous Helper Classes
+These classes save, set, and restore various other things.
 <table>
-	<tr><th>Class</th><th>Parent</th></tr>
-	<tr><td>SaveProperty</td><td>Custom</td></tr>
-	<tr><td>SetProperty</td><td>SaveProperty</td></tr>
-	<tr><td>SetSysVar</td><td>Custom</td></tr>
-	<tr><td>MessageTimer</td><td>Timer</td></tr>
-	<tr><td>SetLockScreen</td><td>CUSTOM</td></tr>
+	<tr><th>Class</th><th>Parent</th><th>Notes</th></tr>
+	<tr><td>SaveProperty</td><td>Custom</td><td></td></tr>
+	<tr><td>SetProperty</td><td>SaveProperty</td><td></td></tr>
+	<tr><td>SetSysVar</td><td>Custom</td><td></td></tr>
+	<tr><td>MessageTimer</td><td>Timer</td><td></td></tr>
+	<tr><td>SetLockScreen</td><td>Custom</td><td>Saves and sets <code>form.lockScreen</code>, resetting it when the instance goes out of scope.</td></tr>
 </table>
