@@ -4035,7 +4035,38 @@ DEFINE CLASS SaveAllTables AS Custom
          RETURN .F.
       ENDIF
    ENDPROC
+ENDDEFINE         
+
+*------------------------------------------------------------------------------
+DEFINE CLASS OpenAliasCheckpoint AS CUSTOM
+* Quick and dirty class to close work areas that, upon destroy, were not
+* open at object creation time.
+*------------------------------------------------------------------------------
+	DIMENSION aUsedAreas[1]
+	aUsedAreas[1]=""
+
+	*******************
+	FUNCTION Init()
+	*******************
+	AUSED( This.aUsedAreas )  && Saving all the used workareas coming in.
+	RETURN
+
+	*******************
+	FUNCTION Destroy()
+	*******************
+	*-- Cleaning up
+	LOCAL laUsedNow[1], lnK
+	AUSED( laUsedNow )
+	FOR lnK= 1 TO ALEN( laUsedNow, 1 )
+		IF  ASCAN( This.aUsedAreas, laUsedNow[ lnk, 1 ] ) = 0
+			USE IN ( laUsedNow[ lnk, 1 ] )
+		ENDIF
+	ENDFOR
+	RETURN
+
 ENDDEFINE
+
+
 
 
 *************************************************************
@@ -4044,11 +4075,10 @@ ENDDEFINE
 
 *------------------------------------------------------------------------------
 DEFINE CLASS SaveProperty AS Custom
-*------------------------------------------------------------------------------
 * Use the Update method to save any changes.
 * Use the Revert method or destroy the object to discard unsaved changes.
 * Array properties: currently saves the first element only.
-
+*------------------------------------------------------------------------------
    PROTECTED oObject, ;
              aProperties[1, 2], ;
              cProperty
@@ -4207,10 +4237,11 @@ ENDDEFINE
 *************************************************************
 * Lockscreen
 *************************************************************
-*-- Lockscreen management.  Doesn't completely fit with the envlib classes but
-*-- a-propos nonetheless because it resets when it goes out of scope.
+
 *------------------------------------------------------------------------------
 DEFINE CLASS SetLockScreen AS CUSTOM
+*-- Lockscreen management.  Doesn't completely fit with the envlib classes but
+*-- a-propos nonetheless because it resets when it goes out of scope.
 *------------------------------------------------------------------------------
   PROTECTED lOldLockScreen, loForm
   loForm= .F.
@@ -4224,39 +4255,7 @@ DEFINE CLASS SetLockScreen AS CUSTOM
   FUNCTION Destroy
   This.loForm.LockScreen= This.lOldLockScreen
 ENDDEFINE
-
-*************************************************************
-*------------------------------------------------------------------------------
-DEFINE CLASS OpenAliasCheckpoint AS CUSTOM
-*------------------------------------------------------------------------------
-*
-* Quick and dirty class to close work areas that, upon destroy, were not
-* open at object creation time.
-*************************************************************
-	DIMENSION aUsedAreas[1]
-	aUsedAreas[1]=""
-
-	*******************
-	FUNCTION Init()
-	*******************
-	AUSED( This.aUsedAreas )  && Saving all the used workareas coming in.
-	RETURN
-
-	*******************
-	FUNCTION Destroy()
-	*******************
-	*-- Cleaning up
-	LOCAL laUsedNow[1], lnK
-	AUSED( laUsedNow )
-	FOR lnK= 1 TO ALEN( laUsedNow, 1 )
-		IF  ASCAN( This.aUsedAreas, laUsedNow[ lnk, 1 ] ) = 0
-			USE IN ( laUsedNow[ lnk, 1 ] )
-		ENDIF
-	ENDFOR
-	RETURN
-
-ENDDEFINE
-
+                          
 
 *** EnvLib.prg **********************************************
 
