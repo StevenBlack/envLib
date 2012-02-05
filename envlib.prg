@@ -1910,8 +1910,8 @@ DEFINE CLASS SetMemoWidth AS Set
       IF tlNoReset
          THIS.lNoReset = .T.
       ENDIF
-      * VFP sets a maximum of 256 when given a higher number.
-      IF DODEFAULT( "MEMOWIDTH", MIN( 256, NVL( tnValue, THIS.uDefault )) )
+      * VFP sets a maximum of 8192 when given a higher number.
+      IF DODEFAULT( "MEMOWIDTH", MIN( 8192, NVL( tnValue, THIS.uDefault )) )
          SET MEMOWIDTH TO THIS.uNewSet
       ELSE
          RETURN .F.
