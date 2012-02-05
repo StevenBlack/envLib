@@ -37,12 +37,13 @@
 *        : OPERATE WITH ANY OTHER PROGRAMS, EVEN IF YOU OR OTHER PARTIES
 *        : HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
-
 *************************************************************
 * SET Parent Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS Set AS Custom  && abstract class
+*------------------------------------------------------------------------------
    PROTECTED uDefault, ;
              uOldSet, ;
              uNewSet, ;
@@ -50,15 +51,15 @@ DEFINE CLASS Set AS Custom  && abstract class
 
    FUNCTION GetOld
       RETURN THIS.uOldSet
-   ENDFUNC  && GetOld
+   ENDFUNC
 
    FUNCTION GetNew
       RETURN THIS.uNewSet
-   ENDFUNC  && GetNew
+   ENDFUNC
 
    FUNCTION GetDefault
       RETURN THIS.uDefault
-   ENDFUNC  && GetDefault
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tcSet, tuValue )
       THIS.uOldSet = SET( tcSet )
@@ -67,7 +68,9 @@ DEFINE CLASS Set AS Custom  && abstract class
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetTwo AS Set   && abstract class
+*------------------------------------------------------------------------------
    PROTECTED uDefaultTwo, ;
              uOldSetTwo, ;
              uNewSetTwo, ;
@@ -75,15 +78,15 @@ DEFINE CLASS SetTwo AS Set   && abstract class
 
    FUNCTION GetOldTwo
       RETURN THIS.uOldSetTwo
-   ENDFUNC  && GetOldTwo
+   ENDFUNC
 
    FUNCTION GetNewTwo
       RETURN THIS.uNewSetTwo
-   ENDFUNC  && GetNewTwo
+   ENDFUNC
 
    FUNCTION GetDefaultTwo
       RETURN THIS.uDefaultTwo
-   ENDFUNC  && GetDefaultTwo
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tcSet, tuValueOne, ;
                             tuValueTwo, tnParams )
@@ -112,8 +115,9 @@ DEFINE CLASS SetTwo AS Set   && abstract class
    ENDPROC
 ENDDEFINE
 
-
+*------------------------------------------------------------------------------
 DEFINE CLASS SetOnOff AS Set   && abstract class
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcSet, tcValue )
       DO CASE
          CASE ISNULL( tcValue )
@@ -128,7 +132,9 @@ DEFINE CLASS SetOnOff AS Set   && abstract class
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetOnOffTwo AS SetTwo   && abstract class
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcSet, ;
                             tcValueOne, ;
                             tuValueTwo, ;
@@ -156,7 +162,9 @@ ENDDEFINE
 * SET Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetAlternate AS SetOnOffTwo
+*------------------------------------------------------------------------------
    uDefault    = "OFF"
    uDefaultTwo = ""
 
@@ -221,7 +229,9 @@ DEFINE CLASS SetAlternate AS SetOnOffTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetAnsi AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -251,7 +261,9 @@ DEFINE CLASS SetAnsi AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetAsserts AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -281,7 +293,9 @@ DEFINE CLASS SetAsserts AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetAutoIncError AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -311,7 +325,9 @@ DEFINE CLASS SetAutoIncError AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetAutosave AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -341,7 +357,9 @@ DEFINE CLASS SetAutosave AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetBell AS SetOnOff
+*------------------------------------------------------------------------------
    * Limit - no way to get SET BELL TO <freq|.wav>, <sec>
    uDefault = "ON"
 
@@ -372,7 +390,9 @@ DEFINE CLASS SetBell AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetBlocksize AS Set
+*------------------------------------------------------------------------------
    uDefault = 64
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -394,7 +414,9 @@ DEFINE CLASS SetBlocksize AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetBrstatus AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -424,7 +446,9 @@ DEFINE CLASS SetBrstatus AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetCarry AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -454,7 +478,9 @@ DEFINE CLASS SetCarry AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetCentury AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -484,7 +510,9 @@ DEFINE CLASS SetCentury AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetClassLib AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
@@ -515,7 +543,9 @@ DEFINE CLASS SetClassLib AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetClear AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -545,7 +575,9 @@ DEFINE CLASS SetClear AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetClock AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -579,7 +611,9 @@ DEFINE CLASS SetClock AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetCollate AS Set
+*------------------------------------------------------------------------------
    uDefault = "MACHINE"
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -601,7 +635,9 @@ DEFINE CLASS SetCollate AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetCoverage AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
@@ -632,7 +668,9 @@ DEFINE CLASS SetCoverage AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetColor AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -654,7 +692,9 @@ DEFINE CLASS SetColor AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetCompatible AS SetOnOffTwo
+*------------------------------------------------------------------------------
    uDefault    = "OFF"
    uDefaultTwo = "PROMPT"
 
@@ -741,7 +781,9 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetConfirm AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -771,7 +813,9 @@ DEFINE CLASS SetConfirm AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetConsole AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -801,7 +845,9 @@ DEFINE CLASS SetConsole AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetCpcompile AS Set
+*------------------------------------------------------------------------------
    uDefault = CPCURRENT()
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -823,7 +869,9 @@ DEFINE CLASS SetCpcompile AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetCpdialog AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -853,7 +901,9 @@ DEFINE CLASS SetCpdialog AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetCurrency AS SetTwo
+*------------------------------------------------------------------------------
    uDefault    = "LEFT"
    uDefaultTwo = "$"
 
@@ -906,7 +956,9 @@ DEFINE CLASS SetCurrency AS SetTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetCursor AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -936,7 +988,9 @@ DEFINE CLASS SetCursor AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDatabase AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -966,7 +1020,9 @@ DEFINE CLASS SetDatabase AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDataSession AS Set
+*------------------------------------------------------------------------------
    uDefault = 1
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -990,7 +1046,9 @@ DEFINE CLASS SetDataSession AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDate AS Set
+*------------------------------------------------------------------------------
    uDefault = "AMERICAN"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1012,7 +1070,9 @@ DEFINE CLASS SetDate AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDebug AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1042,7 +1102,9 @@ DEFINE CLASS SetDebug AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDecimals AS Set
+*------------------------------------------------------------------------------
    uDefault = 2
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -1064,7 +1126,9 @@ DEFINE CLASS SetDecimals AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDefault AS Set
+*------------------------------------------------------------------------------
    uDefault = SYS( 5 )+CURDIR()
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1085,7 +1149,9 @@ DEFINE CLASS SetDefault AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDeleted AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1115,7 +1181,9 @@ DEFINE CLASS SetDeleted AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDelimiters AS SetOnOffTwo
+*------------------------------------------------------------------------------
    uDefault    = "OFF"
    uDefaultTwo = ":"
 
@@ -1178,7 +1246,9 @@ DEFINE CLASS SetDelimiters AS SetOnOffTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDevelopment AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1208,7 +1278,9 @@ DEFINE CLASS SetDevelopment AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDisplay AS Set
+*------------------------------------------------------------------------------
    uDefault = "VGA25"
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -1232,7 +1304,9 @@ DEFINE CLASS SetDisplay AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetDohistory AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1262,7 +1336,9 @@ DEFINE CLASS SetDohistory AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetEcho AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1296,7 +1372,9 @@ DEFINE CLASS SetEcho AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetEngineBehavior AS Set
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1334,7 +1412,9 @@ DEFINE CLASS SetEngineBehavior AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetEscape AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1364,7 +1444,9 @@ DEFINE CLASS SetEscape AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetExact AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1394,7 +1476,9 @@ DEFINE CLASS SetExact AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetExclusive AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1424,7 +1508,9 @@ DEFINE CLASS SetExclusive AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetFdow AS Set
+*------------------------------------------------------------------------------
    uDefault = 1
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -1446,7 +1532,9 @@ DEFINE CLASS SetFdow AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetFixed AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1476,7 +1564,9 @@ DEFINE CLASS SetFixed AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetFullPath AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1506,7 +1596,9 @@ DEFINE CLASS SetFullPath AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetFweek AS Set
+*------------------------------------------------------------------------------
    uDefault = 1
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -1528,7 +1620,9 @@ DEFINE CLASS SetFweek AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetHeadings AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1558,7 +1652,9 @@ DEFINE CLASS SetHeadings AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetHelp AS SetOnOffTwo
+*------------------------------------------------------------------------------
    uDefault    = "ON"
    uDefaultTwo = ""
 
@@ -1614,7 +1710,9 @@ DEFINE CLASS SetHelp AS SetOnOffTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetHelpfilter AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1640,7 +1738,9 @@ DEFINE CLASS SetHelpfilter AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetHours AS Set
+*------------------------------------------------------------------------------
    uDefault = 12
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -1671,7 +1771,9 @@ DEFINE CLASS SetHours AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetIntensity AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1701,7 +1803,9 @@ DEFINE CLASS SetIntensity AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetKeycomp AS Set
+*------------------------------------------------------------------------------
    * Cannot initialize uDefault in the class body because DO CASE
    * logic is invalid here.  Done at start of Init instead.
 
@@ -1745,7 +1849,9 @@ DEFINE CLASS SetKeycomp AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetLibrary AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
@@ -1774,7 +1880,9 @@ DEFINE CLASS SetLibrary AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetLock AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1804,7 +1912,9 @@ DEFINE CLASS SetLock AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetLogErrors AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1834,7 +1944,9 @@ DEFINE CLASS SetLogErrors AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetMargin AS Set
+*------------------------------------------------------------------------------
    uDefault = 0
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -1857,7 +1969,9 @@ DEFINE CLASS SetMargin AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetMackey AS Set
+*------------------------------------------------------------------------------
    uDefault = "SHIFT+F10"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1881,7 +1995,9 @@ DEFINE CLASS SetMackey AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetMark AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1903,7 +2019,9 @@ DEFINE CLASS SetMark AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetMemoWidth AS Set
+*------------------------------------------------------------------------------
    uDefault = 50
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -1926,7 +2044,9 @@ DEFINE CLASS SetMemoWidth AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetMessage AS SetTwo
+*------------------------------------------------------------------------------
    uDefaultTwo = ""  && using #2 for SET( ... , 1 ) to save
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1956,7 +2076,9 @@ DEFINE CLASS SetMessage AS SetTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetMultiLocks AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -1986,7 +2108,9 @@ DEFINE CLASS SetMultiLocks AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetNear AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2016,7 +2140,9 @@ DEFINE CLASS SetNear AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetNotify AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2046,7 +2172,9 @@ DEFINE CLASS SetNotify AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetNull AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2075,7 +2203,9 @@ DEFINE CLASS SetNull AS SetOnOff
    ENDPROC
 ENDDEFINE
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetNullDisplay AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2097,7 +2227,9 @@ DEFINE CLASS SetNullDisplay AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetOdometer AS Set
+*------------------------------------------------------------------------------
    uDefault = 100
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -2119,7 +2251,9 @@ DEFINE CLASS SetOdometer AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetOLEObject AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2149,7 +2283,9 @@ DEFINE CLASS SetOLEObject AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetOptimize AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2179,7 +2315,9 @@ DEFINE CLASS SetOptimize AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetPalette AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2209,7 +2347,9 @@ DEFINE CLASS SetPalette AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetPath AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
@@ -2235,7 +2375,9 @@ DEFINE CLASS SetPath AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetPrinter AS SetOnOffTwo
+*------------------------------------------------------------------------------
    * Limit: No way to get SET PRINTER FONT|STYLE settings
    * or COM port settings.
    uDefault    = "OFF"
@@ -2296,7 +2438,9 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetPoint AS Set
+*------------------------------------------------------------------------------
    uDefault = "."
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2320,7 +2464,9 @@ DEFINE CLASS SetPoint AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetProcedure AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
@@ -2355,7 +2501,9 @@ DEFINE CLASS SetProcedure AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetReadBorder AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2385,7 +2533,9 @@ DEFINE CLASS SetReadBorder AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetRefresh AS SetTwo
+*------------------------------------------------------------------------------
    uDefault    = 0
    uDefaultTwo = 5
 
@@ -2437,7 +2587,9 @@ DEFINE CLASS SetRefresh AS SetTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetReprocess AS Set
+*------------------------------------------------------------------------------
 * If the old set is to <n> SECONDS, it will be reset as just <n>
 * because DISPLAY STATUS is the only way in VFP to detect when set
 * to SECONDS.
@@ -2484,7 +2636,9 @@ DEFINE CLASS SetReprocess AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetResource AS SetOnOffTwo
+*------------------------------------------------------------------------------
    uDefault    = "ON"
    uDefaultTwo = ""
 
@@ -2542,7 +2696,9 @@ DEFINE CLASS SetResource AS SetOnOffTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetResourceCreate AS SetResource
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcOnOff, tcTo, tlNoReset )
       LOCAL lcTo
       lcTo = IIF( EMPTY( tcTo ), ;
@@ -2589,7 +2745,9 @@ DEFINE CLASS SetResourceCreate AS SetResource
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetSafety AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2619,7 +2777,9 @@ DEFINE CLASS SetSafety AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetSeconds AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2649,7 +2809,9 @@ DEFINE CLASS SetSeconds AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetSeparator AS Set
+*------------------------------------------------------------------------------
    uDefault = ", "   && "" will not work!
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2671,7 +2833,9 @@ DEFINE CLASS SetSeparator AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetSpace AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2701,7 +2865,9 @@ DEFINE CLASS SetSpace AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetStatus AS SetOnOff
+*------------------------------------------------------------------------------
    * Limit:  no way to get SET STATUS TIMEOUT TO <n> value
    uDefault = "OFF"
 
@@ -2732,7 +2898,9 @@ DEFINE CLASS SetStatus AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetStatusBar AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2762,7 +2930,9 @@ DEFINE CLASS SetStatusBar AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetStep AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2792,7 +2962,9 @@ DEFINE CLASS SetStep AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetSysFormats AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2822,7 +2994,9 @@ DEFINE CLASS SetSysFormats AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetSysMenu AS Set
+*------------------------------------------------------------------------------
 * Handles only ON, OFF, and AUTOMATIC.  Does not handle SET TO.
 
    uDefault = "AUTOMATIC"
@@ -2868,7 +3042,9 @@ DEFINE CLASS SetSysMenu AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetTableValidate AS Set
+*------------------------------------------------------------------------------
    uDefault = 2
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -2890,7 +3066,9 @@ DEFINE CLASS SetTableValidate AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetTalk AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2920,7 +3098,9 @@ DEFINE CLASS SetTalk AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetTopic AS SetTwo
+*------------------------------------------------------------------------------
    uDefault    = ""
    uDefaultTwo = 0
 
@@ -2968,7 +3148,9 @@ DEFINE CLASS SetTopic AS SetTwo
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetTrBetween AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "ON"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -2998,7 +3180,9 @@ DEFINE CLASS SetTrBetween AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetTypeahead AS Set
+*------------------------------------------------------------------------------
    uDefault = 20
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
@@ -3020,7 +3204,9 @@ DEFINE CLASS SetTypeahead AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetUdfParms AS Set
+*------------------------------------------------------------------------------
    uDefault = "VALUE"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -3055,7 +3241,9 @@ DEFINE CLASS SetUdfParms AS Set
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetUnique AS SetOnOff
+*------------------------------------------------------------------------------
    uDefault = "OFF"
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -3085,7 +3273,9 @@ DEFINE CLASS SetUnique AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetView AS SetOnOff
+*------------------------------------------------------------------------------
 * Does not handle SET VIEW TO.
    uDefault = "OFF"
 
@@ -3116,7 +3306,9 @@ DEFINE CLASS SetView AS SetOnOff
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetWindowOfMemo AS Set
+*------------------------------------------------------------------------------
    uDefault = ""
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
@@ -3144,97 +3336,99 @@ ENDDEFINE
 * SET Default Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetVfpDefaults AS Custom
+*------------------------------------------------------------------------------
 * Visual FoxPro Defaults.
    PROTECTED PROCEDURE Init( tlNoReset )
-      =THIS.AddObject( "SetAlternate", "SetAlternate", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetAnsi", "SetAnsi", .NULL., tlNoReset )
-      =THIS.AddObject( "SetAutosave", "SetAutosave", .NULL., tlNoReset )
-      =THIS.AddObject( "SetBell", "SetBell", .NULL., tlNoReset )
-      =THIS.AddObject( "SetBlocksize", "SetBlocksize", .NULL., tlNoReset )
-      =THIS.AddObject( "SetBrstatus", "SetBrstatus", .NULL., tlNoReset )
-      =THIS.AddObject( "SetCarry", "SetCarry", .NULL., tlNoReset )
-      =THIS.AddObject( "SetCentury", "SetCentury", .NULL., tlNoReset )
-      =THIS.AddObject( "SetClear", "SetClear", .NULL., tlNoReset )
-      =THIS.AddObject( "SetClock", "SetClock", .NULL., tlNoReset )
-      =THIS.AddObject( "SetCollate", "SetCollate", .NULL., tlNoReset )
-      =THIS.AddObject( "SetColor", "SetColor", .NULL., tlNoReset )
-      =THIS.AddObject( "SetCompatible", "SetCompatible", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetConfirm", "SetConfirm", .NULL., tlNoReset )
-      =THIS.AddObject( "SetConsole", "SetConsole", .NULL., tlNoReset )
-      =THIS.AddObject( "SetCpcompile", "SetCpcompile", .NULL., tlNoReset )
-      =THIS.AddObject( "SetCpdialog", "SetCpdialog", .NULL., tlNoReset )
-      =THIS.AddObject( "SetCurrency", "SetCurrency", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetCursor", "SetCursor", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDatabase", "SetDatabase", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDataSession", "SetDataSession", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDate", "SetDate", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDebug", "SetDebug", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDecimals", "SetDecimals", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDefault", "SetDefault", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDeleted", "SetDeleted", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDelimiters", "SetDelimiters", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetDevelopment", "SetDevelopment", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDisplay", "SetDisplay", .NULL., tlNoReset )
-      =THIS.AddObject( "SetDohistory", "SetDohistory", .NULL., tlNoReset )
-      =THIS.AddObject( "SetEcho", "SetEcho", .NULL., tlNoReset )
-      =THIS.AddObject( "SetEscape", "SetEscape", .NULL., tlNoReset )
-      =THIS.AddObject( "SetExact", "SetExact", .NULL., tlNoReset )
-      =THIS.AddObject( "SetExclusive", "SetExclusive", .NULL., tlNoReset )
-      =THIS.AddObject( "SetFdow", "SetFdow", .NULL., tlNoReset )
-      =THIS.AddObject( "SetFixed", "SetFixed", .NULL., tlNoReset )
-      =THIS.AddObject( "SetFullPath", "SetFullPath", .NULL., tlNoReset )
-      =THIS.AddObject( "SetFweek", "SetFweek", .NULL., tlNoReset )
-      =THIS.AddObject( "SetHeadings", "SetHeadings", .NULL., tlNoReset )
-      =THIS.AddObject( "SetHelp", "SetHelp", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetHelpFilter", "SetHelpFilter", .NULL., tlNoReset )
-      =THIS.AddObject( "SetHours", "SetHours", .NULL., tlNoReset )
-      =THIS.AddObject( "SetIntensity", "SetIntensity", .NULL., tlNoReset )
-      =THIS.AddObject( "SetKeycomp", "SetKeycomp", .NULL., tlNoReset )
-      =THIS.AddObject( "SetLibrary", "SetLibrary", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetLock", "SetLock", .NULL., tlNoReset )
-      =THIS.AddObject( "SetLogErrors", "SetLogErrors", .NULL., tlNoReset )
-      =THIS.AddObject( "SetMargin", "SetMargin", .NULL., tlNoReset )
-      =THIS.AddObject( "SetMackey", "SetMackey", .NULL., tlNoReset )
-      =THIS.AddObject( "SetMark", "SetMark", .NULL., tlNoReset )
-      =THIS.AddObject( "SetMemoWidth", "SetMemoWidth", .NULL., tlNoReset )
-      =THIS.AddObject( "SetMultiLocks", "SetMultiLocks", .NULL., tlNoReset )
-      =THIS.AddObject( "SetNear", "SetNear", .NULL., tlNoReset )
-      =THIS.AddObject( "SetNotify", "SetNotify", .NULL., tlNoReset )
-      =THIS.AddObject( "SetNull", "SetNull", .NULL., tlNoReset )
-      =THIS.AddObject( "SetOdometer", "SetOdometer", .NULL., tlNoReset )
-      =THIS.AddObject( "SetOLEObject", "SetOLEObject", .NULL., tlNoReset )
-      =THIS.AddObject( "SetOptimize", "SetOptimize", .NULL., tlNoReset )
-      =THIS.AddObject( "SetPalette", "SetPalette", .NULL., tlNoReset )
-      =THIS.AddObject( "SetPath", "SetPath", .NULL., tlNoReset )
-      =THIS.AddObject( "SetPrinter", "SetPrinter", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetPoint", "SetPoint", .NULL., tlNoReset )
-      =THIS.AddObject( "SetProcedure", "SetProcedure", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetReadBorder", "SetReadBorder", .NULL., tlNoReset )
-      =THIS.AddObject( "SetRefresh", "SetRefresh", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetReprocess", "SetReprocess", .NULL., tlNoReset )
-      =THIS.AddObject( "SetResource", "SetResource", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetSafety", "SetSafety", .NULL., tlNoReset )
-      =THIS.AddObject( "SetSeconds", "SetSeconds", .NULL., tlNoReset )
-      =THIS.AddObject( "SetSeparator", "SetSeparator", .NULL., tlNoReset )
-      =THIS.AddObject( "SetSpace", "SetSpace", .NULL., tlNoReset )
-      =THIS.AddObject( "SetStatus", "SetStatus", .NULL., tlNoReset )
-      =THIS.AddObject( "SetStatusBar", "SetStatusBar", .NULL., tlNoReset )
-      =THIS.AddObject( "SetStep", "SetStep", .NULL., tlNoReset )
-      =THIS.AddObject( "SetSysFormats", "SetSysFormats", .NULL., tlNoReset )
-      =THIS.AddObject( "SetSysMenu", "SetSysMenu", .NULL., tlNoReset )
-      =THIS.AddObject( "SetTalk", "SetTalk", .NULL., tlNoReset )
-      =THIS.AddObject( "SetTrBetween", "SetTrBetween", .NULL., tlNoReset )
-      =THIS.AddObject( "SetTopic", "SetTopic", .NULL., .NULL., tlNoReset )
-      =THIS.AddObject( "SetTypeAhead", "SetTypeAhead", .NULL., tlNoReset )
-      =THIS.AddObject( "SetUdfParms", "SetUdfParms", .NULL., tlNoReset )
-      =THIS.AddObject( "SetUnique", "SetUnique", .NULL., tlNoReset )
-      =THIS.AddObject( "SetView", "SetView", .NULL., tlNoReset )
-      =THIS.AddObject( "SetWindowOfMemo", "SetWindowOfMemo", ;
+      This.AddObject( "SetAlternate", "SetAlternate", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetAnsi", "SetAnsi", .NULL., tlNoReset )
+      This.AddObject( "SetAutosave", "SetAutosave", .NULL., tlNoReset )
+      This.AddObject( "SetBell", "SetBell", .NULL., tlNoReset )
+      This.AddObject( "SetBlocksize", "SetBlocksize", .NULL., tlNoReset )
+      This.AddObject( "SetBrstatus", "SetBrstatus", .NULL., tlNoReset )
+      This.AddObject( "SetCarry", "SetCarry", .NULL., tlNoReset )
+      This.AddObject( "SetCentury", "SetCentury", .NULL., tlNoReset )
+      This.AddObject( "SetClear", "SetClear", .NULL., tlNoReset )
+      This.AddObject( "SetClock", "SetClock", .NULL., tlNoReset )
+      This.AddObject( "SetCollate", "SetCollate", .NULL., tlNoReset )
+      This.AddObject( "SetColor", "SetColor", .NULL., tlNoReset )
+      This.AddObject( "SetCompatible", "SetCompatible", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetConfirm", "SetConfirm", .NULL., tlNoReset )
+      This.AddObject( "SetConsole", "SetConsole", .NULL., tlNoReset )
+      This.AddObject( "SetCpcompile", "SetCpcompile", .NULL., tlNoReset )
+      This.AddObject( "SetCpdialog", "SetCpdialog", .NULL., tlNoReset )
+      This.AddObject( "SetCurrency", "SetCurrency", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetCursor", "SetCursor", .NULL., tlNoReset )
+      This.AddObject( "SetDatabase", "SetDatabase", .NULL., tlNoReset )
+      This.AddObject( "SetDataSession", "SetDataSession", .NULL., tlNoReset )
+      This.AddObject( "SetDate", "SetDate", .NULL., tlNoReset )
+      This.AddObject( "SetDebug", "SetDebug", .NULL., tlNoReset )
+      This.AddObject( "SetDecimals", "SetDecimals", .NULL., tlNoReset )
+      This.AddObject( "SetDefault", "SetDefault", .NULL., tlNoReset )
+      This.AddObject( "SetDeleted", "SetDeleted", .NULL., tlNoReset )
+      This.AddObject( "SetDelimiters", "SetDelimiters", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetDevelopment", "SetDevelopment", .NULL., tlNoReset )
+      This.AddObject( "SetDisplay", "SetDisplay", .NULL., tlNoReset )
+      This.AddObject( "SetDohistory", "SetDohistory", .NULL., tlNoReset )
+      This.AddObject( "SetEcho", "SetEcho", .NULL., tlNoReset )
+      This.AddObject( "SetEscape", "SetEscape", .NULL., tlNoReset )
+      This.AddObject( "SetExact", "SetExact", .NULL., tlNoReset )
+      This.AddObject( "SetExclusive", "SetExclusive", .NULL., tlNoReset )
+      This.AddObject( "SetFdow", "SetFdow", .NULL., tlNoReset )
+      This.AddObject( "SetFixed", "SetFixed", .NULL., tlNoReset )
+      This.AddObject( "SetFullPath", "SetFullPath", .NULL., tlNoReset )
+      This.AddObject( "SetFweek", "SetFweek", .NULL., tlNoReset )
+      This.AddObject( "SetHeadings", "SetHeadings", .NULL., tlNoReset )
+      This.AddObject( "SetHelp", "SetHelp", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetHelpFilter", "SetHelpFilter", .NULL., tlNoReset )
+      This.AddObject( "SetHours", "SetHours", .NULL., tlNoReset )
+      This.AddObject( "SetIntensity", "SetIntensity", .NULL., tlNoReset )
+      This.AddObject( "SetKeycomp", "SetKeycomp", .NULL., tlNoReset )
+      This.AddObject( "SetLibrary", "SetLibrary", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetLock", "SetLock", .NULL., tlNoReset )
+      This.AddObject( "SetLogErrors", "SetLogErrors", .NULL., tlNoReset )
+      This.AddObject( "SetMargin", "SetMargin", .NULL., tlNoReset )
+      This.AddObject( "SetMackey", "SetMackey", .NULL., tlNoReset )
+      This.AddObject( "SetMark", "SetMark", .NULL., tlNoReset )
+      This.AddObject( "SetMemoWidth", "SetMemoWidth", .NULL., tlNoReset )
+      This.AddObject( "SetMultiLocks", "SetMultiLocks", .NULL., tlNoReset )
+      This.AddObject( "SetNear", "SetNear", .NULL., tlNoReset )
+      This.AddObject( "SetNotify", "SetNotify", .NULL., tlNoReset )
+      This.AddObject( "SetNull", "SetNull", .NULL., tlNoReset )
+      This.AddObject( "SetOdometer", "SetOdometer", .NULL., tlNoReset )
+      This.AddObject( "SetOLEObject", "SetOLEObject", .NULL., tlNoReset )
+      This.AddObject( "SetOptimize", "SetOptimize", .NULL., tlNoReset )
+      This.AddObject( "SetPalette", "SetPalette", .NULL., tlNoReset )
+      This.AddObject( "SetPath", "SetPath", .NULL., tlNoReset )
+      This.AddObject( "SetPrinter", "SetPrinter", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetPoint", "SetPoint", .NULL., tlNoReset )
+      This.AddObject( "SetProcedure", "SetProcedure", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetReadBorder", "SetReadBorder", .NULL., tlNoReset )
+      This.AddObject( "SetRefresh", "SetRefresh", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetReprocess", "SetReprocess", .NULL., tlNoReset )
+      This.AddObject( "SetResource", "SetResource", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetSafety", "SetSafety", .NULL., tlNoReset )
+      This.AddObject( "SetSeconds", "SetSeconds", .NULL., tlNoReset )
+      This.AddObject( "SetSeparator", "SetSeparator", .NULL., tlNoReset )
+      This.AddObject( "SetSpace", "SetSpace", .NULL., tlNoReset )
+      This.AddObject( "SetStatus", "SetStatus", .NULL., tlNoReset )
+      This.AddObject( "SetStatusBar", "SetStatusBar", .NULL., tlNoReset )
+      This.AddObject( "SetStep", "SetStep", .NULL., tlNoReset )
+      This.AddObject( "SetSysFormats", "SetSysFormats", .NULL., tlNoReset )
+      This.AddObject( "SetSysMenu", "SetSysMenu", .NULL., tlNoReset )
+      This.AddObject( "SetTalk", "SetTalk", .NULL., tlNoReset )
+      This.AddObject( "SetTrBetween", "SetTrBetween", .NULL., tlNoReset )
+      This.AddObject( "SetTopic", "SetTopic", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetTypeAhead", "SetTypeAhead", .NULL., tlNoReset )
+      This.AddObject( "SetUdfParms", "SetUdfParms", .NULL., tlNoReset )
+      This.AddObject( "SetUnique", "SetUnique", .NULL., tlNoReset )
+      This.AddObject( "SetView", "SetView", .NULL., tlNoReset )
+      This.AddObject( "SetWindowOfMemo", "SetWindowOfMemo", ;
                       .NULL., tlNoReset )
       * SetClassLib must be last if this is a VCX.  Could be smarter
       * and keep itself in memory or ignore this if we're a VCX.
-      =THIS.AddObject( "SetClassLib", "SetClassLib", .NULL., .NULL., tlNoReset )
+      This.AddObject( "SetClassLib", "SetClassLib", .NULL., .NULL., tlNoReset )
       RETURN .F.
    ENDPROC
 ENDDEFINE
@@ -3244,18 +3438,20 @@ ENDDEFINE
 * ON Parent Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS On AS Custom  && abstract class
+*------------------------------------------------------------------------------
    PROTECTED cOldOn, ;
              cNewOn, ;
              lNoReset
 
    FUNCTION GetOld
       RETURN THIS.cOldOn
-   ENDFUNC  && GetOld
+   ENDFUNC
 
    FUNCTION GetNew
       RETURN THIS.cNewOn
-   ENDFUNC  && GetNew
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tcOn, tcValue )
       THIS.cOldOn = ON( tcOn )
@@ -3268,7 +3464,9 @@ ENDDEFINE
 * ON Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS OnError AS On
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
          THIS.lNoReset = .T.
@@ -3298,7 +3496,9 @@ DEFINE CLASS OnError AS On
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS OnKey AS On
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
          THIS.lNoReset = .T.
@@ -3328,12 +3528,14 @@ DEFINE CLASS OnKey AS On
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS OnKeyLabel AS On
+*------------------------------------------------------------------------------
    PROTECTED cLabel
 
    FUNCTION GetLabel
       RETURN THIS.cLabel
-   ENDFUNC  && GetLabel
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tcLabel, tcValue, tlNoReset )
    * Override parent class.
@@ -3367,7 +3569,9 @@ DEFINE CLASS OnKeyLabel AS On
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS OnShutDown AS On
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
          THIS.lNoReset = .T.
@@ -3401,12 +3605,14 @@ ENDDEFINE
 * Save/Restore Table Parent Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveArea AS Custom  && abstract class
+*------------------------------------------------------------------------------
    PROTECTED nSelect
 
    FUNCTION GetSelect
       RETURN THIS.nSelect
-   ENDFUNC  && GetSelect
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       DO CASE
@@ -3425,7 +3631,9 @@ DEFINE CLASS SaveArea AS Custom  && abstract class
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveUsedArea AS SaveArea  && abstract class
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       DO CASE
          CASE NOT DODEFAULT( tuArea )
@@ -3446,7 +3654,9 @@ ENDDEFINE
 * Set/Restore Table Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveSelect AS SaveArea
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       RETURN DODEFAULT( tuArea )
    ENDPROC
@@ -3457,7 +3667,9 @@ DEFINE CLASS SaveSelect AS SaveArea
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetSelect AS SaveSelect
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tuNewArea )  && character or numeric
       IF DODEFAULT()  && current area
          SELECT ( tuNewArea )
@@ -3468,12 +3680,14 @@ DEFINE CLASS SetSelect AS SaveSelect
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveBuffering AS SaveUsedArea
+*------------------------------------------------------------------------------
    PROTECTED nBuffering
 
    FUNCTION GetOld
       RETURN THIS.nBuffering
-   ENDFUNC  && GetOld
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )
       IF DODEFAULT( tuArea )
@@ -3491,7 +3705,9 @@ DEFINE CLASS SaveBuffering AS SaveUsedArea
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetBuffering AS SaveBuffering
+*------------------------------------------------------------------------------
    PROTECTED nDefault
    nDefault = 1
 
@@ -3509,12 +3725,14 @@ DEFINE CLASS SetBuffering AS SaveBuffering
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveRecno AS SaveUsedArea
+*------------------------------------------------------------------------------
    PROTECTED nRecno
 
    FUNCTION GetOld
       RETURN THIS.nRecno
-   ENDFUNC  && GetOld
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       IF DODEFAULT( tuArea )
@@ -3530,7 +3748,7 @@ DEFINE CLASS SaveRecno AS SaveUsedArea
          CASE NOT DODEFAULT()
             * Do nothing.
          CASE ISNULL( THIS.nRecno )  && EOF()
-            =THIS.AddObject( "SetSelect", "SetSelect", THIS.nSelect )
+            This.AddObject( "SetSelect", "SetSelect", THIS.nSelect )
             LOCATE FOR .F.  && EOF()
          CASE THIS.nRecno <= RECCOUNT( THIS.nSelect )
             GO THIS.nRecno IN ( THIS.nSelect )
@@ -3539,17 +3757,19 @@ DEFINE CLASS SaveRecno AS SaveUsedArea
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveOrder AS SaveUsedArea
+*------------------------------------------------------------------------------
 * Only handles CDX tags, not individual IDX.
    PROTECTED cOrder, lDescending
 
    FUNCTION GetOld
       RETURN THIS.cOrder
-   ENDFUNC  && GetOld
+   ENDFUNC
 
    FUNCTION GetDescending
       RETURN THIS.lDescending
-   ENDFUNC  && GetDescending
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       IF DODEFAULT( tuArea )
@@ -3584,7 +3804,9 @@ DEFINE CLASS SaveOrder AS SaveUsedArea
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetOrder AS SaveOrder
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tuOrder, tuNewArea, tlDescending )
       DO CASE
          CASE NOT DODEFAULT( tuNewArea )
@@ -3601,12 +3823,14 @@ DEFINE CLASS SetOrder AS SaveOrder
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveFilter AS SaveUsedArea
+*------------------------------------------------------------------------------
    PROTECTED cFilter
 
    FUNCTION GetOld
       RETURN THIS.cFilter
-   ENDFUNC  && GetOld
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       IF DODEFAULT( tuArea )
@@ -3618,7 +3842,7 @@ DEFINE CLASS SaveFilter AS SaveUsedArea
 
    PROTECTED PROCEDURE Destroy
       IF DODEFAULT()
-         =THIS.AddObject( "SetSelect", "SetSelect", THIS.nSelect )
+         This.AddObject( "SetSelect", "SetSelect", THIS.nSelect )
          IF EMPTY( THIS.cFilter )
             SET FILTER TO
          ELSE
@@ -3631,7 +3855,9 @@ DEFINE CLASS SaveFilter AS SaveUsedArea
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetFilter AS SaveFilter
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcFilter, tuNewArea, tcAdditive )
    * tcAdditive ::= "AND" | "OR"
       IF DODEFAULT( tuNewArea )
@@ -3653,14 +3879,16 @@ DEFINE CLASS SetFilter AS SaveFilter
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveRelation AS SaveUsedArea
+*------------------------------------------------------------------------------
 * Also handles SET SKIP.
    PROTECTED cRelation, ;
              cSkip
 
    FUNCTION GetOld
       RETURN THIS.cRelation
-   ENDFUNC  && GetOld
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       IF DODEFAULT( tuArea )
@@ -3693,7 +3921,9 @@ DEFINE CLASS SaveRelation AS SaveUsedArea
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetRelation AS SaveRelation
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcRelation, tuNewArea, tcSkip )
       IF DODEFAULT( tuNewArea )
          LOCAL loSelect
@@ -3711,7 +3941,9 @@ DEFINE CLASS SetRelation AS SaveRelation
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveTable AS SaveUsedArea
+*------------------------------------------------------------------------------
    PROTECTED cAlias, ;
              cFile, ;
              cLock
@@ -3721,14 +3953,14 @@ DEFINE CLASS SaveTable AS SaveUsedArea
          LOCAL loFullPath, loSelect
          loSelect   = CREATEOBJECT( "SetSelect", THIS.nSelect )
          loFullPath = CREATEOBJECT( "SetFullPath", "ON" )
-         =THIS.AddObject( "SaveBuffering", "SaveBuffering" )
-         =THIS.AddObject( "SaveRecno", "SaveRecno" )
-         =THIS.AddObject( "SetDataSession", "SetDataSession" )
+         This.AddObject( "SaveBuffering", "SaveBuffering" )
+         This.AddObject( "SaveRecno", "SaveRecno" )
+         This.AddObject( "SetDataSession", "SetDataSession" )
          IF NOT tlNoDependencies
             * Order and filter could have references to other tables.
-            =THIS.AddObject( "SaveOrder", "SaveOrder" )
-            =THIS.AddObject( "SaveFilter", "SaveFilter" )
-            =THIS.AddObject( "SaveRelation", "SaveRelation" )
+            This.AddObject( "SaveOrder", "SaveOrder" )
+            This.AddObject( "SaveFilter", "SaveFilter" )
+            This.AddObject( "SaveRelation", "SaveRelation" )
          ENDIF
          THIS.cAlias = ALIAS()
          THIS.cFile  = DBF()
@@ -3743,7 +3975,7 @@ DEFINE CLASS SaveTable AS SaveUsedArea
       LOCAL loSelect
       loSelect = CREATEOBJECT( "SetSelect", THIS.nSelect )
       IF NOT ALIAS() == THIS.cAlias
-         =THIS.RemoveObject( "SetDataSession", "SetDataSession" )
+         This.RemoveObject( "SetDataSession", "SetDataSession" )
          IF USED( THIS.cAlias )  && close if open in another area
             USE IN ( THIS.cAlias )
          ENDIF
@@ -3755,7 +3987,7 @@ DEFINE CLASS SaveTable AS SaveUsedArea
                CASE THIS.cLock == "File Locked"
                   =FLOCK()
                CASE THIS.cLock == "Record Locked"
-                  =THIS.RemoveObject( "SaveRecno", "SaveRecno" )
+                  This.RemoveObject( "SaveRecno", "SaveRecno" )
                   =RLOCK()
                OTHERWISE  && should never happen
                   ERROR "CASE...OTHERWISE: Unexpected."
@@ -3766,7 +3998,9 @@ DEFINE CLASS SaveTable AS SaveUsedArea
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveAllTables AS Custom
+*------------------------------------------------------------------------------
    ADD OBJECT PROTECTED SaveSelect AS SaveSelect
 
    PROTECTED PROCEDURE Init
@@ -3777,22 +4011,22 @@ DEFINE CLASS SaveAllTables AS Custom
          * so save the dependencies before the tables so all tables are
          * open when any potential dependencies are restored.
          FOR lnCounter = 1 TO ALEN( laUsed, 1 )
-            =THIS.AddObject( "SaveRel" + LTRIM( STR( lnCounter )), ;
+            This.AddObject( "SaveRel" + LTRIM( STR( lnCounter )), ;
                             "SaveRelation", ;
                             laUsed[lnCounter, 2] )
-            =THIS.AddObject( "SaveFil" + LTRIM( STR( lnCounter )), ;
+            This.AddObject( "SaveFil" + LTRIM( STR( lnCounter )), ;
                             "SaveFilter", ;
                             laUsed[lnCounter, 2] )
          ENDFOR
          * Relations are dependent on order.
          FOR lnCounter = 1 TO ALEN( laUsed, 1 )
-            =THIS.AddObject( "SaveOrd" + LTRIM( STR( lnCounter )), ;
+            This.AddObject( "SaveOrd" + LTRIM( STR( lnCounter )), ;
                             "SaveOrder", ;
                             laUsed[lnCounter, 2] )
          ENDFOR
          * All dependencies are dependent on tables.
          FOR lnCounter = 1 TO ALEN( laUsed, 1 )
-            =THIS.AddObject( "SaveTab" + LTRIM( STR( lnCounter )), ;
+            This.AddObject( "SaveTab" + LTRIM( STR( lnCounter )), ;
                             "SaveTable", ;
                             laUsed[lnCounter, 2], ;
                             .T. )  && tables will be restored first
@@ -3808,7 +4042,9 @@ ENDDEFINE
 * Set/Restore Property Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SaveProperty AS Custom
+*------------------------------------------------------------------------------
 * Use the Update method to save any changes.
 * Use the Revert method or destroy the object to discard unsaved changes.
 * Array properties: currently saves the first element only.
@@ -3876,7 +4112,9 @@ DEFINE CLASS SaveProperty AS Custom
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetProperty AS SaveProperty
+*------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( toObject, tcProperty, tuValue )
       DODEFAULT( toObject, tcProperty )
       STORE tuValue TO ( "THIS.oObject." + THIS.cProperty )
@@ -3888,13 +4126,15 @@ ENDDEFINE
 * Set/Restore System Variable Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS SetSysVar AS Custom
+*------------------------------------------------------------------------------
    PROTECTED cSysVar, ;
              uValue
 
    FUNCTION GetOld
       RETURN THIS.uValue
-   ENDFUNC  && GetOld
+   ENDFUNC
 
    PROTECTED PROCEDURE Init( tcSysVar, tuValue )
       THIS.cSysVar = tcSysVar
@@ -3912,7 +4152,9 @@ ENDDEFINE
 * Timer Classes
 *************************************************************
 
+*------------------------------------------------------------------------------
 DEFINE CLASS MessageTimer AS Timer
+*------------------------------------------------------------------------------
 * This class works differently from most in this library because
 * it's not meant to be destroyed between message settings.  Instead,
 * the timer method resets the message and the class stays available
@@ -3967,7 +4209,9 @@ ENDDEFINE
 *************************************************************
 *-- Lockscreen management.  Doesn't completely fit with the envlib classes but
 *-- a-propos nonetheless because it resets when it goes out of scope.
+*------------------------------------------------------------------------------
 DEFINE CLASS SetLockScreen AS CUSTOM
+*------------------------------------------------------------------------------
   PROTECTED lOldLockScreen, loForm
   loForm= .F.
   lOldLockScreen= .F.
@@ -3982,32 +4226,34 @@ DEFINE CLASS SetLockScreen AS CUSTOM
 ENDDEFINE
 
 *************************************************************
+*------------------------------------------------------------------------------
 DEFINE CLASS OpenAliasCheckpoint AS CUSTOM
+*------------------------------------------------------------------------------
 *
 * Quick and dirty class to close work areas that, upon destroy, were not
 * open at object creation time.
 *************************************************************
-DIMENSION aUsedAreas[1]
-aUsedAreas[1]=""
+	DIMENSION aUsedAreas[1]
+	aUsedAreas[1]=""
 
-*******************
-FUNCTION Init()
-*******************
-AUSED( This.aUsedAreas )  && Saving all the used workareas coming in.
-RETURN
+	*******************
+	FUNCTION Init()
+	*******************
+	AUSED( This.aUsedAreas )  && Saving all the used workareas coming in.
+	RETURN
 
-*******************
-FUNCTION Destroy()
-*******************
-*-- Cleaning up
-LOCAL laUsedNow[1], lnK
-AUSED( laUsedNow )
-FOR lnK= 1 TO ALEN( laUsedNow, 1 )
-	IF  ASCAN( This.aUsedAreas, laUsedNow[ lnk, 1 ] ) = 0
-		USE IN ( laUsedNow[ lnk, 1 ] )
-	ENDIF
-ENDFOR
-RETURN
+	*******************
+	FUNCTION Destroy()
+	*******************
+	*-- Cleaning up
+	LOCAL laUsedNow[1], lnK
+	AUSED( laUsedNow )
+	FOR lnK= 1 TO ALEN( laUsedNow, 1 )
+		IF  ASCAN( This.aUsedAreas, laUsedNow[ lnk, 1 ] ) = 0
+			USE IN ( laUsedNow[ lnk, 1 ] )
+		ENDIF
+	ENDFOR
+	RETURN
 
 ENDDEFINE
 
