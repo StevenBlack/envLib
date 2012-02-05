@@ -3,13 +3,13 @@
 *   Bases: All abstract classes are based on Custom.
 *  Notice: The author releases all rights to the public domain
 *        : subject to the Warranty Disclaimer below.
-*  Author: Tom Rettig
+*  Author: Tom Rettig 
 *        : Rettig Micro Corporation
-*        :
+*        : First released (Version 1.0) July 15, 1995
 * Updates: Steven Black
 *        : Steven Black Consulting
 *        : http://stevenblack.com
-* Version: ENV Version 1.0 July 15, 1995
+* Version: EnvLib for VFP 9, Beta 0.1, February 5, 2012
 *  Action: Save, set, and restore SET, ON, open table, system variable,
 *        :    and object property environments.
 *   Usage: See Env.doc for examples.
