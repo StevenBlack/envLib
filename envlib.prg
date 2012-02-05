@@ -50,20 +50,20 @@ DEFINE CLASS Set AS Custom  && abstract class
              lNoReset
 
    FUNCTION GetOld
-      RETURN THIS.uOldSet
+      RETURN This.uOldSet
    ENDFUNC
 
    FUNCTION GetNew
-      RETURN THIS.uNewSet
+      RETURN This.uNewSet
    ENDFUNC
 
    FUNCTION GetDefault
-      RETURN THIS.uDefault
+      RETURN This.uDefault
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tcSet, tuValue )
-      THIS.uOldSet = SET( tcSet )
-      THIS.uNewSet = NVL( tuValue, THIS.uDefault )
+      This.uOldSet = SET( tcSet )
+      This.uNewSet = NVL( tuValue, This.uDefault )
    ENDPROC
 ENDDEFINE
 
@@ -77,15 +77,15 @@ DEFINE CLASS SetTwo AS Set   && abstract class
              cSet
 
    FUNCTION GetOldTwo
-      RETURN THIS.uOldSetTwo
+      RETURN This.uOldSetTwo
    ENDFUNC
 
    FUNCTION GetNewTwo
-      RETURN THIS.uNewSetTwo
+      RETURN This.uNewSetTwo
    ENDFUNC
 
    FUNCTION GetDefaultTwo
-      RETURN THIS.uDefaultTwo
+      RETURN This.uDefaultTwo
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tcSet, tuValueOne, ;
@@ -95,22 +95,22 @@ DEFINE CLASS SetTwo AS Set   && abstract class
             ERROR 11  &&  was: cnVF_ERR_PARAM_INVALID
             RETURN .F.  && early exit
          CASE tnParams == 1
-            THIS.cSet = "1"
+            This.cSet = "1"
          CASE EMPTY( tuValueOne )  && never a valid value
-            THIS.cSet = "2"
+            This.cSet = "2"
          OTHERWISE
-            THIS.cSet = "3"
+            This.cSet = "3"
       ENDCASE  && of which to set
 
       * Primary value as returned by SET( "whatever" ).
-      IF INLIST( THIS.cSet, "1", "3" )
+      IF INLIST( This.cSet, "1", "3" )
          =DODEFAULT( tcSet, tuValueOne )
       ENDIF
 
       * Secondary value as returned by SET( "whatever", 1 ).
-      IF INLIST( THIS.cSet, "2", "3" )
-         THIS.uOldSetTwo = SET( tcSet, 1 )
-         THIS.uNewSetTwo = NVL( tuValueTwo, THIS.uDefaultTwo )
+      IF INLIST( This.cSet, "2", "3" )
+         This.uOldSetTwo = SET( tcSet, 1 )
+         This.uNewSetTwo = NVL( tuValueTwo, This.uDefaultTwo )
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -170,7 +170,7 @@ DEFINE CLASS SetAlternate AS SetOnOffTwo
 
    PROTECTED PROCEDURE Init( tcOnOff, tcTo, tcOption, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
 
       DO CASE  && of primary set
@@ -178,51 +178,51 @@ DEFINE CLASS SetAlternate AS SetOnOffTwo
                                     tcOnOff, tcTo, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT INLIST( THIS.cSet, "1", "3" )
+         CASE NOT INLIST( This.cSet, "1", "3" )
             * Do nothing.
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET ALTERNATE ON
          OTHERWISE
             SET ALTERNATE OFF
       ENDCASE  && of primary set
 
       DO CASE  && of secondary set
-         CASE NOT INLIST( THIS.cSet, "2", "3" )
+         CASE NOT INLIST( This.cSet, "2", "3" )
             * Do nothing.
-         CASE EMPTY( THIS.uNewSetTwo )
+         CASE EMPTY( This.uNewSetTwo )
             SET ALTERNATE TO
          CASE ( NOT EMPTY( tcOption )) AND;
               UPPER( ALLTRIM( tcOption )) == "ADDITIVE"
-            SET ALTERNATE TO ( THIS.uNewSetTwo ) ADDITIVE
-            IF THIS.uNewSet == "ON"
+            SET ALTERNATE TO ( This.uNewSetTwo ) ADDITIVE
+            IF This.uNewSet == "ON"
                SET ALTERNATE ON
             ENDIF
          OTHERWISE
-            SET ALTERNATE TO ( THIS.uNewSetTwo )
-            IF THIS.uNewSet == "ON"
+            SET ALTERNATE TO ( This.uNewSetTwo )
+            IF This.uNewSet == "ON"
                SET ALTERNATE ON
             ENDIF
       ENDCASE  && of secondary set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, "1", "3" )
+            CASE NOT INLIST( This.cSet, "1", "3" )
                * Do nothing.
-            CASE THIS.uOldSet == "ON"
+            CASE This.uOldSet == "ON"
                SET ALTERNATE ON
             OTHERWISE
                SET ALTERNATE OFF
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, "2", "3" )
+            CASE NOT INLIST( This.cSet, "2", "3" )
                * Do nothing.
-            CASE EMPTY( THIS.uOldSetTwo )
+            CASE EMPTY( This.uOldSetTwo )
                SET ALTERNATE TO
             OTHERWISE
-               SET ALTERNATE TO ( THIS.uOldSetTwo )
+               SET ALTERNATE TO ( This.uOldSetTwo )
          ENDCASE  && of secondary set
       ENDIF
    ENDPROC
@@ -236,12 +236,12 @@ DEFINE CLASS SetAnsi AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "ANSI", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET ANSI ON
          OTHERWISE
             SET ANSI OFF
@@ -250,9 +250,9 @@ DEFINE CLASS SetAnsi AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET ANSI ON
          OTHERWISE
             SET ANSI OFF
@@ -268,12 +268,12 @@ DEFINE CLASS SetAsserts AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "Asserts", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET Asserts ON
          OTHERWISE
             SET Asserts OFF
@@ -282,9 +282,9 @@ DEFINE CLASS SetAsserts AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET Asserts ON
          OTHERWISE
             SET Asserts OFF
@@ -300,12 +300,12 @@ DEFINE CLASS SetAutoIncError AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "AutoIncError", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET AutoIncError ON
          OTHERWISE
             SET AutoIncError OFF
@@ -314,9 +314,9 @@ DEFINE CLASS SetAutoIncError AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET AutoIncError ON
          OTHERWISE
             SET AutoIncError OFF
@@ -332,12 +332,12 @@ DEFINE CLASS SetAutosave AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "AUTOSAVE", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET AUTOSAVE ON
          OTHERWISE
             SET AUTOSAVE OFF
@@ -346,9 +346,9 @@ DEFINE CLASS SetAutosave AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET AUTOSAVE ON
          OTHERWISE
             SET AUTOSAVE OFF
@@ -365,12 +365,12 @@ DEFINE CLASS SetBell AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "BELL", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET BELL ON
          OTHERWISE
             SET BELL OFF
@@ -379,9 +379,9 @@ DEFINE CLASS SetBell AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET BELL ON
          OTHERWISE
             SET BELL OFF
@@ -397,18 +397,18 @@ DEFINE CLASS SetBlocksize AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "BLOCKSIZE", tnValue )
-         SET BLOCKSIZE TO THIS.uNewSet
+         SET BLOCKSIZE TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET BLOCKSIZE TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET BLOCKSIZE TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -421,12 +421,12 @@ DEFINE CLASS SetBrstatus AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "BRSTATUS", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET BRSTATUS ON
          OTHERWISE
             SET BRSTATUS OFF
@@ -435,9 +435,9 @@ DEFINE CLASS SetBrstatus AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET BRSTATUS ON
          OTHERWISE
             SET BRSTATUS OFF
@@ -453,12 +453,12 @@ DEFINE CLASS SetCarry AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "CARRY", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET CARRY ON
          OTHERWISE
             SET CARRY OFF
@@ -467,9 +467,9 @@ DEFINE CLASS SetCarry AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET CARRY ON
          OTHERWISE
             SET CARRY OFF
@@ -485,12 +485,12 @@ DEFINE CLASS SetCentury AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "CENTURY", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET CENTURY ON
          OTHERWISE
             SET CENTURY OFF
@@ -499,9 +499,9 @@ DEFINE CLASS SetCentury AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET CENTURY ON
          OTHERWISE
             SET CENTURY OFF
@@ -517,11 +517,11 @@ DEFINE CLASS SetClassLib AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "CLASSLIB", tcValue )
          LOCAL lcTemp
-         lcTemp = THIS.uNewSet
+         lcTemp = This.uNewSet
          IF ( NOT EMPTY( tcOption )) AND;
             ( UPPER( ALLTRIM( tcOption ))="ADDITIVE" )
             SET CLASSLIB TO &lcTemp ADDITIVE  && macro alert
@@ -534,9 +534,9 @@ DEFINE CLASS SetClassLib AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          LOCAL lcTemp
-         lcTemp = THIS.uOldSet
+         lcTemp = This.uOldSet
          SET CLASSLIB TO &lcTemp  && macro alert
       ENDIF
    ENDPROC
@@ -550,12 +550,12 @@ DEFINE CLASS SetClear AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "CLEAR", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET CLEAR ON
          OTHERWISE
             SET CLEAR OFF
@@ -564,9 +564,9 @@ DEFINE CLASS SetClear AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET CLEAR ON
          OTHERWISE
             SET CLEAR OFF
@@ -582,14 +582,14 @@ DEFINE CLASS SetClock AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "CLOCK", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET CLOCK ON
-         CASE THIS.uNewSet == "STATUS"
+         CASE This.uNewSet == "STATUS"
             SET CLOCK STATUS
          OTHERWISE
             SET CLOCK OFF
@@ -598,11 +598,11 @@ DEFINE CLASS SetClock AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET CLOCK ON
-         CASE THIS.uOldSet == "STATUS"
+         CASE This.uOldSet == "STATUS"
             SET CLOCK STATUS
          OTHERWISE
             SET CLOCK OFF
@@ -618,18 +618,18 @@ DEFINE CLASS SetCollate AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "COLLATE", tnValue )
-         SET COLLATE TO THIS.uNewSet
+         SET COLLATE TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET COLLATE TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET COLLATE TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -642,11 +642,11 @@ DEFINE CLASS SetCoverage AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "Coverage", tcValue )
          LOCAL lcTemp
-         lcTemp = THIS.uNewSet
+         lcTemp = This.uNewSet
          IF ( NOT EMPTY( tcOption )) AND;
             ( UPPER( ALLTRIM( tcOption ))="ADDITIVE" )
             SET Coverage TO &lcTemp ADDITIVE  && macro alert
@@ -659,9 +659,9 @@ DEFINE CLASS SetCoverage AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          LOCAL lcTemp
-         lcTemp = THIS.uOldSet
+         lcTemp = This.uOldSet
          SET Coverage TO &lcTemp  && macro alert
       ENDIF
    ENDPROC
@@ -675,18 +675,18 @@ DEFINE CLASS SetColor AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "COLOR", tcValue )
-         SET COLOR TO ( THIS.uNewSet )
+         SET COLOR TO ( This.uNewSet )
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET COLOR TO ( THIS.uOldSet )
+      IF NOT This.lNoReset
+         SET COLOR TO ( This.uOldSet )
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -700,7 +700,7 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
 
    PROTECTED PROCEDURE Init( tcOnOff, tcPrompt, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
 
       LOCAL lcOnOff, lcPrompt
@@ -720,25 +720,25 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
                                     lcOnOff, lcPrompt, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT THIS.cSet == "1"
+         CASE NOT This.cSet == "1"
             * Do nothing.
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET COMPATIBLE ON
          OTHERWISE
             SET COMPATIBLE OFF
       ENDCASE  && of primary set
 
       DO CASE  && of secondary set
-         CASE NOT INLIST( THIS.cSet, "2", "3" )
+         CASE NOT INLIST( This.cSet, "2", "3" )
             * Do nothing.
-         CASE THIS.uNewSetTwo == "PROMPT"
-            IF THIS.uNewSet == "ON"
+         CASE This.uNewSetTwo == "PROMPT"
+            IF This.uNewSet == "ON"
                SET COMPATIBLE ON PROMPT
             ELSE
                SET COMPATIBLE OFF PROMPT
             ENDIF
-         CASE THIS.uNewSetTwo == "NOPROMPT"
-            IF THIS.uNewSet == "ON"
+         CASE This.uNewSetTwo == "NOPROMPT"
+            IF This.uNewSet == "ON"
                SET COMPATIBLE ON NOPROMPT
             ELSE
                SET COMPATIBLE OFF NOPROMPT
@@ -750,27 +750,27 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          DO CASE  && of primary set
-            CASE NOT THIS.cSet == "1"
+            CASE NOT This.cSet == "1"
                * Do nothing.
-            CASE THIS.uOldSet == "ON"
+            CASE This.uOldSet == "ON"
                SET COMPATIBLE ON
             OTHERWISE
                SET COMPATIBLE OFF
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, "2", "3" )
+            CASE NOT INLIST( This.cSet, "2", "3" )
                * Do nothing.
-            CASE THIS.uOldSetTwo == "NOPROMPT"
-               IF THIS.uOldSet == "ON"
+            CASE This.uOldSetTwo == "NOPROMPT"
+               IF This.uOldSet == "ON"
                   SET COMPATIBLE ON NOPROMPT
                ELSE
                   SET COMPATIBLE OFF NOPROMPT
                ENDIF
             OTHERWISE
-               IF THIS.uOldSet == "ON"
+               IF This.uOldSet == "ON"
                   SET COMPATIBLE ON PROMPT
                ELSE
                   SET COMPATIBLE OFF PROMPT
@@ -788,12 +788,12 @@ DEFINE CLASS SetConfirm AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "CONFIRM", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET CONFIRM ON
          OTHERWISE
             SET CONFIRM OFF
@@ -802,9 +802,9 @@ DEFINE CLASS SetConfirm AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET CONFIRM ON
          OTHERWISE
             SET CONFIRM OFF
@@ -820,12 +820,12 @@ DEFINE CLASS SetConsole AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "CONSOLE", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET CONSOLE ON
          OTHERWISE
             SET CONSOLE OFF
@@ -834,9 +834,9 @@ DEFINE CLASS SetConsole AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET CONSOLE ON
          OTHERWISE
             SET CONSOLE OFF
@@ -852,18 +852,18 @@ DEFINE CLASS SetCpcompile AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "CPCOMPILE", tnValue )
-         SET CPCOMPILE TO THIS.uNewSet
+         SET CPCOMPILE TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET CPCOMPILE TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET CPCOMPILE TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -876,12 +876,12 @@ DEFINE CLASS SetCpdialog AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "CPDIALOG", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET CPDIALOG ON
          OTHERWISE
             SET CPDIALOG OFF
@@ -890,9 +890,9 @@ DEFINE CLASS SetCpdialog AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET CPDIALOG ON
          OTHERWISE
             SET CPDIALOG OFF
@@ -909,7 +909,7 @@ DEFINE CLASS SetCurrency AS SetTwo
 
    PROTECTED PROCEDURE Init( tcLeftRight, tcTo, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
 
       DO CASE  && of primary set
@@ -919,37 +919,37 @@ DEFINE CLASS SetCurrency AS SetTwo
                                    UPPER( ALLTRIM( tcLeftRight )) ), ;
                                tcTo, ;
                                PARAMETERS() )
-         CASE NOT INLIST( THIS.cSet, "1", "3" )
+         CASE NOT INLIST( This.cSet, "1", "3" )
             * Do nothing.
-         CASE NOT INLIST( THIS.uNewSet, "LEFT", "RIGHT" )
+         CASE NOT INLIST( This.uNewSet, "LEFT", "RIGHT" )
             ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "LEFT"
+         CASE This.uNewSet == "LEFT"
             SET CURRENCY LEFT
          OTHERWISE
             SET CURRENCY RIGHT
       ENDCASE  && of primary set
 
       * Secondary set.
-      IF INLIST( THIS.cSet, "2", "3" )
-         SET CURRENCY TO ( THIS.uNewSetTwo )
+      IF INLIST( This.cSet, "2", "3" )
+         SET CURRENCY TO ( This.uNewSetTwo )
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, "1", "3" )
+            CASE NOT INLIST( This.cSet, "1", "3" )
                * Do nothing.
-            CASE THIS.uOldSet == "LEFT"
+            CASE This.uOldSet == "LEFT"
                SET CURRENCY LEFT
             OTHERWISE
                SET CURRENCY RIGHT
          ENDCASE  && of primary set
 
          * Secondary set.
-         IF INLIST( THIS.cSet, "2", "3" )
-            SET CURRENCY TO ( THIS.uOldSetTwo )
+         IF INLIST( This.cSet, "2", "3" )
+            SET CURRENCY TO ( This.uOldSetTwo )
          ENDIF
       ENDIF
    ENDPROC
@@ -963,12 +963,12 @@ DEFINE CLASS SetCursor AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "CURSOR", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET CURSOR ON
          OTHERWISE
             SET CURSOR OFF
@@ -977,9 +977,9 @@ DEFINE CLASS SetCursor AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET CURSOR ON
          OTHERWISE
             SET CURSOR OFF
@@ -995,26 +995,26 @@ DEFINE CLASS SetDatabase AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "DATABASE", tcValue )
             RETURN .F.  && early exit
-         CASE EMPTY( THIS.uNewSet )
+         CASE EMPTY( This.uNewSet )
             SET DATABASE TO
          OTHERWISE
-            SET DATABASE TO ( THIS.uNewSet )
+            SET DATABASE TO ( This.uNewSet )
       ENDCASE
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE EMPTY( THIS.uOldSet )
+         CASE EMPTY( This.uOldSet )
             SET DATABASE TO
          OTHERWISE
-            SET DATABASE TO ( THIS.uOldSet )
+            SET DATABASE TO ( This.uOldSet )
       ENDCASE
    ENDPROC
 ENDDEFINE
@@ -1027,11 +1027,11 @@ DEFINE CLASS SetDataSession AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "DATASESSION", tnValue )
          IF NOT EMPTY( tnValue )
-            SET DATASESSION TO THIS.uNewSet
+            SET DATASESSION TO This.uNewSet
          ENDIF
       ELSE
          RETURN .F.
@@ -1039,8 +1039,8 @@ DEFINE CLASS SetDataSession AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET DATASESSION TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET DATASESSION TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -1053,18 +1053,18 @@ DEFINE CLASS SetDate AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "DATE", tcValue )
-         SET DATE TO ( THIS.uNewSet )
+         SET DATE TO ( This.uNewSet )
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET DATE TO ( THIS.uOldSet )
+      IF NOT This.lNoReset
+         SET DATE TO ( This.uOldSet )
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -1077,12 +1077,12 @@ DEFINE CLASS SetDebug AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "DEBUG", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET DEBUG ON
          OTHERWISE
             SET DEBUG OFF
@@ -1091,9 +1091,9 @@ DEFINE CLASS SetDebug AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET DEBUG ON
          OTHERWISE
             SET DEBUG OFF
@@ -1109,18 +1109,18 @@ DEFINE CLASS SetDecimals AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "DECIMALS", tnValue )
-         SET DECIMALS TO THIS.uNewSet
+         SET DECIMALS TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET DECIMALS TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET DECIMALS TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -1133,17 +1133,17 @@ DEFINE CLASS SetDefault AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .F.   && Note: this is different than some other classes here.
+         This.lNoReset = .F.   && Note: this is different than some other classes here.
       ENDIF
 
-      THIS.uOldSet = SYS( 5 )+CURDIR()
-      THIS.uNewSet = EVL( tcValue, THIS.uDefault )
-      cd ( THIS.uNewSet )
+      This.uOldSet = SYS( 5 )+CURDIR()
+      This.uNewSet = EVL( tcValue, This.uDefault )
+      cd ( This.uNewSet )
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         cd ( THIS.uOldSet )
+      IF NOT This.lNoReset
+         cd ( This.uOldSet )
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -1156,12 +1156,12 @@ DEFINE CLASS SetDeleted AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "DELETED", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET DELETED ON
          OTHERWISE
             SET DELETED OFF
@@ -1170,9 +1170,9 @@ DEFINE CLASS SetDeleted AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET DELETED ON
          OTHERWISE
             SET DELETED OFF
@@ -1189,7 +1189,7 @@ DEFINE CLASS SetDelimiters AS SetOnOffTwo
 
    PROTECTED PROCEDURE Init( tcOnOff, tcDelimiter, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
 
       LOCAL lcOnOff, lcDelimiter
@@ -1204,9 +1204,9 @@ DEFINE CLASS SetDelimiters AS SetOnOffTwo
                                     lcOnOff, lcDelimiter, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT THIS.cSet == "1"
+         CASE NOT This.cSet == "1"
             * Do nothing.
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET DELIMITERS ON
          OTHERWISE
             SET DELIMITERS OFF
@@ -1218,24 +1218,24 @@ DEFINE CLASS SetDelimiters AS SetOnOffTwo
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
 
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, "1", "3" )
+            CASE NOT INLIST( This.cSet, "1", "3" )
                * Do nothing.
-            CASE THIS.uOldSet == "ON"
+            CASE This.uOldSet == "ON"
                SET DELIMITERS ON
             OTHERWISE
                SET DELIMITERS OFF
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, "2", "3" )
+            CASE NOT INLIST( This.cSet, "2", "3" )
                * Do nothing.
-            CASE NOT EMPTY( THIS.uOldSetTwo )
-               SET DELIMITERS TO ( THIS.uOldSetTwo )
+            CASE NOT EMPTY( This.uOldSetTwo )
+               SET DELIMITERS TO ( This.uOldSetTwo )
             OTHERWISE
-               IF THIS.uOldSet == "ON"
+               IF This.uOldSet == "ON"
                   SET DELIMITERS ON
                ELSE
                   SET DELIMITERS OFF
@@ -1253,12 +1253,12 @@ DEFINE CLASS SetDevelopment AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "DEVELOPMENT", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET DEVELOPMENT ON
          OTHERWISE
             SET DEVELOPMENT OFF
@@ -1267,9 +1267,9 @@ DEFINE CLASS SetDevelopment AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET DEVELOPMENT ON
          OTHERWISE
             SET DEVELOPMENT OFF
@@ -1285,10 +1285,10 @@ DEFINE CLASS SetDisplay AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "DISPLAY", tnValue )
-         lcTemp = THIS.uNewSet
+         lcTemp = This.uNewSet
          SET DISPLAY TO &lcTemp
       ELSE
          RETURN .F.
@@ -1296,8 +1296,8 @@ DEFINE CLASS SetDisplay AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         lcTemp = THIS.uOldSet
+      IF NOT This.lNoReset
+         lcTemp = This.uOldSet
          SET DISPLAY TO &lcTemp
       ENDIF
    ENDPROC
@@ -1311,12 +1311,12 @@ DEFINE CLASS SetDohistory AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "DOHISTORY", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET DOHISTORY ON
          OTHERWISE
             SET DOHISTORY OFF
@@ -1325,9 +1325,9 @@ DEFINE CLASS SetDohistory AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET DOHISTORY ON
          OTHERWISE
             SET DOHISTORY OFF
@@ -1343,12 +1343,12 @@ DEFINE CLASS SetEcho AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "ECHO", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET ECHO ON
          OTHERWISE
             * Must RELEASE WINDOW TRACE to set ECHO OFF
@@ -1359,9 +1359,9 @@ DEFINE CLASS SetEcho AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET ECHO ON
          OTHERWISE
             * Must RELEASE WINDOW TRACE to set ECHO OFF
@@ -1379,16 +1379,16 @@ DEFINE CLASS SetEngineBehavior AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "EngineBehavior", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "70"
+         CASE This.uNewSet == "70"
             SET EngineBehavior 70
-         CASE THIS.uNewSet == "80"
+         CASE This.uNewSet == "80"
             SET EngineBehavior 80
-         CASE THIS.uNewSet == "90"
+         CASE This.uNewSet == "90"
             SET EngineBehavior 90
          OTHERWISE
             SET EngineBehavior 90
@@ -1397,13 +1397,13 @@ DEFINE CLASS SetEngineBehavior AS Set
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "70"
+         CASE This.uOldSet == "70"
             SET EngineBehavior 70
-         CASE THIS.uOldSet == "80"
+         CASE This.uOldSet == "80"
             SET EngineBehavior 80
-         CASE THIS.uOldSet == "90"
+         CASE This.uOldSet == "90"
             SET EngineBehavior 90
          OTHERWISE
             SET EngineBehavior 90
@@ -1419,12 +1419,12 @@ DEFINE CLASS SetEscape AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "ESCAPE", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET ESCAPE ON
          OTHERWISE
             SET ESCAPE OFF
@@ -1433,9 +1433,9 @@ DEFINE CLASS SetEscape AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET ESCAPE ON
          OTHERWISE
             SET ESCAPE OFF
@@ -1451,12 +1451,12 @@ DEFINE CLASS SetExact AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "EXACT", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET EXACT ON
          OTHERWISE
             SET EXACT OFF
@@ -1465,9 +1465,9 @@ DEFINE CLASS SetExact AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET EXACT ON
          OTHERWISE
             SET EXACT OFF
@@ -1483,12 +1483,12 @@ DEFINE CLASS SetExclusive AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "EXCLUSIVE", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET EXCLUSIVE ON
          OTHERWISE
             SET EXCLUSIVE OFF
@@ -1497,9 +1497,9 @@ DEFINE CLASS SetExclusive AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET EXCLUSIVE ON
          OTHERWISE
             SET EXCLUSIVE OFF
@@ -1515,18 +1515,18 @@ DEFINE CLASS SetFdow AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "FDOW", tnValue )
-         SET FDOW TO THIS.uNewSet
+         SET FDOW TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET FDOW TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET FDOW TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -1539,12 +1539,12 @@ DEFINE CLASS SetFixed AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "FIXED", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET FIXED ON
          OTHERWISE
             SET FIXED OFF
@@ -1553,9 +1553,9 @@ DEFINE CLASS SetFixed AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET FIXED ON
          OTHERWISE
             SET FIXED OFF
@@ -1571,12 +1571,12 @@ DEFINE CLASS SetFullPath AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "FULLPATH", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET FULLPATH ON
          OTHERWISE
             SET FULLPATH OFF
@@ -1585,9 +1585,9 @@ DEFINE CLASS SetFullPath AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET FULLPATH ON
          OTHERWISE
             SET FULLPATH OFF
@@ -1603,18 +1603,18 @@ DEFINE CLASS SetFweek AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "FWEEK", tnValue )
-         SET FWEEK TO THIS.uNewSet
+         SET FWEEK TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET FWEEK TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET FWEEK TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -1627,12 +1627,12 @@ DEFINE CLASS SetHeadings AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "HEADINGS", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET HEADINGS ON
          OTHERWISE
             SET HEADINGS OFF
@@ -1641,9 +1641,9 @@ DEFINE CLASS SetHeadings AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET HEADINGS ON
          OTHERWISE
             SET HEADINGS OFF
@@ -1660,7 +1660,7 @@ DEFINE CLASS SetHelp AS SetOnOffTwo
 
    PROTECTED PROCEDURE Init( tcOnOff, tcTo, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
 
       DO CASE  && of primary set
@@ -1668,42 +1668,42 @@ DEFINE CLASS SetHelp AS SetOnOffTwo
                                     tcOnOff, tcTo, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT INLIST( THIS.cSet, "1", "3" )
+         CASE NOT INLIST( This.cSet, "1", "3" )
             * Do nothing.
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET HELP ON
          OTHERWISE
             SET HELP OFF
       ENDCASE  && of primary set
 
       DO CASE  && of secondary set
-         CASE NOT INLIST( THIS.cSet, "2", "3" )
+         CASE NOT INLIST( This.cSet, "2", "3" )
             * Do nothing.
-         CASE EMPTY( THIS.uNewSetTwo )
+         CASE EMPTY( This.uNewSetTwo )
             SET HELP TO
          OTHERWISE
-            SET HELP TO ( THIS.uNewSetTwo )
+            SET HELP TO ( This.uNewSetTwo )
       ENDCASE  && of secondary set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, "1", "3" )
+            CASE NOT INLIST( This.cSet, "1", "3" )
                * Do nothing.
-            CASE THIS.uOldSet == "ON"
+            CASE This.uOldSet == "ON"
                SET HELP ON
             OTHERWISE
                SET HELP OFF
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, "2", "3" )
+            CASE NOT INLIST( This.cSet, "2", "3" )
                * Do nothing.
-            CASE EMPTY( THIS.uOldSetTwo )
+            CASE EMPTY( This.uOldSetTwo )
                SET HELP TO
             OTHERWISE
-               SET HELP TO ( THIS.uOldSetTwo )
+               SET HELP TO ( This.uOldSetTwo )
          ENDCASE  && of secondary set
       ENDIF
    ENDPROC
@@ -1717,11 +1717,11 @@ DEFINE CLASS SetHelpfilter AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "HELPFILTER", tcValue )
          LOCAL lcTemp
-         lcTemp = THIS.uNewSet
+         lcTemp = This.uNewSet
          SET HELPFILTER TO &lcTemp  && macro alert
       ELSE
          RETURN .F.
@@ -1729,9 +1729,9 @@ DEFINE CLASS SetHelpfilter AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          LOCAL lcTemp
-         lcTemp = THIS.uOldSet
+         lcTemp = This.uOldSet
          SET HELPFILTER TO &lcTemp  && macro alert
       ENDIF
    ENDPROC
@@ -1745,27 +1745,27 @@ DEFINE CLASS SetHours AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "HOURS", tnValue )
             * No op?
-         CASE ISNULL( THIS.uNewSet ) OR EMPTY( THIS.uNewSet )
+         CASE ISNULL( This.uNewSet ) OR EMPTY( This.uNewSet )
             SET HOURS TO  && will default to 12
          * SET HOURS ignores decimals, i.e. 12.5 is legal
-         CASE NOT TYPE( "THIS.uNewSet" )="N" OR ;
-            NOT INLIST( INT( THIS.uNewSet ), 12, 24 )
+         CASE NOT TYPE( "This.uNewSet" )="N" OR ;
+            NOT INLIST( INT( This.uNewSet ), 12, 24 )
             ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
          OTHERWISE
-            SET HOURS TO THIS.uNewSet
+            SET HOURS TO This.uNewSet
       ENDCASE
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          * SET( "hours" ) can only return 12 or 24 - never EMPTY()
-         SET HOURS TO THIS.uOldSet
+         SET HOURS TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -1778,12 +1778,12 @@ DEFINE CLASS SetIntensity AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "INTENSITY", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET INTENSITY ON
          OTHERWISE
             SET INTENSITY OFF
@@ -1792,9 +1792,9 @@ DEFINE CLASS SetIntensity AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET INTENSITY ON
          OTHERWISE
             SET INTENSITY OFF
@@ -1812,25 +1812,25 @@ DEFINE CLASS SetKeycomp AS Set
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       DO CASE
          CASE _WINDOWS
-            THIS.uDefault = "WINDOWS"
+            This.uDefault = "WINDOWS"
          CASE _MAC
-            THIS.uDefault = "MAC"
+            This.uDefault = "MAC"
          CASE _DOS
-            THIS.uDefault = "DOS"
+            This.uDefault = "DOS"
          OTHERWISE  && should never happen
             ERROR "Unknown operating system"
       ENDCASE
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "KEYCOMP", tcValue )
             RETURN .F.
-         CASE NOT INLIST( UPPER( THIS.uNewSet ), "DOS", "WIND", ;
+         CASE NOT INLIST( UPPER( This.uNewSet ), "DOS", "WIND", ;
                "WINDO", "WINDOW", "WINDOWS" )
             ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
-         CASE "DOS" $ THIS.uNewSet
+         CASE "DOS" $ This.uNewSet
             SET KEYCOMP TO DOS
          OTHERWISE
             SET KEYCOMP TO WINDOWS
@@ -1838,8 +1838,8 @@ DEFINE CLASS SetKeycomp AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         IF "DOS" $ THIS.uOldSet
+      IF NOT This.lNoReset
+         IF "DOS" $ This.uOldSet
             SET KEYCOMP TO DOS
          ELSE
             SET KEYCOMP TO WINDOWS
@@ -1856,10 +1856,10 @@ DEFINE CLASS SetLibrary AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "LIBRARY", tcValue )
-         lcTemp = THIS.uNewSet
+         lcTemp = This.uNewSet
          IF ( NOT EMPTY( tcOption )) AND;
             ( UPPER( ALLTRIM( tcOption ))="ADDITIVE" )
             SET LIBRARY TO &lcTemp ADDITIVE
@@ -1872,8 +1872,8 @@ DEFINE CLASS SetLibrary AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         lcTemp = THIS.uOldSet
+      IF NOT This.lNoReset
+         lcTemp = This.uOldSet
          SET LIBRARY TO &lcTemp
       ENDIF
    ENDPROC
@@ -1887,12 +1887,12 @@ DEFINE CLASS SetLock AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "LOCK", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET LOCK ON
          OTHERWISE
             SET LOCK OFF
@@ -1901,9 +1901,9 @@ DEFINE CLASS SetLock AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET LOCK ON
          OTHERWISE
             SET LOCK OFF
@@ -1919,12 +1919,12 @@ DEFINE CLASS SetLogErrors AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "LOGERRORS", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET LOGERRORS ON
          OTHERWISE
             SET LOGERRORS OFF
@@ -1933,9 +1933,9 @@ DEFINE CLASS SetLogErrors AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET LOGERRORS ON
          OTHERWISE
             SET LOGERRORS OFF
@@ -1951,19 +1951,19 @@ DEFINE CLASS SetMargin AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       * VFP sets a maximum of 256 when given a higher number.
-      IF DODEFAULT( "MARGIN", MIN( 256, NVL( tnValue, THIS.uDefault )) )
-         SET MARGIN TO THIS.uNewSet
+      IF DODEFAULT( "MARGIN", MIN( 256, NVL( tnValue, This.uDefault )) )
+         SET MARGIN TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET MARGIN TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET MARGIN TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -1976,10 +1976,10 @@ DEFINE CLASS SetMackey AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "MACKEY", tcValue )
-         lcTemp = THIS.uNewSet
+         lcTemp = This.uNewSet
          SET MACKEY TO &lcTemp
       ELSE
          RETURN .F.
@@ -1987,8 +1987,8 @@ DEFINE CLASS SetMackey AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         lcTemp = THIS.uOldSet
+      IF NOT This.lNoReset
+         lcTemp = This.uOldSet
          SET MACKEY TO &lcTemp
       ENDIF
    ENDPROC
@@ -2002,18 +2002,18 @@ DEFINE CLASS SetMark AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "MARK", tcValue )
-         SET MARK TO THIS.uNewSet
+         SET MARK TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET MARK TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET MARK TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -2026,19 +2026,19 @@ DEFINE CLASS SetMemoWidth AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       * VFP sets a maximum of 8192 when given a higher number.
-      IF DODEFAULT( "MEMOWIDTH", MIN( 8192, NVL( tnValue, THIS.uDefault )) )
-         SET MEMOWIDTH TO THIS.uNewSet
+      IF DODEFAULT( "MEMOWIDTH", MIN( 8192, NVL( tnValue, This.uDefault )) )
+         SET MEMOWIDTH TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET MEMOWIDTH TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET MEMOWIDTH TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -2051,13 +2051,13 @@ DEFINE CLASS SetMessage AS SetTwo
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "MESSAGE", , tcValue, 2 )
-         IF EMPTY( THIS.uNewSetTwo )
+         IF EMPTY( This.uNewSetTwo )
             SET MESSAGE TO
          ELSE
-            SET MESSAGE TO THIS.uNewSetTwo
+            SET MESSAGE TO This.uNewSetTwo
          ENDIF
       ELSE
          RETURN .F.
@@ -2065,11 +2065,11 @@ DEFINE CLASS SetMessage AS SetTwo
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         IF EMPTY( THIS.uOldSetTwo )
+      IF NOT This.lNoReset
+         IF EMPTY( This.uOldSetTwo )
             SET MESSAGE TO
          ELSE
-            SET MESSAGE TO THIS.uOldSetTwo
+            SET MESSAGE TO This.uOldSetTwo
          ENDIF
       ENDIF
    ENDPROC
@@ -2083,12 +2083,12 @@ DEFINE CLASS SetMultiLocks AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "MULTILOCKS", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET MULTILOCKS ON
          OTHERWISE
             SET MULTILOCKS OFF
@@ -2097,9 +2097,9 @@ DEFINE CLASS SetMultiLocks AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET MULTILOCKS ON
          OTHERWISE
             SET MULTILOCKS OFF
@@ -2115,12 +2115,12 @@ DEFINE CLASS SetNear AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "NEAR", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET NEAR ON
          OTHERWISE
             SET NEAR OFF
@@ -2129,9 +2129,9 @@ DEFINE CLASS SetNear AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET NEAR ON
          OTHERWISE
             SET NEAR OFF
@@ -2147,12 +2147,12 @@ DEFINE CLASS SetNotify AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "NOTIFY", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET NOTIFY ON
          OTHERWISE
             SET NOTIFY OFF
@@ -2161,9 +2161,9 @@ DEFINE CLASS SetNotify AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET NOTIFY ON
          OTHERWISE
             SET NOTIFY OFF
@@ -2179,12 +2179,12 @@ DEFINE CLASS SetNull AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "NULL", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET NULL ON
          OTHERWISE
             SET NULL OFF
@@ -2193,9 +2193,9 @@ DEFINE CLASS SetNull AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET NULL ON
          OTHERWISE
             SET NULL OFF
@@ -2210,18 +2210,18 @@ DEFINE CLASS SetNullDisplay AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "NULLDISPLAY", tcValue )
-         SET NULLDISPLAY TO THIS.uNewSet
+         SET NULLDISPLAY TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET NULLDISPLAY TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET NULLDISPLAY TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -2234,18 +2234,18 @@ DEFINE CLASS SetOdometer AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "ODOMETER", tnValue )
-         SET ODOMETER TO THIS.uNewSet
+         SET ODOMETER TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET ODOMETER TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET ODOMETER TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -2258,12 +2258,12 @@ DEFINE CLASS SetOLEObject AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "OLEOBJECT", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET OLEOBJECT ON
          OTHERWISE
             SET OLEOBJECT OFF
@@ -2272,9 +2272,9 @@ DEFINE CLASS SetOLEObject AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET OLEOBJECT ON
          OTHERWISE
             SET OLEOBJECT OFF
@@ -2290,12 +2290,12 @@ DEFINE CLASS SetOptimize AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "OPTIMIZE", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET OPTIMIZE ON
          OTHERWISE
             SET OPTIMIZE OFF
@@ -2304,9 +2304,9 @@ DEFINE CLASS SetOptimize AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET OPTIMIZE ON
          OTHERWISE
             SET OPTIMIZE OFF
@@ -2322,12 +2322,12 @@ DEFINE CLASS SetPalette AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "PALETTE", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET PALETTE ON
          OTHERWISE
             SET PALETTE OFF
@@ -2336,9 +2336,9 @@ DEFINE CLASS SetPalette AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET PALETTE ON
          OTHERWISE
             SET PALETTE OFF
@@ -2354,13 +2354,13 @@ DEFINE CLASS SetPath AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "PATH", tcValue )
          IF ( NOT EMPTY( tcOption )) AND UPPER( ALLTRIM( tcOption )) == "ADDITIVE"
-            SET PATH TO ( THIS.uNewSet ) ADDITIVE
+            SET PATH TO ( This.uNewSet ) ADDITIVE
          ELSE
-            SET PATH TO ( THIS.uNewSet )
+            SET PATH TO ( This.uNewSet )
          ENDIF
       ELSE
          RETURN .F.
@@ -2368,8 +2368,8 @@ DEFINE CLASS SetPath AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET PATH TO ( THIS.uOldSet )
+      IF NOT This.lNoReset
+         SET PATH TO ( This.uOldSet )
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -2385,7 +2385,7 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
 
    PROTECTED PROCEDURE Init( tcOnOff, tcTo, tcOption, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
 
       DO CASE  && of primary set
@@ -2393,18 +2393,18 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
                                     tcOnOff, tcTo, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT INLIST( THIS.cSet, "1", "3" )
+         CASE NOT INLIST( This.cSet, "1", "3" )
             * Do nothing.
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET PRINTER ON
          OTHERWISE
             SET PRINTER OFF
       ENDCASE  && of primary set
 
       DO CASE  && of secondary set
-         CASE NOT INLIST( THIS.cSet, "2", "3" )
+         CASE NOT INLIST( This.cSet, "2", "3" )
             * Do nothing.
-         CASE EMPTY( THIS.uNewSetTwo ) OR THIS.uOldSetTwo == "PRN"
+         CASE EMPTY( This.uNewSetTwo ) OR This.uOldSetTwo == "PRN"
             SET PRINTER TO
          CASE ( NOT EMPTY( tcOption )) AND;
               UPPER( ALLTRIM( tcOption )) == "ADDITIVE"
@@ -2415,23 +2415,23 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, "1", "3" )
+            CASE NOT INLIST( This.cSet, "1", "3" )
                * Do nothing.
-            CASE THIS.uOldSet == "ON"
+            CASE This.uOldSet == "ON"
                SET PRINTER ON
             OTHERWISE
                SET PRINTER OFF
          ENDCASE  && of primary set
 
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, "2", "3" )
+            CASE NOT INLIST( This.cSet, "2", "3" )
                * Do nothing.
-            CASE EMPTY( THIS.uOldSetTwo ) OR THIS.uOldSetTwo == "PRN"
+            CASE EMPTY( This.uOldSetTwo ) OR This.uOldSetTwo == "PRN"
                SET PRINTER TO
             OTHERWISE  && macro won't help here
-               SET PRINTER TO ( THIS.uOldSetTwo )
+               SET PRINTER TO ( This.uOldSetTwo )
          ENDCASE  && of secondary set
       ENDIF
    ENDPROC
@@ -2445,10 +2445,10 @@ DEFINE CLASS SetPoint AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "POINT", tcValue )
-         lcTemp = THIS.uNewSet
+         lcTemp = This.uNewSet
          SET POINT TO &lcTemp
       ELSE
          RETURN .F.
@@ -2456,8 +2456,8 @@ DEFINE CLASS SetPoint AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         lcTemp = THIS.uOldSet
+      IF NOT This.lNoReset
+         lcTemp = This.uOldSet
          SET POINT TO &lcTemp
       ENDIF
    ENDPROC
@@ -2471,14 +2471,14 @@ DEFINE CLASS SetProcedure AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "PROCEDURE", tcValue )
-         IF EMPTY( THIS.uNewSet )
+         IF EMPTY( This.uNewSet )
             SET PROCEDURE TO
          ELSE
             LOCAL lcTemp
-            lcTemp = THIS.uNewSet
+            lcTemp = This.uNewSet
             IF ( NOT EMPTY( tcOption )) AND;
                ( UPPER( ALLTRIM( tcOption ))="ADDITIVE" )
                SET PROCEDURE TO &lcTemp ADDITIVE  && macro alert
@@ -2492,9 +2492,9 @@ DEFINE CLASS SetProcedure AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          LOCAL lcTemp
-         lcTemp = THIS.uOldSet
+         lcTemp = This.uOldSet
          SET PROCEDURE TO &lcTemp  && macro alert
       ENDIF
    ENDPROC
@@ -2508,12 +2508,12 @@ DEFINE CLASS SetReadBorder AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "READBORDER", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET READBORDER ON
          OTHERWISE
             SET READBORDER OFF
@@ -2522,9 +2522,9 @@ DEFINE CLASS SetReadBorder AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET READBORDER ON
          OTHERWISE
             SET READBORDER OFF
@@ -2541,14 +2541,14 @@ DEFINE CLASS SetRefresh AS SetTwo
 
    PROTECTED PROCEDURE Init( tnEditSeconds, tnBufferSeconds, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
 
       DO CASE
          CASE NOT DODEFAULT( "REFRESH", tnEditSeconds, ;
                                tnBufferSeconds, PARAMETERS() )
             * Do nothing.
-         CASE NOT INLIST( THIS.cSet, "1", "3" )
+         CASE NOT INLIST( This.cSet, "1", "3" )
             * Do nothing.
          CASE ISNULL( tnEditSeconds ) AND ISNULL( tnBufferSeconds )
             * Do nothing.
@@ -2571,14 +2571,14 @@ DEFINE CLASS SetRefresh AS SetTwo
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          DO CASE
-            CASE THIS.uOldSet >= 0 AND THIS.uOldSetTwo >= 0
+            CASE This.uOldSet >= 0 AND This.uOldSetTwo >= 0
                * Set both
-               SET REFRESH TO THIS.uOldSet, THIS.uOldSetTwo
-            CASE THIS.uOldSet >= 0
+               SET REFRESH TO This.uOldSet, This.uOldSetTwo
+            CASE This.uOldSet >= 0
                * Set first only
-               SET REFRESH TO THIS.uOldSet
+               SET REFRESH TO This.uOldSet
             OTHERWISE
                ERROR "CASE...OTHERWISE: Unexpected."
          ENDCASE
@@ -2600,37 +2600,37 @@ DEFINE CLASS SetReprocess AS Set
 
    PROTECTED PROCEDURE Init( tuValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
-      THIS.cType = TYPE( "tuValue" )
+      This.cType = TYPE( "tuValue" )
       DO CASE
          CASE ISNULL( tuValue )
             =DODEFAULT( "REPROCESS", tuValue )
-         CASE ( NOT THIS.cType $ "CN" ) OR;
+         CASE ( NOT This.cType $ "CN" ) OR;
               ( NOT DODEFAULT( "REPROCESS", ;
-                             IIF( THIS.cType=="C", ;
+                             IIF( This.cType=="C", ;
                                  UPPER( ALLTRIM( tuValue )), ;
                                  tuValue )) )
             ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
-         CASE THIS.cType == "C"
+         CASE This.cType == "C"
             DO CASE
-               CASE THIS.uNewSet == "AUTOMATIC"
+               CASE This.uNewSet == "AUTOMATIC"
                   SET REPROCESS TO AUTOMATIC
-               CASE RIGHT( THIS.uNewSet, 7 ) == "SECONDS"
-                  SET REPROCESS TO VAL( THIS.uNewSet ) SECONDS
+               CASE RIGHT( This.uNewSet, 7 ) == "SECONDS"
+                  SET REPROCESS TO VAL( This.uNewSet ) SECONDS
                OTHERWISE
                   ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
                   RETURN .F.  && early exit
             ENDCASE
          OTHERWISE
-            SET REPROCESS TO THIS.uNewSet
+            SET REPROCESS TO This.uNewSet
       ENDCASE
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET REPROCESS TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET REPROCESS TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -2644,7 +2644,7 @@ DEFINE CLASS SetResource AS SetOnOffTwo
 
    PROTECTED PROCEDURE Init( tcOnOff, tcTo, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
 
       * SET RESOURCE TO is first because it also sets it ON.
@@ -2653,18 +2653,18 @@ DEFINE CLASS SetResource AS SetOnOffTwo
                                     tcOnOff, tcTo, ;
                                     PARAMETERS() )
             RETURN .F.  && early exit
-         CASE NOT INLIST( THIS.cSet, "2", "3" )
+         CASE NOT INLIST( This.cSet, "2", "3" )
             * Do nothing.
-         CASE EMPTY( THIS.uNewSetTwo )
+         CASE EMPTY( This.uNewSetTwo )
             SET RESOURCE TO
          OTHERWISE
-            SET RESOURCE TO ( THIS.uNewSetTwo )
+            SET RESOURCE TO ( This.uNewSetTwo )
       ENDCASE  && of secondary set
 
       DO CASE  && of primary set
-         CASE NOT INLIST( THIS.cSet, "1", "3" )
+         CASE NOT INLIST( This.cSet, "1", "3" )
             * Do nothing.
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET RESOURCE ON
          OTHERWISE
             SET RESOURCE OFF
@@ -2672,21 +2672,21 @@ DEFINE CLASS SetResource AS SetOnOffTwo
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          * SET RESOURCE TO is first because it also sets it ON.
          DO CASE  && of secondary set
-            CASE NOT INLIST( THIS.cSet, "2", "3" )
+            CASE NOT INLIST( This.cSet, "2", "3" )
                * Do nothing.
-            CASE EMPTY( THIS.uOldSetTwo )
+            CASE EMPTY( This.uOldSetTwo )
                SET RESOURCE TO
             OTHERWISE
-               SET RESOURCE TO ( THIS.uOldSetTwo )
+               SET RESOURCE TO ( This.uOldSetTwo )
          ENDCASE  && of secondary set
 
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, "1", "3" )
+            CASE NOT INLIST( This.cSet, "1", "3" )
                * Do nothing.
-            CASE THIS.uOldSet == "ON"
+            CASE This.uOldSet == "ON"
                SET RESOURCE ON
             OTHERWISE
                SET RESOURCE OFF
@@ -2704,7 +2704,7 @@ DEFINE CLASS SetResourceCreate AS SetResource
       lcTo = IIF( EMPTY( tcTo ), ;
                  HOME() + "FoxUser.dbf", ;
                  TRIM( tcTo ) + IIF( "." $ tcTo, "", ".dbf" ))
-      IF NOT ( FILE( lcTo ) OR THIS.CreateResource( lcTo ))
+      IF NOT ( FILE( lcTo ) OR This.CreateResource( lcTo ))
          RETURN .F.
       ELSE
          RETURN DODEFAULT( tcOnOff, tcTo, tlNoReset )
@@ -2712,13 +2712,13 @@ DEFINE CLASS SetResourceCreate AS SetResource
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF ( NOT THIS.lNoReset ) AND INLIST( THIS.cSet, "2", "3" )
+      IF ( NOT This.lNoReset ) AND INLIST( This.cSet, "2", "3" )
          LOCAL lcTo
-         lcTo = IIF( EMPTY( THIS.uOldSetTwo ), ;
+         lcTo = IIF( EMPTY( This.uOldSetTwo ), ;
                     HOME() + "FoxUser.dbf", ;
-                    TRIM( THIS.uOldSetTwo ) + IIF( "." $ THIS.uOldSetTwo, ;
+                    TRIM( This.uOldSetTwo ) + IIF( "." $ This.uOldSetTwo, ;
                                                 "", ".dbf" ))
-         IF NOT ( FILE( lcTo ) OR THIS.CreateResource( lcTo ))
+         IF NOT ( FILE( lcTo ) OR This.CreateResource( lcTo ))
             RETURN
          ELSE
             DODEFAULT()
@@ -2752,12 +2752,12 @@ DEFINE CLASS SetSafety AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "SAFETY", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET SAFETY ON
          OTHERWISE
             SET SAFETY OFF
@@ -2766,9 +2766,9 @@ DEFINE CLASS SetSafety AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET SAFETY ON
          OTHERWISE
             SET SAFETY OFF
@@ -2784,12 +2784,12 @@ DEFINE CLASS SetSeconds AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "SECONDS", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET SECONDS ON
          OTHERWISE
             SET SECONDS OFF
@@ -2798,9 +2798,9 @@ DEFINE CLASS SetSeconds AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET SECONDS ON
          OTHERWISE
             SET SECONDS OFF
@@ -2816,18 +2816,18 @@ DEFINE CLASS SetSeparator AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "SEPARATOR", tcValue )
-         SET SEPARATOR TO THIS.uNewSet
+         SET SEPARATOR TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET SEPARATOR TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET SEPARATOR TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -2840,12 +2840,12 @@ DEFINE CLASS SetSpace AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "SPACE", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET SPACE ON
          OTHERWISE
             SET SPACE OFF
@@ -2854,9 +2854,9 @@ DEFINE CLASS SetSpace AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET SPACE ON
          OTHERWISE
             SET SPACE OFF
@@ -2873,12 +2873,12 @@ DEFINE CLASS SetStatus AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "STATUS", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET STATUS ON
          OTHERWISE
             SET STATUS OFF
@@ -2887,9 +2887,9 @@ DEFINE CLASS SetStatus AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET STATUS ON
          OTHERWISE
             SET STATUS OFF
@@ -2905,12 +2905,12 @@ DEFINE CLASS SetStatusBar AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "STATUS BAR", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET STATUS BAR ON
          OTHERWISE
             SET STATUS BAR OFF
@@ -2919,9 +2919,9 @@ DEFINE CLASS SetStatusBar AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET STATUS BAR ON
          OTHERWISE
             SET STATUS BAR OFF
@@ -2937,12 +2937,12 @@ DEFINE CLASS SetStep AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "STEP", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET STEP ON
          OTHERWISE
             SET STEP OFF
@@ -2951,9 +2951,9 @@ DEFINE CLASS SetStep AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET STEP ON
          OTHERWISE
             SET STEP OFF
@@ -2969,12 +2969,12 @@ DEFINE CLASS SetSysFormats AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "SYSFORMATS", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET SYSFORMATS ON
          OTHERWISE
             SET SYSFORMATS OFF
@@ -2983,9 +2983,9 @@ DEFINE CLASS SetSysFormats AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET SYSFORMATS ON
          OTHERWISE
             SET SYSFORMATS OFF
@@ -3003,7 +3003,7 @@ DEFINE CLASS SetSysMenu AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE ISNULL( tcValue )
@@ -3029,13 +3029,13 @@ DEFINE CLASS SetSysMenu AS Set
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "AUTOMATIC"
+         CASE This.uOldSet == "AUTOMATIC"
             SET SYSMENU AUTOMATIC
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET SYSMENU ON
-         CASE THIS.uOldSet == "OFF"
+         CASE This.uOldSet == "OFF"
             SET SYSMENU OFF
       ENDCASE
    ENDPROC
@@ -3049,18 +3049,18 @@ DEFINE CLASS SetTableValidate AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "TableValidate", tnValue )
-         SET TableValidate TO THIS.uNewSet
+         SET TableValidate TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET TableValidate TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET TableValidate TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -3073,12 +3073,12 @@ DEFINE CLASS SetTalk AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "TALK", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET TALK ON
          OTHERWISE
             SET TALK OFF
@@ -3087,9 +3087,9 @@ DEFINE CLASS SetTalk AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET TALK ON
          OTHERWISE
             SET TALK OFF
@@ -3106,7 +3106,7 @@ DEFINE CLASS SetTopic AS SetTwo
 
    PROTECTED PROCEDURE Init( tcTopic, tcID, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
 
       DO CASE  && of primary set
@@ -3114,34 +3114,34 @@ DEFINE CLASS SetTopic AS SetTwo
                                tcTopic, ;
                                tcID, ;
                                PARAMETERS() )
-         CASE NOT INLIST( THIS.cSet, "1", "3" )
+         CASE NOT INLIST( This.cSet, "1", "3" )
             * Do nothing.
          OTHERWISE
             LOCAL lcTopic
-            lcTopic = THIS.uNewSet
+            lcTopic = This.uNewSet
             SET TOPIC TO &lcTopic  && macro alert
       ENDCASE  && of primary set
 
       * Secondary set.
-      IF INLIST( THIS.cSet, "2", "3" )
-         SET TOPIC ID TO THIS.uNewSetTwo
+      IF INLIST( This.cSet, "2", "3" )
+         SET TOPIC ID TO This.uNewSetTwo
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
+      IF NOT This.lNoReset
          DO CASE  && of primary set
-            CASE NOT INLIST( THIS.cSet, "1", "3" )
+            CASE NOT INLIST( This.cSet, "1", "3" )
                * Do nothing.
             OTHERWISE
                LOCAL lcTopic
-               lcTopic = THIS.uOldSet
+               lcTopic = This.uOldSet
                SET TOPIC TO &lcTopic  && macro alert
          ENDCASE  && of primary set
 
          * Secondary set.
-         IF INLIST( THIS.cSet, "2", "3" )
-            SET TOPIC ID TO THIS.uOldSetTwo
+         IF INLIST( This.cSet, "2", "3" )
+            SET TOPIC ID TO This.uOldSetTwo
          ENDIF
       ENDIF
    ENDPROC
@@ -3155,12 +3155,12 @@ DEFINE CLASS SetTrBetween AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "TRBETWEEN", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET TRBETWEEN ON
          OTHERWISE
             SET TRBETWEEN OFF
@@ -3169,9 +3169,9 @@ DEFINE CLASS SetTrBetween AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET TRBETWEEN ON
          OTHERWISE
             SET TRBETWEEN OFF
@@ -3187,18 +3187,18 @@ DEFINE CLASS SetTypeahead AS Set
 
    PROTECTED PROCEDURE Init( tnValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "TYPEAHEAD", tnValue )
-         SET TYPEAHEAD TO THIS.uNewSet
+         SET TYPEAHEAD TO This.uNewSet
       ELSE
          RETURN .F.
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         SET TYPEAHEAD TO THIS.uOldSet
+      IF NOT This.lNoReset
+         SET TYPEAHEAD TO This.uOldSet
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -3211,16 +3211,16 @@ DEFINE CLASS SetUdfParms AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "UDFPARMS", ;
                             IIF( ISNULL( tcValue ), ;
                                 tcValue, UPPER( ALLTRIM( tcValue )) ))
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "VALUE"
+         CASE This.uNewSet == "VALUE"
             SET UDFPARMS VALUE
-         CASE THIS.uNewSet == "REFERENCE"
+         CASE This.uNewSet == "REFERENCE"
             SET UDFPARMS REFERENCE
          OTHERWISE
             ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
@@ -3230,9 +3230,9 @@ DEFINE CLASS SetUdfParms AS Set
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "VALUE"
+         CASE This.uOldSet == "VALUE"
             SET UDFPARMS VALUE
          OTHERWISE
             SET UDFPARMS REFERENCE
@@ -3248,12 +3248,12 @@ DEFINE CLASS SetUnique AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "UNIQUE", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET UNIQUE ON
          OTHERWISE
             SET UNIQUE OFF
@@ -3262,9 +3262,9 @@ DEFINE CLASS SetUnique AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET UNIQUE ON
          OTHERWISE
             SET UNIQUE OFF
@@ -3281,12 +3281,12 @@ DEFINE CLASS SetView AS SetOnOff
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       DO CASE
          CASE NOT DODEFAULT( "VIEW", tcValue )
             RETURN .F.  && early exit
-         CASE THIS.uNewSet == "ON"
+         CASE This.uNewSet == "ON"
             SET VIEW ON
          OTHERWISE
             SET VIEW OFF
@@ -3295,9 +3295,9 @@ DEFINE CLASS SetView AS SetOnOff
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE THIS.uOldSet == "ON"
+         CASE This.uOldSet == "ON"
             SET VIEW ON
          OTHERWISE
             SET VIEW OFF
@@ -3313,10 +3313,10 @@ DEFINE CLASS SetWindowOfMemo AS Set
 
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       IF DODEFAULT( "WINDOW", tcValue )
-         lcTemp = THIS.uNewSet
+         lcTemp = This.uNewSet
          SET WINDOW OF MEMO TO &lcTemp  && macro alert
       ELSE
          RETURN .F.
@@ -3324,8 +3324,8 @@ DEFINE CLASS SetWindowOfMemo AS Set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT THIS.lNoReset
-         lcTemp = THIS.uOldSet
+      IF NOT This.lNoReset
+         lcTemp = This.uOldSet
          SET WINDOW OF MEMO TO &lcTemp  && macro alert
       ENDIF
    ENDPROC
@@ -3446,16 +3446,16 @@ DEFINE CLASS On AS Custom  && abstract class
              lNoReset
 
    FUNCTION GetOld
-      RETURN THIS.cOldOn
+      RETURN This.cOldOn
    ENDFUNC
 
    FUNCTION GetNew
-      RETURN THIS.cNewOn
+      RETURN This.cNewOn
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tcOn, tcValue )
-      THIS.cOldOn = ON( tcOn )
-      THIS.cNewOn = NVL( tcValue, "" )
+      This.cOldOn = ON( tcOn )
+      This.cNewOn = NVL( tcValue, "" )
    ENDPROC
 ENDDEFINE
 
@@ -3469,27 +3469,27 @@ DEFINE CLASS OnError AS On
 *------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       =DODEFAULT( "ERROR", tcValue )
-      IF EMPTY( THIS.cNewOn )
+      IF EMPTY( This.cNewOn )
          ON ERROR
       ELSE
          LOCAL lcError
-         lcError = THIS.cNewOn
+         lcError = This.cNewOn
          ON ERROR &lcError  && macro alert
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE EMPTY( THIS.cOldOn )
+         CASE EMPTY( This.cOldOn )
             ON ERROR
          OTHERWISE
             LOCAL lcError
-            lcError = THIS.cOldOn
+            lcError = This.cOldOn
             ON ERROR &lcError  && macro alert
       ENDCASE
    ENDPROC
@@ -3501,27 +3501,27 @@ DEFINE CLASS OnKey AS On
 *------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       =DODEFAULT( "KEY", tcValue )
-      IF EMPTY( THIS.cNewOn )
+      IF EMPTY( This.cNewOn )
          ON KEY
       ELSE
          LOCAL lcKey
-         lcKey = THIS.cNewOn
+         lcKey = This.cNewOn
          ON KEY &lcKey  && macro alert
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE EMPTY( THIS.cOldOn )
+         CASE EMPTY( This.cOldOn )
             ON KEY
          OTHERWISE
             LOCAL lcKey
-            lcKey = THIS.cOldOn
+            lcKey = This.cOldOn
             ON KEY &lcKey  && macro alert
       ENDCASE
    ENDPROC
@@ -3534,36 +3534,36 @@ DEFINE CLASS OnKeyLabel AS On
    PROTECTED cLabel
 
    FUNCTION GetLabel
-      RETURN THIS.cLabel
+      RETURN This.cLabel
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tcLabel, tcValue, tlNoReset )
    * Override parent class.
-      THIS.cLabel = tcLabel
-      THIS.cOldOn = ON( "KEY", tcLabel )
-      THIS.cNewOn = NVL( tcValue, "" )
+      This.cLabel = tcLabel
+      This.cOldOn = ON( "KEY", tcLabel )
+      This.cNewOn = NVL( tcValue, "" )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
-      IF EMPTY( THIS.cNewOn )
-         ON KEY LABEL ( THIS.cLabel )
+      IF EMPTY( This.cNewOn )
+         ON KEY LABEL ( This.cLabel )
       ELSE
          LOCAL lcKey
-         lcKey = THIS.cNewOn
-         ON KEY LABEL ( THIS.cLabel ) &lcKey  && macro alert
+         lcKey = This.cNewOn
+         ON KEY LABEL ( This.cLabel ) &lcKey  && macro alert
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE EMPTY( THIS.cOldOn )
-            ON KEY LABEL ( THIS.cLabel )
+         CASE EMPTY( This.cOldOn )
+            ON KEY LABEL ( This.cLabel )
          OTHERWISE
             LOCAL lcKey
-            lcKey = THIS.cOldOn
-            ON KEY LABEL ( THIS.cLabel ) &lcKey  && macro alert
+            lcKey = This.cOldOn
+            ON KEY LABEL ( This.cLabel ) &lcKey  && macro alert
       ENDCASE
    ENDPROC
 ENDDEFINE
@@ -3574,27 +3574,27 @@ DEFINE CLASS OnShutDown AS On
 *------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( tcValue, tlNoReset )
       IF tlNoReset
-         THIS.lNoReset = .T.
+         This.lNoReset = .T.
       ENDIF
       =DODEFAULT( "SHUTDOWN", tcValue )
-      IF EMPTY( THIS.cNewOn )
+      IF EMPTY( This.cNewOn )
          ON SHUTDOWN
       ELSE
          LOCAL lcShutDown
-         lcShutDown = THIS.cNewOn
+         lcShutDown = This.cNewOn
          ON SHUTDOWN &lcShutDown  && macro alert
       ENDIF
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
-         CASE THIS.lNoReset
+         CASE This.lNoReset
             * Do nothing.
-         CASE EMPTY( THIS.cOldOn )
+         CASE EMPTY( This.cOldOn )
             ON SHUTDOWN
          OTHERWISE
             LOCAL lcShutDown
-            lcShutDown = THIS.cOldOn
+            lcShutDown = This.cOldOn
             ON SHUTDOWN &lcShutDown  && macro alert
       ENDCASE
    ENDPROC
@@ -3611,19 +3611,19 @@ DEFINE CLASS SaveArea AS Custom  && abstract class
    PROTECTED nSelect
 
    FUNCTION GetSelect
-      RETURN THIS.nSelect
+      RETURN This.nSelect
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       DO CASE
          CASE EMPTY( tuArea ) OR ISNULL( tuArea )
-            THIS.nSelect = SELECT( 0 )
+            This.nSelect = SELECT( 0 )
          CASE TYPE( "tuArea" ) == "N"
-            THIS.nSelect = MAX( 0, tuArea )
+            This.nSelect = MAX( 0, tuArea )
          OTHERWISE  && assumes character or error will prevent init
-            THIS.nSelect = SELECT( tuArea )
+            This.nSelect = SELECT( tuArea )
       ENDCASE
-      IF EMPTY( THIS.nSelect )
+      IF EMPTY( This.nSelect )
          ERROR 17  &&  was: cnVF_ERR_TABLE_NUMINVALID
          RETURN .F.
       ENDIF
@@ -3638,14 +3638,14 @@ DEFINE CLASS SaveUsedArea AS SaveArea  && abstract class
       DO CASE
          CASE NOT DODEFAULT( tuArea )
             RETURN .F.  && early exit
-         CASE NOT USED( THIS.nSelect )
+         CASE NOT USED( This.nSelect )
             ERROR 52  &&  was: cnVF_ERR_TABLE_NOTOPEN
             RETURN .F.  && early exit
       ENDCASE
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      RETURN USED( THIS.nSelect )
+      RETURN USED( This.nSelect )
    ENDPROC
 ENDDEFINE
 
@@ -3662,7 +3662,7 @@ DEFINE CLASS SaveSelect AS SaveArea
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      SELECT ( THIS.nSelect )
+      SELECT ( This.nSelect )
    ENDPROC
 ENDDEFINE
 
@@ -3686,12 +3686,12 @@ DEFINE CLASS SaveBuffering AS SaveUsedArea
    PROTECTED nBuffering
 
    FUNCTION GetOld
-      RETURN THIS.nBuffering
+      RETURN This.nBuffering
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )
       IF DODEFAULT( tuArea )
-         THIS.nBuffering = CURSORGETPROP( "Buffering", THIS.nSelect )
+         This.nBuffering = CURSORGETPROP( "Buffering", This.nSelect )
       ELSE
          RETURN .F.
       ENDIF
@@ -3699,7 +3699,7 @@ DEFINE CLASS SaveBuffering AS SaveUsedArea
 
    PROTECTED PROCEDURE Destroy
       IF DODEFAULT()
-         =CURSORSETPROP( "Buffering", THIS.nBuffering, THIS.nSelect )
+         =CURSORSETPROP( "Buffering", This.nBuffering, This.nSelect )
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -3712,14 +3712,14 @@ DEFINE CLASS SetBuffering AS SaveBuffering
    nDefault = 1
 
    PROTECTED PROCEDURE GetDefault
-      RETURN THIS.nDefault
+      RETURN This.nDefault
    ENDPROC  && GetDefault
 
    PROTECTED PROCEDURE Init( tnBuffering, tuNewArea )
       IF DODEFAULT( tuNewArea )
          =CURSORSETPROP( "Buffering", ;
-                        NVL( tnBuffering, THIS.nDefault ), ;
-                        THIS.nSelect )
+                        NVL( tnBuffering, This.nDefault ), ;
+                        This.nSelect )
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -3731,13 +3731,13 @@ DEFINE CLASS SaveRecno AS SaveUsedArea
    PROTECTED nRecno
 
    FUNCTION GetOld
-      RETURN THIS.nRecno
+      RETURN This.nRecno
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       IF DODEFAULT( tuArea )
-         THIS.nRecno = IIF( EOF( THIS.nSelect ), ;
-                            .NULL., RECNO( THIS.nSelect ))
+         This.nRecno = IIF( EOF( This.nSelect ), ;
+                            .NULL., RECNO( This.nSelect ))
       ELSE
          RETURN .F.
       ENDIF
@@ -3747,11 +3747,11 @@ DEFINE CLASS SaveRecno AS SaveUsedArea
       DO CASE
          CASE NOT DODEFAULT()
             * Do nothing.
-         CASE ISNULL( THIS.nRecno )  && EOF()
-            This.AddObject( "SetSelect", "SetSelect", THIS.nSelect )
+         CASE ISNULL( This.nRecno )  && EOF()
+            This.AddObject( "SetSelect", "SetSelect", This.nSelect )
             LOCATE FOR .F.  && EOF()
-         CASE THIS.nRecno <= RECCOUNT( THIS.nSelect )
-            GO THIS.nRecno IN ( THIS.nSelect )
+         CASE This.nRecno <= RECCOUNT( This.nSelect )
+            GO This.nRecno IN ( This.nSelect )
       ENDCASE
    ENDPROC
 ENDDEFINE
@@ -3764,20 +3764,20 @@ DEFINE CLASS SaveOrder AS SaveUsedArea
    PROTECTED cOrder, lDescending
 
    FUNCTION GetOld
-      RETURN THIS.cOrder
+      RETURN This.cOrder
    ENDFUNC
 
    FUNCTION GetDescending
-      RETURN THIS.lDescending
+      RETURN This.lDescending
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       IF DODEFAULT( tuArea )
          LOCAL lnSelect
-         lnSelect    = THIS.nSelect
-         THIS.cOrder = ORDER( lnSelect )
-         IF NOT EMPTY( THIS.cOrder )
-            THIS.lDescending = DESCENDING( TAGNO( ORDER( lnSelect ), ;
+         lnSelect    = This.nSelect
+         This.cOrder = ORDER( lnSelect )
+         IF NOT EMPTY( This.cOrder )
+            This.lDescending = DESCENDING( TAGNO( ORDER( lnSelect ), ;
                                                  CDX( 1, lnSelect ), ;
                                                  lnSelect ), ;
                                            lnSelect )
@@ -3791,13 +3791,13 @@ DEFINE CLASS SaveOrder AS SaveUsedArea
       DO CASE
          CASE NOT DODEFAULT()
             * Do nothing.
-         CASE EMPTY( THIS.cOrder )
-            SET ORDER TO 0 IN ( THIS.nSelect )
-         CASE THIS.lDescending
-            SET ORDER TO ( THIS.cOrder ) IN ( THIS.nSelect );
+         CASE EMPTY( This.cOrder )
+            SET ORDER TO 0 IN ( This.nSelect )
+         CASE This.lDescending
+            SET ORDER TO ( This.cOrder ) IN ( This.nSelect );
                          DESCENDING
          OTHERWISE
-            SET ORDER TO ( THIS.cOrder ) IN ( THIS.nSelect );
+            SET ORDER TO ( This.cOrder ) IN ( This.nSelect );
                          ASCENDING
       ENDCASE
    ENDPROC
@@ -3812,12 +3812,12 @@ DEFINE CLASS SetOrder AS SaveOrder
          CASE NOT DODEFAULT( tuNewArea )
             RETURN .F.  && early exit
          CASE EMPTY( tuOrder ) OR ISNULL( tuOrder )
-            SET ORDER TO 0 IN ( THIS.nSelect )
+            SET ORDER TO 0 IN ( This.nSelect )
          CASE tlDescending
-            SET ORDER TO ( tuOrder ) IN ( THIS.nSelect );
+            SET ORDER TO ( tuOrder ) IN ( This.nSelect );
                          DESCENDING
          OTHERWISE
-            SET ORDER TO ( tuOrder ) IN ( THIS.nSelect )
+            SET ORDER TO ( tuOrder ) IN ( This.nSelect )
       ENDCASE
    ENDPROC
 ENDDEFINE
@@ -3829,12 +3829,12 @@ DEFINE CLASS SaveFilter AS SaveUsedArea
    PROTECTED cFilter
 
    FUNCTION GetOld
-      RETURN THIS.cFilter
+      RETURN This.cFilter
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       IF DODEFAULT( tuArea )
-         THIS.cFilter = FILTER( THIS.nSelect )
+         This.cFilter = FILTER( This.nSelect )
       ELSE
          RETURN .F.
       ENDIF
@@ -3842,12 +3842,12 @@ DEFINE CLASS SaveFilter AS SaveUsedArea
 
    PROTECTED PROCEDURE Destroy
       IF DODEFAULT()
-         This.AddObject( "SetSelect", "SetSelect", THIS.nSelect )
-         IF EMPTY( THIS.cFilter )
+         This.AddObject( "SetSelect", "SetSelect", This.nSelect )
+         IF EMPTY( This.cFilter )
             SET FILTER TO
          ELSE
             LOCAL lcFilter
-            lcFilter = THIS.cFilter
+            lcFilter = This.cFilter
             SET FILTER TO &lcFilter  && macro alert
          ENDIF
       ENDIF
@@ -3862,7 +3862,7 @@ DEFINE CLASS SetFilter AS SaveFilter
    * tcAdditive ::= "AND" | "OR"
       IF DODEFAULT( tuNewArea )
          LOCAL loSelect
-         loSelect = CREATEOBJECT( "SetSelect", THIS.nSelect )
+         loSelect = CREATEOBJECT( "SetSelect", This.nSelect )
          DO CASE
             CASE EMPTY( tcFilter ) OR ISNULL( tcFilter )
                SET FILTER TO
@@ -3887,15 +3887,15 @@ DEFINE CLASS SaveRelation AS SaveUsedArea
              cSkip
 
    FUNCTION GetOld
-      RETURN THIS.cRelation
+      RETURN This.cRelation
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       IF DODEFAULT( tuArea )
          LOCAL loSelect
-         loSelect = CREATEOBJECT( "SetSelect", THIS.nSelect )
-         THIS.cRelation = SET( "RELATION" )
-         THIS.cSkip     = SET( "SKIP" )
+         loSelect = CREATEOBJECT( "SetSelect", This.nSelect )
+         This.cRelation = SET( "RELATION" )
+         This.cSkip     = SET( "SKIP" )
       ELSE
          RETURN .F.
       ENDIF
@@ -3904,15 +3904,15 @@ DEFINE CLASS SaveRelation AS SaveUsedArea
    PROTECTED PROCEDURE Destroy
       IF DODEFAULT()
          LOCAL loSelect
-         loSelect = CREATEOBJECT( "SetSelect", THIS.nSelect )
-         IF EMPTY( THIS.cRelation )
+         loSelect = CREATEOBJECT( "SetSelect", This.nSelect )
+         IF EMPTY( This.cRelation )
             SET RELATION TO
          ELSE
             LOCAL lcTemp
-            lcTemp = THIS.cRelation
+            lcTemp = This.cRelation
             SET RELATION TO &lcTemp  && macro alert
-            IF NOT EMPTY( THIS.cSkip )
-               lcTemp = THIS.cSkip
+            IF NOT EMPTY( This.cSkip )
+               lcTemp = This.cSkip
                SET SKIP TO &lcTemp   && macro alert
             ENDIF
          ENDIF
@@ -3927,7 +3927,7 @@ DEFINE CLASS SetRelation AS SaveRelation
    PROTECTED PROCEDURE Init( tcRelation, tuNewArea, tcSkip )
       IF DODEFAULT( tuNewArea )
          LOCAL loSelect
-         loSelect = CREATEOBJECT( "SetSelect", THIS.nSelect )
+         loSelect = CREATEOBJECT( "SetSelect", This.nSelect )
          IF EMPTY( tcRelation ) OR ISNULL( tcRelation )
             SET RELATION TO
          ELSE
@@ -3951,7 +3951,7 @@ DEFINE CLASS SaveTable AS SaveUsedArea
    PROTECTED PROCEDURE Init( tuArea, tlNoDependencies )
       IF DODEFAULT( tuArea )
          LOCAL loFullPath, loSelect
-         loSelect   = CREATEOBJECT( "SetSelect", THIS.nSelect )
+         loSelect   = CREATEOBJECT( "SetSelect", This.nSelect )
          loFullPath = CREATEOBJECT( "SetFullPath", "ON" )
          This.AddObject( "SaveBuffering", "SaveBuffering" )
          This.AddObject( "SaveRecno", "SaveRecno" )
@@ -3962,9 +3962,9 @@ DEFINE CLASS SaveTable AS SaveUsedArea
             This.AddObject( "SaveFilter", "SaveFilter" )
             This.AddObject( "SaveRelation", "SaveRelation" )
          ENDIF
-         THIS.cAlias = ALIAS()
-         THIS.cFile  = DBF()
-         THIS.cLock  = SYS( 2011 )
+         This.cAlias = ALIAS()
+         This.cFile  = DBF()
+         This.cLock  = SYS( 2011 )
       ELSE
          RETURN .F.
       ENDIF
@@ -3973,27 +3973,27 @@ DEFINE CLASS SaveTable AS SaveUsedArea
    PROTECTED PROCEDURE Destroy
    * Override parent class which checks for an open table.
       LOCAL loSelect
-      loSelect = CREATEOBJECT( "SetSelect", THIS.nSelect )
-      IF NOT ALIAS() == THIS.cAlias
+      loSelect = CREATEOBJECT( "SetSelect", This.nSelect )
+      IF NOT ALIAS() == This.cAlias
          This.RemoveObject( "SetDataSession", "SetDataSession" )
-         IF USED( THIS.cAlias )  && close if open in another area
-            USE IN ( THIS.cAlias )
+         IF USED( This.cAlias )  && close if open in another area
+            USE IN ( This.cAlias )
          ENDIF
-         IF THIS.cLock == "Exclusive"
-            USE ( THIS.cFile ) ALIAS ( THIS.cAlias ) AGAIN EXCLUSIVE
+         IF This.cLock == "Exclusive"
+            USE ( This.cFile ) ALIAS ( This.cAlias ) AGAIN EXCLUSIVE
          ELSE
-            USE ( THIS.cFile ) ALIAS ( THIS.cAlias ) AGAIN SHARED
+            USE ( This.cFile ) ALIAS ( This.cAlias ) AGAIN SHARED
             DO CASE
-               CASE THIS.cLock == "File Locked"
+               CASE This.cLock == "File Locked"
                   =FLOCK()
-               CASE THIS.cLock == "Record Locked"
+               CASE This.cLock == "Record Locked"
                   This.RemoveObject( "SaveRecno", "SaveRecno" )
                   =RLOCK()
                OTHERWISE  && should never happen
                   ERROR "CASE...OTHERWISE: Unexpected."
             ENDCASE
          ENDIF
-      ENDIF  && NOT ALIAS() == THIS.cAlias
+      ENDIF  && NOT ALIAS() == This.cAlias
    ENDPROC
 ENDDEFINE
 
@@ -4058,54 +4058,54 @@ DEFINE CLASS SaveProperty AS Custom
       * Saves all properties unless tcProperty passed.
       DO CASE
          CASE TYPE( "toObject" ) == "O"
-            THIS.oObject = toObject
-         CASE TYPE( "THIS.PARENT" ) == "O"
-            THIS.oObject = THIS.PARENT
+            This.oObject = toObject
+         CASE TYPE( "This.PARENT" ) == "O"
+            This.oObject = This.PARENT
          OTHERWISE
-            THIS.oObject = _SCREEN
+            This.oObject = _SCREEN
       ENDCASE
       IF NOT EMPTY( tcProperty )
-         THIS.cProperty = ALLTRIM( tcProperty )
+         This.cProperty = ALLTRIM( tcProperty )
       ENDIF
-      THIS.Update()
+      This.Update()
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      THIS.Revert()
+      This.Revert()
    ENDPROC
 
    PROCEDURE Update
       LOCAL lnCounter, ;
             laProperties[1]
-      IF EMPTY( THIS.cProperty )
-         DIMENSION THIS.aProperties[AMEMBERS( laProperties, THIS.oObject ), 2]
+      IF EMPTY( This.cProperty )
+         DIMENSION This.aProperties[AMEMBERS( laProperties, This.oObject ), 2]
          FOR lnCounter = 1 TO ALEN( laProperties )
-            IF TYPE( "THIS.oObject." + laProperties[lnCounter] ) $ "OU"
-               THIS.aProperties[lnCounter, 1] = .NULL.
+            IF TYPE( "This.oObject." + laProperties[lnCounter] ) $ "OU"
+               This.aProperties[lnCounter, 1] = .NULL.
             ELSE
-               THIS.aProperties[lnCounter, 1] = laProperties[lnCounter]
-               THIS.aProperties[lnCounter, 2] =;
-                  EVALUATE( "THIS.oObject." + laProperties[lnCounter] )
+               This.aProperties[lnCounter, 1] = laProperties[lnCounter]
+               This.aProperties[lnCounter, 2] =;
+                  EVALUATE( "This.oObject." + laProperties[lnCounter] )
             ENDIF
          ENDFOR
       ELSE
-         DIMENSION THIS.aProperties[1, 2]
-         THIS.aProperties[1, 1] = THIS.cProperty
-         THIS.aProperties[1, 2] = EVALUATE( "THIS.oObject." + THIS.cProperty )
+         DIMENSION This.aProperties[1, 2]
+         This.aProperties[1, 1] = This.cProperty
+         This.aProperties[1, 2] = EVALUATE( "This.oObject." + This.cProperty )
       ENDIF
    ENDPROC  && Update
 
    PROCEDURE Revert
       LOCAL lnCounter
-      FOR lnCounter = 1 TO ALEN( THIS.aProperties, 1 )
-         IF ( NOT ISNULL( THIS.aProperties[lnCounter, 1] )) AND;
-            ( TYPE( "THIS.aProperties[lnCounter, 2]" ) !=;
-                TYPE( "THIS.oObject."+THIS.aProperties[lnCounter, 1] ) OR;
-             THIS.aProperties[lnCounter, 2] !=;
-                EVALUATE( "THIS.oObject."+;
-                         THIS.aProperties[lnCounter, 1] ))
-            STORE THIS.aProperties[lnCounter, 2];
-               TO ( "THIS.oObject." + THIS.aProperties[lnCounter, 1] )
+      FOR lnCounter = 1 TO ALEN( This.aProperties, 1 )
+         IF ( NOT ISNULL( This.aProperties[lnCounter, 1] )) AND;
+            ( TYPE( "This.aProperties[lnCounter, 2]" ) !=;
+                TYPE( "This.oObject."+This.aProperties[lnCounter, 1] ) OR;
+             This.aProperties[lnCounter, 2] !=;
+                EVALUATE( "This.oObject."+;
+                         This.aProperties[lnCounter, 1] ))
+            STORE This.aProperties[lnCounter, 2];
+               TO ( "This.oObject." + This.aProperties[lnCounter, 1] )
          ENDIF
       ENDFOR
    ENDPROC  && Revert
@@ -4117,7 +4117,7 @@ DEFINE CLASS SetProperty AS SaveProperty
 *------------------------------------------------------------------------------
    PROTECTED PROCEDURE Init( toObject, tcProperty, tuValue )
       DODEFAULT( toObject, tcProperty )
-      STORE tuValue TO ( "THIS.oObject." + THIS.cProperty )
+      STORE tuValue TO ( "This.oObject." + This.cProperty )
    ENDPROC
 ENDDEFINE
 
@@ -4133,17 +4133,17 @@ DEFINE CLASS SetSysVar AS Custom
              uValue
 
    FUNCTION GetOld
-      RETURN THIS.uValue
+      RETURN This.uValue
    ENDFUNC
 
    PROTECTED PROCEDURE Init( tcSysVar, tuValue )
-      THIS.cSysVar = tcSysVar
-      THIS.uValue  = EVALUATE( tcSysVar )
+      This.cSysVar = tcSysVar
+      This.uValue  = EVALUATE( tcSysVar )
       STORE tuValue TO ( tcSysVar )
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      STORE THIS.uValue TO ( THIS.cSysVar )
+      STORE This.uValue TO ( This.cSysVar )
    ENDPROC
 ENDDEFINE
 
@@ -4167,18 +4167,18 @@ DEFINE CLASS MessageTimer AS Timer
    cMessage = .NULL.
 
    PROCEDURE SetIntervalDefault( tnSeconds )
-      THIS.nIntervalDefault = IIF( EMPTY( tnSeconds ), ;
+      This.nIntervalDefault = IIF( EMPTY( tnSeconds ), ;
                                   0, tnSeconds * 1000 )
    ENDPROC
 
    PROCEDURE SetMessage( tcMessage, tnSeconds )
-      IF ISNULL( THIS.cMessage )  && don't get our timed message
-         THIS.cMessage = SET( "MESSAGE", 1 )
+      IF ISNULL( This.cMessage )  && don't get our timed message
+         This.cMessage = SET( "MESSAGE", 1 )
       ENDIF
-      THIS.Interval = IIF( PARAMETERS() < 2, ;
-                          THIS.nIntervalDefault, ;
+      This.Interval = IIF( PARAMETERS() < 2, ;
+                          This.nIntervalDefault, ;
                           tnSeconds * 1000 )
-      THIS.Reset()  && start over in case already in progress
+      This.Reset()  && start over in case already in progress
       IF EMPTY( tcMessage )
          SET MESSAGE TO
       ELSE
@@ -4187,18 +4187,18 @@ DEFINE CLASS MessageTimer AS Timer
    ENDPROC
 
    PROTECTED PROCEDURE Timer  && fires once to clear message
-      IF EMPTY( THIS.cMessage )
+      IF EMPTY( This.cMessage )
          SET MESSAGE TO
       ELSE
-         SET MESSAGE TO THIS.cMessage
+         SET MESSAGE TO This.cMessage
       ENDIF
-      THIS.cMessage = .NULL.
-      THIS.Interval = 0  && don't fire until new message is set
+      This.cMessage = .NULL.
+      This.Interval = 0  && don't fire until new message is set
    ENDPROC
 
    PROTECTED PROCEDURE Destroy
-      IF NOT ISNULL( THIS.cMessage )
-         THIS.Timer()
+      IF NOT ISNULL( This.cMessage )
+         This.Timer()
       ENDIF
    ENDPROC
 ENDDEFINE
