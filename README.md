@@ -4,6 +4,7 @@ EnvLib is a collection of classes that you can use (and aggregate) to save and r
 
 The original version of EnvLib for Visual FoxPro was created by **Tom Rettig** in July 1995. Tom passed away in February 1996.  Since then Visual FoxPro has moved forward significantly. This is an updated version of his original library.
 
+
 # Features #
 * Lightweight classes, one for each aspect of the Visual FoxPro environment.
 * Objects save, and optionally set, aspects of the VFP environment upon `init()`.
@@ -62,3 +63,154 @@ With **Envlib**, you do this:
     * Lots of code here
 
     RETURN
+
+## Classes in EnvLib
+
+### Abstract classes
+<table>
+	<tr><th>Class</th><th>Parent</th><th>Notes</th></tr>
+	<tr><td>Set</td><td>Custom</td><td>abstract class </td></tr>
+	<tr><td>SetTwo</td><td>Set </td><td>abstract class</td></tr>
+	<tr><td>SetOnOff</td><td>Set </td><td>abstract class</td></tr>
+	<tr><td>SetOnOffTwo</td><td>SetTwo </td><td>abstract class</td></tr>
+	<tr><td>On</td><td>Custom</td><td>abstract class</td></tr>
+	<tr><td>SaveArea</td><td>Custom</td><td>abstract class</td></tr>
+	<tr><td>SaveUsedArea</td><td>SaveArea</td><td>abstract class</td></tr>
+</table>
+
+### SET Classes
+<table>
+	<tr><th>Class</th><th>Parent</th></tr>
+	<tr><td>SetAlternate</td><td>SetOnOffTwo</td></tr>
+	<tr><td>SetAnsi</td><td>SetOnOff</td></tr>
+	<tr><td>SetAsserts</td><td>SetOnOff</td></tr>
+	<tr><td>SetAutoIncError</td><td>SetOnOff</td></tr>
+	<tr><td>SetAutosave</td><td>SetOnOff</td></tr>
+	<tr><td>SetBell</td><td>SetOnOff</td></tr>
+	<tr><td>SetBlocksize</td><td>Set</td></tr>
+	<tr><td>SetBrstatus</td><td>SetOnOff</td></tr>
+	<tr><td>SetCarry</td><td>SetOnOff</td></tr>
+	<tr><td>SetCentury</td><td>SetOnOff</td></tr>
+	<tr><td>SetClassLib</td><td>Set</td></tr>
+	<tr><td>SetClear</td><td>SetOnOff</td></tr>
+	<tr><td>SetClock</td><td>SetOnOff</td></tr>
+	<tr><td>SetCollate</td><td>Set</td></tr>
+	<tr><td>SetCoverage</td><td>Set</td></tr>
+	<tr><td>SetColor</td><td>Set</td></tr>
+	<tr><td>SetCompatible</td><td>SetOnOffTwo</td></tr>
+	<tr><td>SetConfirm</td><td>SetOnOff</td></tr>
+	<tr><td>SetConsole</td><td>SetOnOff</td></tr>
+	<tr><td>SetCpcompile</td><td>Set</td></tr>
+	<tr><td>SetCpdialog</td><td>SetOnOff</td></tr>
+	<tr><td>SetCurrency</td><td>SetTwo</td></tr>
+	<tr><td>SetCursor</td><td>SetOnOff</td></tr>
+	<tr><td>SetDatabase</td><td>Set</td></tr>
+	<tr><td>SetDataSession</td><td>Set</td></tr>
+	<tr><td>SetDate</td><td>Set</td></tr>
+	<tr><td>SetDebug</td><td>SetOnOff</td></tr>
+	<tr><td>SetDecimals</td><td>Set</td></tr>
+	<tr><td>SetDefault</td><td>Set</td></tr>
+	<tr><td>SetDeleted</td><td>SetOnOff</td></tr>
+	<tr><td>SetDelimiters</td><td>SetOnOffTwo</td></tr>
+	<tr><td>SetDevelopment</td><td>SetOnOff</td></tr>
+	<tr><td>SetDisplay</td><td>Set</td></tr>
+	<tr><td>SetDohistory</td><td>SetOnOff</td></tr>
+	<tr><td>SetEcho</td><td>SetOnOff</td></tr>
+	<tr><td>SetEngineBehavior</td><td>Set</td></tr>
+	<tr><td>SetEscape</td><td>SetOnOff</td></tr>
+	<tr><td>SetExact</td><td>SetOnOff</td></tr>
+	<tr><td>SetExclusive</td><td>SetOnOff</td></tr>
+	<tr><td>SetFdow</td><td>Set</td></tr>
+	<tr><td>SetFixed</td><td>SetOnOff</td></tr>
+	<tr><td>SetFullPath</td><td>SetOnOff</td></tr>
+	<tr><td>SetFweek</td><td>Set</td></tr>
+	<tr><td>SetHeadings</td><td>SetOnOff</td></tr>
+	<tr><td>SetHelp</td><td>SetOnOffTwo</td></tr>
+	<tr><td>SetHelpfilter</td><td>Set</td></tr>
+	<tr><td>SetHours</td><td>Set</td></tr>
+	<tr><td>SetIntensity</td><td>SetOnOff</td></tr>
+	<tr><td>SetKeycomp</td><td>Set</td></tr>
+	<tr><td>SetLibrary</td><td>Set</td></tr>
+	<tr><td>SetLock</td><td>SetOnOff</td></tr>
+	<tr><td>SetLogErrors</td><td>SetOnOff</td></tr>
+	<tr><td>SetMargin</td><td>Set</td></tr>
+	<tr><td>SetMackey</td><td>Set</td></tr>
+	<tr><td>SetMark</td><td>Set</td></tr>
+	<tr><td>SetMemoWidth</td><td>Set</td></tr>
+	<tr><td>SetMessage</td><td>SetTwo</td></tr>
+	<tr><td>SetMultiLocks</td><td>SetOnOff</td></tr>
+	<tr><td>SetNear</td><td>SetOnOff</td></tr>
+	<tr><td>SetNotify</td><td>SetOnOff</td></tr>
+	<tr><td>SetNull</td><td>SetOnOff</td></tr>
+	<tr><td>SetNullDisplay</td><td>Set</td></tr>
+	<tr><td>SetOdometer</td><td>Set</td></tr>
+	<tr><td>SetOLEObject</td><td>SetOnOff</td></tr>
+	<tr><td>SetOptimize</td><td>SetOnOff</td></tr>
+	<tr><td>SetPalette</td><td>SetOnOff</td></tr>
+	<tr><td>SetPath</td><td>Set</td></tr>
+	<tr><td>SetPrinter</td><td>SetOnOffTwo</td></tr>
+	<tr><td>SetPoint</td><td>Set</td></tr>
+	<tr><td>SetProcedure</td><td>Set</td></tr>
+	<tr><td>SetReadBorder</td><td>SetOnOff</td></tr>
+	<tr><td>SetRefresh</td><td>SetTwo</td></tr>
+	<tr><td>SetReprocess</td><td>Set</td></tr>
+	<tr><td>SetResource</td><td>SetOnOffTwo</td></tr>
+	<tr><td>SetResourceCreate</td><td>SetResource</td></tr>
+	<tr><td>SetSafety</td><td>SetOnOff</td></tr>
+	<tr><td>SetSeconds</td><td>SetOnOff</td></tr>
+	<tr><td>SetSeparator</td><td>Set</td></tr>
+	<tr><td>SetSpace</td><td>SetOnOff</td></tr>
+	<tr><td>SetStatus</td><td>SetOnOff</td></tr>
+	<tr><td>SetStatusBar</td><td>SetOnOff</td></tr>
+	<tr><td>SetStep</td><td>SetOnOff</td></tr>
+	<tr><td>SetSysFormats</td><td>SetOnOff</td></tr>
+	<tr><td>SetSysMenu</td><td>Set</td></tr>
+	<tr><td>SetTableValidate</td><td>Set</td></tr>
+	<tr><td>SetTalk</td><td>SetOnOff</td></tr>
+	<tr><td>SetTopic</td><td>SetTwo</td></tr>
+	<tr><td>SetTrBetween</td><td>SetOnOff</td></tr>
+	<tr><td>SetTypeahead</td><td>Set</td></tr>
+	<tr><td>SetUdfParms</td><td>Set</td></tr>
+	<tr><td>SetUnique</td><td>SetOnOff</td></tr>
+	<tr><td>SetView</td><td>SetOnOff</td></tr>
+	<tr><td>SetWindowOfMemo</td><td>Set</td></tr>
+	<tr><td>SetVfpDefaults</td><td>Custom</td></tr>
+</table>
+
+### ON Classes
+<table>
+	<tr><th>Class</th><th>Parent</th></tr>
+	<tr><td>OnError</td><td>On</td></tr>
+	<tr><td>OnKey</td><td>On</td></tr>
+	<tr><td>OnKeyLabel</td><td>On</td></tr>
+	<tr><td>OnShutDown</td><td>On</td></tr>
+</table>
+
+### Workarea Helper Classes
+<table>
+	<tr><th>Class</th><th>Parent</th></tr>
+	<tr><td>SaveSelect</td><td>SaveArea</td></tr>
+	<tr><td>SetSelect</td><td>SaveSelect</td></tr>
+	<tr><td>SaveBuffering</td><td>SaveUsedArea</td></tr>
+	<tr><td>SetBuffering</td><td>SaveBuffering</td></tr>
+	<tr><td>SaveRecno</td><td>SaveUsedArea</td></tr>
+	<tr><td>SaveOrder</td><td>SaveUsedArea</td></tr>
+	<tr><td>SetOrder</td><td>SaveOrder</td></tr>
+	<tr><td>SaveFilter</td><td>SaveUsedArea</td></tr>
+	<tr><td>SetFilter</td><td>SaveFilter</td></tr>
+	<tr><td>SaveRelation</td><td>SaveUsedArea</td></tr>
+	<tr><td>SetRelation</td><td>SaveRelation</td></tr>
+	<tr><td>SaveTable</td><td>SaveUsedArea</td></tr>
+	<tr><td>SaveAllTables</td><td>Custom</td></tr>
+	<tr><td>OpenAliasCheckpoint</td><td>CUSTOM</td></tr>
+</table>
+
+### Miscellaneous Helper Classes
+<table>
+	<tr><th>Class</th><th>Parent</th></tr>
+	<tr><td>SaveProperty</td><td>Custom</td></tr>
+	<tr><td>SetProperty</td><td>SaveProperty</td></tr>
+	<tr><td>SetSysVar</td><td>Custom</td></tr>
+	<tr><td>MessageTimer</td><td>Timer</td></tr>
+	<tr><td>SetLockScreen</td><td>CUSTOM</td></tr>
+</table>
