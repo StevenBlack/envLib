@@ -3,7 +3,7 @@
 *   Bases: All abstract classes are based on Custom.
 *  Notice: The author releases all rights to the public domain
 *        : subject to the Warranty Disclaimer below.
-*  Author: Tom Rettig 
+*  Author: Tom Rettig
 *        : Rettig Micro Corporation
 *        : First released (Version 1.0) July 15, 1995
 * Updates: Steven Black
@@ -524,9 +524,9 @@ DEFINE CLASS SetClassLib AS Set
          lcTemp = This.uNewSet
          IF ( NOT EMPTY( tcOption )) AND;
             ( UPPER( ALLTRIM( tcOption ))="ADDITIVE" )
-            SET CLASSLIB TO &lcTemp ADDITIVE  && macro alert
+            SET CLASSLIB TO &lcTemp ADDITIVE
          ELSE
-            SET CLASSLIB TO &lcTemp  && macro alert
+            SET CLASSLIB TO &lcTemp
          ENDIF
       ELSE
          RETURN .F.
@@ -537,7 +537,7 @@ DEFINE CLASS SetClassLib AS Set
       IF NOT This.lNoReset
          LOCAL lcTemp
          lcTemp = This.uOldSet
-         SET CLASSLIB TO &lcTemp  && macro alert
+         SET CLASSLIB TO &lcTemp
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -649,9 +649,9 @@ DEFINE CLASS SetCoverage AS Set
          lcTemp = This.uNewSet
          IF ( NOT EMPTY( tcOption )) AND;
             ( UPPER( ALLTRIM( tcOption ))="ADDITIVE" )
-            SET Coverage TO &lcTemp ADDITIVE  && macro alert
+            SET Coverage TO &lcTemp ADDITIVE
          ELSE
-            SET Coverage TO &lcTemp  && macro alert
+            SET Coverage TO &lcTemp
          ENDIF
       ELSE
          RETURN .F.
@@ -662,7 +662,7 @@ DEFINE CLASS SetCoverage AS Set
       IF NOT This.lNoReset
          LOCAL lcTemp
          lcTemp = This.uOldSet
-         SET Coverage TO &lcTemp  && macro alert
+         SET Coverage TO &lcTemp
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -1722,7 +1722,7 @@ DEFINE CLASS SetHelpfilter AS Set
       IF DODEFAULT( "HELPFILTER", tcValue )
          LOCAL lcTemp
          lcTemp = This.uNewSet
-         SET HELPFILTER TO &lcTemp  && macro alert
+         SET HELPFILTER TO &lcTemp
       ELSE
          RETURN .F.
       ENDIF
@@ -1732,7 +1732,7 @@ DEFINE CLASS SetHelpfilter AS Set
       IF NOT This.lNoReset
          LOCAL lcTemp
          lcTemp = This.uOldSet
-         SET HELPFILTER TO &lcTemp  && macro alert
+         SET HELPFILTER TO &lcTemp
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -2408,9 +2408,9 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
             SET PRINTER TO
          CASE ( NOT EMPTY( tcOption )) AND;
               UPPER( ALLTRIM( tcOption )) == "ADDITIVE"
-            SET PRINTER TO &tcTo ADDITIVE  && macro alert
+            SET PRINTER TO &tcTo ADDITIVE
          OTHERWISE  && macros used to enable setting COM port specs
-            SET PRINTER TO &tcTo  && macro alert
+            SET PRINTER TO &tcTo
       ENDCASE  && of secondary set
    ENDPROC
 
@@ -2481,9 +2481,9 @@ DEFINE CLASS SetProcedure AS Set
             lcTemp = This.uNewSet
             IF ( NOT EMPTY( tcOption )) AND;
                ( UPPER( ALLTRIM( tcOption ))="ADDITIVE" )
-               SET PROCEDURE TO &lcTemp ADDITIVE  && macro alert
+               SET PROCEDURE TO &lcTemp ADDITIVE
             ELSE
-               SET PROCEDURE TO &lcTemp  && macro alert
+               SET PROCEDURE TO &lcTemp
             ENDIF
          ENDIF
       ELSE
@@ -2495,7 +2495,7 @@ DEFINE CLASS SetProcedure AS Set
       IF NOT This.lNoReset
          LOCAL lcTemp
          lcTemp = This.uOldSet
-         SET PROCEDURE TO &lcTemp  && macro alert
+         SET PROCEDURE TO &lcTemp
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -3119,7 +3119,7 @@ DEFINE CLASS SetTopic AS SetTwo
          OTHERWISE
             LOCAL lcTopic
             lcTopic = This.uNewSet
-            SET TOPIC TO &lcTopic  && macro alert
+            SET TOPIC TO &lcTopic
       ENDCASE  && of primary set
 
       * Secondary set.
@@ -3136,7 +3136,7 @@ DEFINE CLASS SetTopic AS SetTwo
             OTHERWISE
                LOCAL lcTopic
                lcTopic = This.uOldSet
-               SET TOPIC TO &lcTopic  && macro alert
+               SET TOPIC TO &lcTopic
          ENDCASE  && of primary set
 
          * Secondary set.
@@ -3317,7 +3317,7 @@ DEFINE CLASS SetWindowOfMemo AS Set
       ENDIF
       IF DODEFAULT( "WINDOW", tcValue )
          lcTemp = This.uNewSet
-         SET WINDOW OF MEMO TO &lcTemp  && macro alert
+         SET WINDOW OF MEMO TO &lcTemp
       ELSE
          RETURN .F.
       ENDIF
@@ -3326,7 +3326,7 @@ DEFINE CLASS SetWindowOfMemo AS Set
    PROTECTED PROCEDURE Destroy
       IF NOT This.lNoReset
          lcTemp = This.uOldSet
-         SET WINDOW OF MEMO TO &lcTemp  && macro alert
+         SET WINDOW OF MEMO TO &lcTemp
       ENDIF
    ENDPROC
 ENDDEFINE
@@ -3477,7 +3477,7 @@ DEFINE CLASS OnError AS On
       ELSE
          LOCAL lcError
          lcError = This.cNewOn
-         ON ERROR &lcError  && macro alert
+         ON ERROR &lcError
       ENDIF
    ENDPROC
 
@@ -3490,7 +3490,7 @@ DEFINE CLASS OnError AS On
          OTHERWISE
             LOCAL lcError
             lcError = This.cOldOn
-            ON ERROR &lcError  && macro alert
+            ON ERROR &lcError
       ENDCASE
    ENDPROC
 ENDDEFINE
@@ -3509,7 +3509,7 @@ DEFINE CLASS OnKey AS On
       ELSE
          LOCAL lcKey
          lcKey = This.cNewOn
-         ON KEY &lcKey  && macro alert
+         ON KEY &lcKey
       ENDIF
    ENDPROC
 
@@ -3522,7 +3522,7 @@ DEFINE CLASS OnKey AS On
          OTHERWISE
             LOCAL lcKey
             lcKey = This.cOldOn
-            ON KEY &lcKey  && macro alert
+            ON KEY &lcKey
       ENDCASE
    ENDPROC
 ENDDEFINE
@@ -3550,7 +3550,7 @@ DEFINE CLASS OnKeyLabel AS On
       ELSE
          LOCAL lcKey
          lcKey = This.cNewOn
-         ON KEY LABEL ( This.cLabel ) &lcKey  && macro alert
+         ON KEY LABEL ( This.cLabel ) &lcKey
       ENDIF
    ENDPROC
 
@@ -3563,7 +3563,7 @@ DEFINE CLASS OnKeyLabel AS On
          OTHERWISE
             LOCAL lcKey
             lcKey = This.cOldOn
-            ON KEY LABEL ( This.cLabel ) &lcKey  && macro alert
+            ON KEY LABEL ( This.cLabel ) &lcKey
       ENDCASE
    ENDPROC
 ENDDEFINE
@@ -3582,7 +3582,7 @@ DEFINE CLASS OnShutDown AS On
       ELSE
          LOCAL lcShutDown
          lcShutDown = This.cNewOn
-         ON SHUTDOWN &lcShutDown  && macro alert
+         ON SHUTDOWN &lcShutDown
       ENDIF
    ENDPROC
 
@@ -3595,7 +3595,7 @@ DEFINE CLASS OnShutDown AS On
          OTHERWISE
             LOCAL lcShutDown
             lcShutDown = This.cOldOn
-            ON SHUTDOWN &lcShutDown  && macro alert
+            ON SHUTDOWN &lcShutDown
       ENDCASE
    ENDPROC
 ENDDEFINE
@@ -3848,7 +3848,7 @@ DEFINE CLASS SaveFilter AS SaveUsedArea
          ELSE
             LOCAL lcFilter
             lcFilter = This.cFilter
-            SET FILTER TO &lcFilter  && macro alert
+            SET FILTER TO &lcFilter
          ENDIF
       ENDIF
    ENDPROC
@@ -3867,12 +3867,12 @@ DEFINE CLASS SetFilter AS SaveFilter
             CASE EMPTY( tcFilter ) OR ISNULL( tcFilter )
                SET FILTER TO
             CASE EMPTY( tcAdditive )
-               SET FILTER TO &tcFilter  && macro alert
+               SET FILTER TO &tcFilter
             OTHERWISE
                LOCAL lcFilter
                lcFilter = "( " + FILTER() + " ) " + tcAdditive+;
                           " ( " + tcFilter + " )"
-               SET FILTER TO &lcFilter  && macro alert
+               SET FILTER TO &lcFilter
          ENDCASE
       ENDIF
    ENDPROC
@@ -3910,10 +3910,10 @@ DEFINE CLASS SaveRelation AS SaveUsedArea
          ELSE
             LOCAL lcTemp
             lcTemp = This.cRelation
-            SET RELATION TO &lcTemp  && macro alert
+            SET RELATION TO &lcTemp
             IF NOT EMPTY( This.cSkip )
                lcTemp = This.cSkip
-               SET SKIP TO &lcTemp   && macro alert
+               SET SKIP TO &lcTemp
             ENDIF
          ENDIF
       ENDIF
@@ -3931,9 +3931,9 @@ DEFINE CLASS SetRelation AS SaveRelation
          IF EMPTY( tcRelation ) OR ISNULL( tcRelation )
             SET RELATION TO
          ELSE
-            SET RELATION TO &tcRelation  && macro alert
+            SET RELATION TO &tcRelation
             IF NOT EMPTY( tcSkip )
-               SET SKIP TO &tcSkip  && macro alert
+               SET SKIP TO &tcSkip
             ENDIF
          ENDIF
       ENDIF
@@ -4035,7 +4035,7 @@ DEFINE CLASS SaveAllTables AS Custom
          RETURN .F.
       ENDIF
    ENDPROC
-ENDDEFINE         
+ENDDEFINE
 
 *------------------------------------------------------------------------------
 DEFINE CLASS OpenAliasCheckpoint AS CUSTOM
@@ -4255,7 +4255,7 @@ DEFINE CLASS SetLockScreen AS CUSTOM
   FUNCTION Destroy
   This.loForm.LockScreen= This.lOldLockScreen
 ENDDEFINE
-                          
+
 
 *** EnvLib.prg **********************************************
 
