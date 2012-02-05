@@ -9,8 +9,8 @@
 * Updates: Steven Black
 *        : Steven Black Consulting
 *        : http://stevenblack.com
-* Version: ENV Version 1.0 July 15, 1995 
-*  Action: Save, set, and restore SET, ON, open table, system varaible,
+* Version: ENV Version 1.0 July 15, 1995
+*  Action: Save, set, and restore SET, ON, open table, system variable,
 *        :    and object property environments.
 *   Usage: See Env.doc for examples.
 *Requires: Visual FoxPro for Windows version 3.0 or later
@@ -63,8 +63,8 @@ DEFINE CLASS Set AS Custom  && abstract class
    PROTECTED PROCEDURE Init( tcSet, tuValue )
       THIS.uOldSet = SET( tcSet )
       THIS.uNewSet = NVL( tuValue, THIS.uDefault )
-   ENDPROC  && Init
-ENDDEFINE  && CLASS Set AS Custom  && abstract class
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetTwo AS Set   && abstract class
@@ -109,8 +109,8 @@ DEFINE CLASS SetTwo AS Set   && abstract class
          THIS.uOldSetTwo = SET( tcSet, 1 )
          THIS.uNewSetTwo = NVL( tuValueTwo, THIS.uDefaultTwo )
       ENDIF
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetTwo AS Set   && abstract class
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetOnOff AS Set   && abstract class
@@ -124,8 +124,8 @@ DEFINE CLASS SetOnOff AS Set   && abstract class
          OTHERWISE
             =DODEFAULT( tcSet, UPPER( ALLTRIM( tcValue )) )
       ENDCASE
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetOnOff AS Set  && abstract class
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetOnOffTwo AS SetTwo   && abstract class
@@ -148,8 +148,8 @@ DEFINE CLASS SetOnOffTwo AS SetTwo   && abstract class
                           tuValueTwo, ;
                           tnParams )
       ENDCASE
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetOnOffTwo AS SetTwo  && abstract class
+   ENDPROC
+ENDDEFINE
 
 
 *************************************************************
@@ -195,7 +195,7 @@ DEFINE CLASS SetAlternate AS SetOnOffTwo
                SET ALTERNATE ON
             ENDIF
       ENDCASE  && of secondary set
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -217,8 +217,8 @@ DEFINE CLASS SetAlternate AS SetOnOffTwo
                SET ALTERNATE TO ( THIS.uOldSetTwo )
          ENDCASE  && of secondary set
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetAlternate AS SetOnOffTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetAnsi AS SetOnOff
@@ -236,7 +236,7 @@ DEFINE CLASS SetAnsi AS SetOnOff
          OTHERWISE
             SET ANSI OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -247,8 +247,8 @@ DEFINE CLASS SetAnsi AS SetOnOff
          OTHERWISE
             SET ANSI OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetAnsi AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetAsserts AS SetOnOff
@@ -266,7 +266,7 @@ DEFINE CLASS SetAsserts AS SetOnOff
          OTHERWISE
             SET Asserts OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -277,8 +277,8 @@ DEFINE CLASS SetAsserts AS SetOnOff
          OTHERWISE
             SET Asserts OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetAsserts AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetAutoIncError AS SetOnOff
@@ -296,7 +296,7 @@ DEFINE CLASS SetAutoIncError AS SetOnOff
          OTHERWISE
             SET AutoIncError OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -307,8 +307,8 @@ DEFINE CLASS SetAutoIncError AS SetOnOff
          OTHERWISE
             SET AutoIncError OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetAutoIncError AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetAutosave AS SetOnOff
@@ -326,7 +326,7 @@ DEFINE CLASS SetAutosave AS SetOnOff
          OTHERWISE
             SET AUTOSAVE OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -337,8 +337,8 @@ DEFINE CLASS SetAutosave AS SetOnOff
          OTHERWISE
             SET AUTOSAVE OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetAutosave AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetBell AS SetOnOff
@@ -357,7 +357,7 @@ DEFINE CLASS SetBell AS SetOnOff
          OTHERWISE
             SET BELL OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -368,8 +368,8 @@ DEFINE CLASS SetBell AS SetOnOff
          OTHERWISE
             SET BELL OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetBell AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetBlocksize AS Set
@@ -384,14 +384,14 @@ DEFINE CLASS SetBlocksize AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET BLOCKSIZE TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetBlocksize AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetBrstatus AS SetOnOff
@@ -409,7 +409,7 @@ DEFINE CLASS SetBrstatus AS SetOnOff
          OTHERWISE
             SET BRSTATUS OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -420,8 +420,8 @@ DEFINE CLASS SetBrstatus AS SetOnOff
          OTHERWISE
             SET BRSTATUS OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetBrstatus AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetCarry AS SetOnOff
@@ -439,7 +439,7 @@ DEFINE CLASS SetCarry AS SetOnOff
          OTHERWISE
             SET CARRY OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -450,8 +450,8 @@ DEFINE CLASS SetCarry AS SetOnOff
          OTHERWISE
             SET CARRY OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetCarry AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetCentury AS SetOnOff
@@ -469,7 +469,7 @@ DEFINE CLASS SetCentury AS SetOnOff
          OTHERWISE
             SET CENTURY OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -480,8 +480,8 @@ DEFINE CLASS SetCentury AS SetOnOff
          OTHERWISE
             SET CENTURY OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetCentury AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetClassLib AS Set
@@ -503,7 +503,7 @@ DEFINE CLASS SetClassLib AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -511,8 +511,8 @@ DEFINE CLASS SetClassLib AS Set
          lcTemp = THIS.uOldSet
          SET CLASSLIB TO &lcTemp  && macro alert
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetClassLib AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetClear AS SetOnOff
@@ -530,7 +530,7 @@ DEFINE CLASS SetClear AS SetOnOff
          OTHERWISE
             SET CLEAR OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -541,8 +541,8 @@ DEFINE CLASS SetClear AS SetOnOff
          OTHERWISE
             SET CLEAR OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetClear AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetClock AS SetOnOff
@@ -562,7 +562,7 @@ DEFINE CLASS SetClock AS SetOnOff
          OTHERWISE
             SET CLOCK OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -575,8 +575,8 @@ DEFINE CLASS SetClock AS SetOnOff
          OTHERWISE
             SET CLOCK OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetClock AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetCollate AS Set
@@ -591,14 +591,14 @@ DEFINE CLASS SetCollate AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET COLLATE TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetCollate AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetCoverage AS Set
@@ -620,7 +620,7 @@ DEFINE CLASS SetCoverage AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -628,8 +628,8 @@ DEFINE CLASS SetCoverage AS Set
          lcTemp = THIS.uOldSet
          SET Coverage TO &lcTemp  && macro alert
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetCoverage AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetColor AS Set
@@ -644,14 +644,14 @@ DEFINE CLASS SetColor AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET COLOR TO ( THIS.uOldSet )
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetColor AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetCompatible AS SetOnOffTwo
@@ -707,7 +707,7 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
             ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
       ENDCASE  && of secondary set
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -737,8 +737,8 @@ DEFINE CLASS SetCompatible AS SetOnOffTwo
                ENDIF
          ENDCASE  && of secondary set
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetCompatible AS SetOnOffTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetConfirm AS SetOnOff
@@ -756,7 +756,7 @@ DEFINE CLASS SetConfirm AS SetOnOff
          OTHERWISE
             SET CONFIRM OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -767,8 +767,8 @@ DEFINE CLASS SetConfirm AS SetOnOff
          OTHERWISE
             SET CONFIRM OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetConfirm AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetConsole AS SetOnOff
@@ -786,7 +786,7 @@ DEFINE CLASS SetConsole AS SetOnOff
          OTHERWISE
             SET CONSOLE OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -797,8 +797,8 @@ DEFINE CLASS SetConsole AS SetOnOff
          OTHERWISE
             SET CONSOLE OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetConsole AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetCpcompile AS Set
@@ -813,14 +813,14 @@ DEFINE CLASS SetCpcompile AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET CPCOMPILE TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetCpcompile AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetCpdialog AS SetOnOff
@@ -838,7 +838,7 @@ DEFINE CLASS SetCpdialog AS SetOnOff
          OTHERWISE
             SET CPDIALOG OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -849,8 +849,8 @@ DEFINE CLASS SetCpdialog AS SetOnOff
          OTHERWISE
             SET CPDIALOG OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetCpdialog AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetCurrency AS SetTwo
@@ -884,7 +884,7 @@ DEFINE CLASS SetCurrency AS SetTwo
       IF INLIST( THIS.cSet, "2", "3" )
          SET CURRENCY TO ( THIS.uNewSetTwo )
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -902,8 +902,8 @@ DEFINE CLASS SetCurrency AS SetTwo
             SET CURRENCY TO ( THIS.uOldSetTwo )
          ENDIF
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetCurrency AS SetTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetCursor AS SetOnOff
@@ -921,7 +921,7 @@ DEFINE CLASS SetCursor AS SetOnOff
          OTHERWISE
             SET CURSOR OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -932,8 +932,8 @@ DEFINE CLASS SetCursor AS SetOnOff
          OTHERWISE
             SET CURSOR OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetCursor AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDatabase AS Set
@@ -951,7 +951,7 @@ DEFINE CLASS SetDatabase AS Set
          OTHERWISE
             SET DATABASE TO ( THIS.uNewSet )
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -962,8 +962,8 @@ DEFINE CLASS SetDatabase AS Set
          OTHERWISE
             SET DATABASE TO ( THIS.uOldSet )
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDatabase AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDataSession AS Set
@@ -980,14 +980,14 @@ DEFINE CLASS SetDataSession AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET DATASESSION TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDataSession AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDate AS Set
@@ -1002,14 +1002,14 @@ DEFINE CLASS SetDate AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET DATE TO ( THIS.uOldSet )
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDate AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDebug AS SetOnOff
@@ -1027,7 +1027,7 @@ DEFINE CLASS SetDebug AS SetOnOff
          OTHERWISE
             SET DEBUG OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1038,8 +1038,8 @@ DEFINE CLASS SetDebug AS SetOnOff
          OTHERWISE
             SET DEBUG OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDebug AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDecimals AS Set
@@ -1054,14 +1054,14 @@ DEFINE CLASS SetDecimals AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET DECIMALS TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDecimals AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDefault AS Set
@@ -1075,14 +1075,14 @@ DEFINE CLASS SetDefault AS Set
       THIS.uOldSet = SYS( 5 )+CURDIR()
       THIS.uNewSet = EVL( tcValue, THIS.uDefault )
       cd ( THIS.uNewSet )
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          cd ( THIS.uOldSet )
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDefault AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDeleted AS SetOnOff
@@ -1100,7 +1100,7 @@ DEFINE CLASS SetDeleted AS SetOnOff
          OTHERWISE
             SET DELETED OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1111,8 +1111,8 @@ DEFINE CLASS SetDeleted AS SetOnOff
          OTHERWISE
             SET DELETED OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDeleted AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDelimiters AS SetOnOffTwo
@@ -1147,7 +1147,7 @@ DEFINE CLASS SetDelimiters AS SetOnOffTwo
       IF NOT EMPTY( lcDelimiter )
          SET DELIMITERS TO lcDelimiter
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -1174,8 +1174,8 @@ DEFINE CLASS SetDelimiters AS SetOnOffTwo
                ENDIF
          ENDCASE  && of secondary set
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDelimiters AS SetOnOffTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDevelopment AS SetOnOff
@@ -1193,7 +1193,7 @@ DEFINE CLASS SetDevelopment AS SetOnOff
          OTHERWISE
             SET DEVELOPMENT OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1204,8 +1204,8 @@ DEFINE CLASS SetDevelopment AS SetOnOff
          OTHERWISE
             SET DEVELOPMENT OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDevelopment AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDisplay AS Set
@@ -1221,15 +1221,15 @@ DEFINE CLASS SetDisplay AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          lcTemp = THIS.uOldSet
          SET DISPLAY TO &lcTemp
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDisplay AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetDohistory AS SetOnOff
@@ -1247,7 +1247,7 @@ DEFINE CLASS SetDohistory AS SetOnOff
          OTHERWISE
             SET DOHISTORY OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1258,8 +1258,8 @@ DEFINE CLASS SetDohistory AS SetOnOff
          OTHERWISE
             SET DOHISTORY OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetDohistory AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetEcho AS SetOnOff
@@ -1279,7 +1279,7 @@ DEFINE CLASS SetEcho AS SetOnOff
             RELEASE WINDOW TRACE
             SET ECHO OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1292,8 +1292,8 @@ DEFINE CLASS SetEcho AS SetOnOff
             RELEASE WINDOW TRACE
             SET ECHO OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetEcho AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetEngineBehavior AS Set
@@ -1315,7 +1315,7 @@ DEFINE CLASS SetEngineBehavior AS Set
          OTHERWISE
             SET EngineBehavior 90
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1330,8 +1330,8 @@ DEFINE CLASS SetEngineBehavior AS Set
          OTHERWISE
             SET EngineBehavior 90
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetEngineBehavior AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetEscape AS SetOnOff
@@ -1349,7 +1349,7 @@ DEFINE CLASS SetEscape AS SetOnOff
          OTHERWISE
             SET ESCAPE OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1360,8 +1360,8 @@ DEFINE CLASS SetEscape AS SetOnOff
          OTHERWISE
             SET ESCAPE OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetEscape AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetExact AS SetOnOff
@@ -1379,7 +1379,7 @@ DEFINE CLASS SetExact AS SetOnOff
          OTHERWISE
             SET EXACT OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1390,8 +1390,8 @@ DEFINE CLASS SetExact AS SetOnOff
          OTHERWISE
             SET EXACT OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetExact AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetExclusive AS SetOnOff
@@ -1409,7 +1409,7 @@ DEFINE CLASS SetExclusive AS SetOnOff
          OTHERWISE
             SET EXCLUSIVE OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1420,8 +1420,8 @@ DEFINE CLASS SetExclusive AS SetOnOff
          OTHERWISE
             SET EXCLUSIVE OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetExclusive AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetFdow AS Set
@@ -1436,14 +1436,14 @@ DEFINE CLASS SetFdow AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET FDOW TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetFdow AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetFixed AS SetOnOff
@@ -1461,7 +1461,7 @@ DEFINE CLASS SetFixed AS SetOnOff
          OTHERWISE
             SET FIXED OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1472,8 +1472,8 @@ DEFINE CLASS SetFixed AS SetOnOff
          OTHERWISE
             SET FIXED OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetFixed AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetFullPath AS SetOnOff
@@ -1491,7 +1491,7 @@ DEFINE CLASS SetFullPath AS SetOnOff
          OTHERWISE
             SET FULLPATH OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1502,8 +1502,8 @@ DEFINE CLASS SetFullPath AS SetOnOff
          OTHERWISE
             SET FULLPATH OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetFullPath AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetFweek AS Set
@@ -1518,14 +1518,14 @@ DEFINE CLASS SetFweek AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET FWEEK TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetFweek AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetHeadings AS SetOnOff
@@ -1543,7 +1543,7 @@ DEFINE CLASS SetHeadings AS SetOnOff
          OTHERWISE
             SET HEADINGS OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1554,8 +1554,8 @@ DEFINE CLASS SetHeadings AS SetOnOff
          OTHERWISE
             SET HEADINGS OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetHeadings AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetHelp AS SetOnOffTwo
@@ -1588,7 +1588,7 @@ DEFINE CLASS SetHelp AS SetOnOffTwo
          OTHERWISE
             SET HELP TO ( THIS.uNewSetTwo )
       ENDCASE  && of secondary set
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -1610,8 +1610,8 @@ DEFINE CLASS SetHelp AS SetOnOffTwo
                SET HELP TO ( THIS.uOldSetTwo )
          ENDCASE  && of secondary set
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetHelp AS SetOnOffTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetHelpfilter AS Set
@@ -1628,7 +1628,7 @@ DEFINE CLASS SetHelpfilter AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -1636,8 +1636,8 @@ DEFINE CLASS SetHelpfilter AS Set
          lcTemp = THIS.uOldSet
          SET HELPFILTER TO &lcTemp  && macro alert
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetHelpfilter AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetHours AS Set
@@ -1660,15 +1660,15 @@ DEFINE CLASS SetHours AS Set
          OTHERWISE
             SET HOURS TO THIS.uNewSet
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          * SET( "hours" ) can only return 12 or 24 - never EMPTY()
          SET HOURS TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetHours AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetIntensity AS SetOnOff
@@ -1686,7 +1686,7 @@ DEFINE CLASS SetIntensity AS SetOnOff
          OTHERWISE
             SET INTENSITY OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1697,8 +1697,8 @@ DEFINE CLASS SetIntensity AS SetOnOff
          OTHERWISE
             SET INTENSITY OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetIntensity AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetKeycomp AS Set
@@ -1731,7 +1731,7 @@ DEFINE CLASS SetKeycomp AS Set
          OTHERWISE
             SET KEYCOMP TO WINDOWS
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -1741,8 +1741,8 @@ DEFINE CLASS SetKeycomp AS Set
             SET KEYCOMP TO WINDOWS
          ENDIF
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetKeycomp AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetLibrary AS Set
@@ -1763,15 +1763,15 @@ DEFINE CLASS SetLibrary AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          lcTemp = THIS.uOldSet
          SET LIBRARY TO &lcTemp
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetLibrary AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetLock AS SetOnOff
@@ -1789,7 +1789,7 @@ DEFINE CLASS SetLock AS SetOnOff
          OTHERWISE
             SET LOCK OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1800,8 +1800,8 @@ DEFINE CLASS SetLock AS SetOnOff
          OTHERWISE
             SET LOCK OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetLock AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetLogErrors AS SetOnOff
@@ -1819,7 +1819,7 @@ DEFINE CLASS SetLogErrors AS SetOnOff
          OTHERWISE
             SET LOGERRORS OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1830,8 +1830,8 @@ DEFINE CLASS SetLogErrors AS SetOnOff
          OTHERWISE
             SET LOGERRORS OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetLogErrors AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetMargin AS Set
@@ -1847,14 +1847,14 @@ DEFINE CLASS SetMargin AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET MARGIN TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetMargin AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetMackey AS Set
@@ -1870,15 +1870,15 @@ DEFINE CLASS SetMackey AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          lcTemp = THIS.uOldSet
          SET MACKEY TO &lcTemp
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetMackey AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetMark AS Set
@@ -1893,14 +1893,14 @@ DEFINE CLASS SetMark AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET MARK TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetMark AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetMemoWidth AS Set
@@ -1916,14 +1916,14 @@ DEFINE CLASS SetMemoWidth AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET MEMOWIDTH TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetMemoWidth AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetMessage AS SetTwo
@@ -1942,7 +1942,7 @@ DEFINE CLASS SetMessage AS SetTwo
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -1952,8 +1952,8 @@ DEFINE CLASS SetMessage AS SetTwo
             SET MESSAGE TO THIS.uOldSetTwo
          ENDIF
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetMessage AS SetTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetMultiLocks AS SetOnOff
@@ -1971,7 +1971,7 @@ DEFINE CLASS SetMultiLocks AS SetOnOff
          OTHERWISE
             SET MULTILOCKS OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -1982,8 +1982,8 @@ DEFINE CLASS SetMultiLocks AS SetOnOff
          OTHERWISE
             SET MULTILOCKS OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetMultiLocks AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetNear AS SetOnOff
@@ -2001,7 +2001,7 @@ DEFINE CLASS SetNear AS SetOnOff
          OTHERWISE
             SET NEAR OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2012,8 +2012,8 @@ DEFINE CLASS SetNear AS SetOnOff
          OTHERWISE
             SET NEAR OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetNear AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetNotify AS SetOnOff
@@ -2031,7 +2031,7 @@ DEFINE CLASS SetNotify AS SetOnOff
          OTHERWISE
             SET NOTIFY OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2042,8 +2042,8 @@ DEFINE CLASS SetNotify AS SetOnOff
          OTHERWISE
             SET NOTIFY OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetNotify AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetNull AS SetOnOff
@@ -2061,7 +2061,7 @@ DEFINE CLASS SetNull AS SetOnOff
          OTHERWISE
             SET NULL OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2072,8 +2072,8 @@ DEFINE CLASS SetNull AS SetOnOff
          OTHERWISE
             SET NULL OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetNull AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 DEFINE CLASS SetNullDisplay AS Set
    uDefault = ""
@@ -2087,14 +2087,14 @@ DEFINE CLASS SetNullDisplay AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET NULLDISPLAY TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetNullDisplay AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetOdometer AS Set
@@ -2109,14 +2109,14 @@ DEFINE CLASS SetOdometer AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET ODOMETER TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetOdometer AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetOLEObject AS SetOnOff
@@ -2134,7 +2134,7 @@ DEFINE CLASS SetOLEObject AS SetOnOff
          OTHERWISE
             SET OLEOBJECT OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2145,8 +2145,8 @@ DEFINE CLASS SetOLEObject AS SetOnOff
          OTHERWISE
             SET OLEOBJECT OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetOLEObject AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetOptimize AS SetOnOff
@@ -2164,7 +2164,7 @@ DEFINE CLASS SetOptimize AS SetOnOff
          OTHERWISE
             SET OPTIMIZE OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2175,8 +2175,8 @@ DEFINE CLASS SetOptimize AS SetOnOff
          OTHERWISE
             SET OPTIMIZE OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetOptimize AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetPalette AS SetOnOff
@@ -2194,7 +2194,7 @@ DEFINE CLASS SetPalette AS SetOnOff
          OTHERWISE
             SET PALETTE OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2205,8 +2205,8 @@ DEFINE CLASS SetPalette AS SetOnOff
          OTHERWISE
             SET PALETTE OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetPalette AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetPath AS Set
@@ -2225,14 +2225,14 @@ DEFINE CLASS SetPath AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET PATH TO ( THIS.uOldSet )
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetPath AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetPrinter AS SetOnOffTwo
@@ -2270,7 +2270,7 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
          OTHERWISE  && macros used to enable setting COM port specs
             SET PRINTER TO &tcTo  && macro alert
       ENDCASE  && of secondary set
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -2292,8 +2292,8 @@ DEFINE CLASS SetPrinter AS SetOnOffTwo
                SET PRINTER TO ( THIS.uOldSetTwo )
          ENDCASE  && of secondary set
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetPrinter AS SetOnOffTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetPoint AS Set
@@ -2309,15 +2309,15 @@ DEFINE CLASS SetPoint AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          lcTemp = THIS.uOldSet
          SET POINT TO &lcTemp
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetPoint AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetProcedure AS Set
@@ -2343,7 +2343,7 @@ DEFINE CLASS SetProcedure AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -2351,8 +2351,8 @@ DEFINE CLASS SetProcedure AS Set
          lcTemp = THIS.uOldSet
          SET PROCEDURE TO &lcTemp  && macro alert
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetProcedure AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetReadBorder AS SetOnOff
@@ -2370,7 +2370,7 @@ DEFINE CLASS SetReadBorder AS SetOnOff
          OTHERWISE
             SET READBORDER OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2381,8 +2381,8 @@ DEFINE CLASS SetReadBorder AS SetOnOff
          OTHERWISE
             SET READBORDER OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetReadBorder AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetRefresh AS SetTwo
@@ -2418,7 +2418,7 @@ DEFINE CLASS SetRefresh AS SetTwo
          OTHERWISE
             ERROR "CASE...OTHERWISE: Unexpected."
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -2433,8 +2433,8 @@ DEFINE CLASS SetRefresh AS SetTwo
                ERROR "CASE...OTHERWISE: Unexpected."
          ENDCASE
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetRefresh AS SetTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetReprocess AS Set
@@ -2474,14 +2474,14 @@ DEFINE CLASS SetReprocess AS Set
          OTHERWISE
             SET REPROCESS TO THIS.uNewSet
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET REPROCESS TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetReprocess AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetResource AS SetOnOffTwo
@@ -2515,7 +2515,7 @@ DEFINE CLASS SetResource AS SetOnOffTwo
          OTHERWISE
             SET RESOURCE OFF
       ENDCASE  && of primary set
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -2538,8 +2538,8 @@ DEFINE CLASS SetResource AS SetOnOffTwo
                SET RESOURCE OFF
          ENDCASE  && of primary set
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetResource AS SetOnOffTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetResourceCreate AS SetResource
@@ -2553,7 +2553,7 @@ DEFINE CLASS SetResourceCreate AS SetResource
       ELSE
          RETURN DODEFAULT( tcOnOff, tcTo, tlNoReset )
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF ( NOT THIS.lNoReset ) AND INLIST( THIS.cSet, "2", "3" )
@@ -2568,7 +2568,7 @@ DEFINE CLASS SetResourceCreate AS SetResource
             DODEFAULT()
          ENDIF
       ENDIF
-   ENDPROC  && Destroy
+   ENDPROC
 
    PROTECTED FUNCTION CreateResource( tcTable )
       LOCAL llReturn, ;
@@ -2586,7 +2586,7 @@ DEFINE CLASS SetResourceCreate AS SetResource
       USE
       RETURN llReturn
    ENDFUNC   && CreateResource
-ENDDEFINE  && CLASS SetResourceCreate AS SetResource
+ENDDEFINE
 
 
 DEFINE CLASS SetSafety AS SetOnOff
@@ -2604,7 +2604,7 @@ DEFINE CLASS SetSafety AS SetOnOff
          OTHERWISE
             SET SAFETY OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2615,8 +2615,8 @@ DEFINE CLASS SetSafety AS SetOnOff
          OTHERWISE
             SET SAFETY OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetSafety AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetSeconds AS SetOnOff
@@ -2634,7 +2634,7 @@ DEFINE CLASS SetSeconds AS SetOnOff
          OTHERWISE
             SET SECONDS OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2645,8 +2645,8 @@ DEFINE CLASS SetSeconds AS SetOnOff
          OTHERWISE
             SET SECONDS OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetSeconds AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetSeparator AS Set
@@ -2661,14 +2661,14 @@ DEFINE CLASS SetSeparator AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET SEPARATOR TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetSeparator AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetSpace AS SetOnOff
@@ -2686,7 +2686,7 @@ DEFINE CLASS SetSpace AS SetOnOff
          OTHERWISE
             SET SPACE OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2697,8 +2697,8 @@ DEFINE CLASS SetSpace AS SetOnOff
          OTHERWISE
             SET SPACE OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetSpace AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetStatus AS SetOnOff
@@ -2717,7 +2717,7 @@ DEFINE CLASS SetStatus AS SetOnOff
          OTHERWISE
             SET STATUS OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2728,8 +2728,8 @@ DEFINE CLASS SetStatus AS SetOnOff
          OTHERWISE
             SET STATUS OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetStatus AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetStatusBar AS SetOnOff
@@ -2747,7 +2747,7 @@ DEFINE CLASS SetStatusBar AS SetOnOff
          OTHERWISE
             SET STATUS BAR OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2758,8 +2758,8 @@ DEFINE CLASS SetStatusBar AS SetOnOff
          OTHERWISE
             SET STATUS BAR OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetStatusBar AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetStep AS SetOnOff
@@ -2777,7 +2777,7 @@ DEFINE CLASS SetStep AS SetOnOff
          OTHERWISE
             SET STEP OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2788,8 +2788,8 @@ DEFINE CLASS SetStep AS SetOnOff
          OTHERWISE
             SET STEP OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetStep AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetSysFormats AS SetOnOff
@@ -2807,7 +2807,7 @@ DEFINE CLASS SetSysFormats AS SetOnOff
          OTHERWISE
             SET SYSFORMATS OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2818,8 +2818,8 @@ DEFINE CLASS SetSysFormats AS SetOnOff
          OTHERWISE
             SET SYSFORMATS OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetSysFormats AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetSysMenu AS Set
@@ -2851,7 +2851,7 @@ DEFINE CLASS SetSysMenu AS Set
                   SET SYSMENU OFF
             ENDCASE
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2864,8 +2864,8 @@ DEFINE CLASS SetSysMenu AS Set
          CASE THIS.uOldSet == "OFF"
             SET SYSMENU OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetSysMenu AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetTableValidate AS Set
@@ -2880,14 +2880,14 @@ DEFINE CLASS SetTableValidate AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET TableValidate TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetTableValidate AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetTalk AS SetOnOff
@@ -2905,7 +2905,7 @@ DEFINE CLASS SetTalk AS SetOnOff
          OTHERWISE
             SET TALK OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2916,8 +2916,8 @@ DEFINE CLASS SetTalk AS SetOnOff
          OTHERWISE
             SET TALK OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetTalk AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetTopic AS SetTwo
@@ -2946,7 +2946,7 @@ DEFINE CLASS SetTopic AS SetTwo
       IF INLIST( THIS.cSet, "2", "3" )
          SET TOPIC ID TO THIS.uNewSetTwo
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
@@ -2964,8 +2964,8 @@ DEFINE CLASS SetTopic AS SetTwo
             SET TOPIC ID TO THIS.uOldSetTwo
          ENDIF
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetTopic AS SetTwo
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetTrBetween AS SetOnOff
@@ -2983,7 +2983,7 @@ DEFINE CLASS SetTrBetween AS SetOnOff
          OTHERWISE
             SET TRBETWEEN OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -2994,8 +2994,8 @@ DEFINE CLASS SetTrBetween AS SetOnOff
          OTHERWISE
             SET TRBETWEEN OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetTrBetween AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetTypeahead AS Set
@@ -3010,14 +3010,14 @@ DEFINE CLASS SetTypeahead AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          SET TYPEAHEAD TO THIS.uOldSet
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetTypeahead AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetUdfParms AS Set
@@ -3040,7 +3040,7 @@ DEFINE CLASS SetUdfParms AS Set
             ERROR 231  &&  was: cnVF_ERR_SETARGINVALID
             RETURN .F.  && early exit
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -3051,8 +3051,8 @@ DEFINE CLASS SetUdfParms AS Set
          OTHERWISE
             SET UDFPARMS REFERENCE
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetUdfParms AS Set
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetUnique AS SetOnOff
@@ -3070,7 +3070,7 @@ DEFINE CLASS SetUnique AS SetOnOff
          OTHERWISE
             SET UNIQUE OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -3081,8 +3081,8 @@ DEFINE CLASS SetUnique AS SetOnOff
          OTHERWISE
             SET UNIQUE OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetUnique AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetView AS SetOnOff
@@ -3101,7 +3101,7 @@ DEFINE CLASS SetView AS SetOnOff
          OTHERWISE
             SET VIEW OFF
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -3112,8 +3112,8 @@ DEFINE CLASS SetView AS SetOnOff
          OTHERWISE
             SET VIEW OFF
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetView AS SetOnOff
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetWindowOfMemo AS Set
@@ -3129,15 +3129,15 @@ DEFINE CLASS SetWindowOfMemo AS Set
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF NOT THIS.lNoReset
          lcTemp = THIS.uOldSet
          SET WINDOW OF MEMO TO &lcTemp  && macro alert
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetWindowOfMemo AS Set
+   ENDPROC
+ENDDEFINE
 
 
 *************************************************************
@@ -3236,8 +3236,8 @@ DEFINE CLASS SetVfpDefaults AS Custom
       * and keep itself in memory or ignore this if we're a VCX.
       =THIS.AddObject( "SetClassLib", "SetClassLib", .NULL., .NULL., tlNoReset )
       RETURN .F.
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetVfpDefaults AS Custom
+   ENDPROC
+ENDDEFINE
 
 
 *************************************************************
@@ -3260,8 +3260,8 @@ DEFINE CLASS On AS Custom  && abstract class
    PROTECTED PROCEDURE Init( tcOn, tcValue )
       THIS.cOldOn = ON( tcOn )
       THIS.cNewOn = NVL( tcValue, "" )
-   ENDPROC  && Init
-ENDDEFINE  && CLASS On AS Custom  && abstract class
+   ENDPROC
+ENDDEFINE
 
 
 *************************************************************
@@ -3281,7 +3281,7 @@ DEFINE CLASS OnError AS On
          lcError = THIS.cNewOn
          ON ERROR &lcError  && macro alert
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -3294,8 +3294,8 @@ DEFINE CLASS OnError AS On
             lcError = THIS.cOldOn
             ON ERROR &lcError  && macro alert
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS OnError AS On
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS OnKey AS On
@@ -3311,7 +3311,7 @@ DEFINE CLASS OnKey AS On
          lcKey = THIS.cNewOn
          ON KEY &lcKey  && macro alert
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -3324,8 +3324,8 @@ DEFINE CLASS OnKey AS On
             lcKey = THIS.cOldOn
             ON KEY &lcKey  && macro alert
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS OnKey AS On
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS OnKeyLabel AS On
@@ -3350,7 +3350,7 @@ DEFINE CLASS OnKeyLabel AS On
          lcKey = THIS.cNewOn
          ON KEY LABEL ( THIS.cLabel ) &lcKey  && macro alert
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -3363,8 +3363,8 @@ DEFINE CLASS OnKeyLabel AS On
             lcKey = THIS.cOldOn
             ON KEY LABEL ( THIS.cLabel ) &lcKey  && macro alert
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS OnKeyLabel AS On
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS OnShutDown AS On
@@ -3380,7 +3380,7 @@ DEFINE CLASS OnShutDown AS On
          lcShutDown = THIS.cNewOn
          ON SHUTDOWN &lcShutDown  && macro alert
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -3393,8 +3393,8 @@ DEFINE CLASS OnShutDown AS On
             lcShutDown = THIS.cOldOn
             ON SHUTDOWN &lcShutDown  && macro alert
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS OnShutDown AS On
+   ENDPROC
+ENDDEFINE
 
 
 *************************************************************
@@ -3421,8 +3421,8 @@ DEFINE CLASS SaveArea AS Custom  && abstract class
          ERROR 17  &&  was: cnVF_ERR_TABLE_NUMINVALID
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SaveArea AS Custom  && abstract class
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SaveUsedArea AS SaveArea  && abstract class
@@ -3434,12 +3434,12 @@ DEFINE CLASS SaveUsedArea AS SaveArea  && abstract class
             ERROR 52  &&  was: cnVF_ERR_TABLE_NOTOPEN
             RETURN .F.  && early exit
       ENDCASE
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       RETURN USED( THIS.nSelect )
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SaveUsedArea AS SaveArea  && abstract class
+   ENDPROC
+ENDDEFINE
 
 
 *************************************************************
@@ -3449,12 +3449,12 @@ ENDDEFINE  && CLASS SaveUsedArea AS SaveArea  && abstract class
 DEFINE CLASS SaveSelect AS SaveArea
    PROTECTED PROCEDURE Init( tuArea )  && character or numeric
       RETURN DODEFAULT( tuArea )
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       SELECT ( THIS.nSelect )
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SaveSelect AS SaveArea
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetSelect AS SaveSelect
@@ -3464,8 +3464,8 @@ DEFINE CLASS SetSelect AS SaveSelect
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetSelect AS SaveSelect
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SaveBuffering AS SaveUsedArea
@@ -3481,14 +3481,14 @@ DEFINE CLASS SaveBuffering AS SaveUsedArea
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF DODEFAULT()
          =CURSORSETPROP( "Buffering", THIS.nBuffering, THIS.nSelect )
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SaveBuffering AS SaveUsedArea
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetBuffering AS SaveBuffering
@@ -3505,8 +3505,8 @@ DEFINE CLASS SetBuffering AS SaveBuffering
                         NVL( tnBuffering, THIS.nDefault ), ;
                         THIS.nSelect )
       ENDIF
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetBuffering AS SaveBuffering
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SaveRecno AS SaveUsedArea
@@ -3523,7 +3523,7 @@ DEFINE CLASS SaveRecno AS SaveUsedArea
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -3535,8 +3535,8 @@ DEFINE CLASS SaveRecno AS SaveUsedArea
          CASE THIS.nRecno <= RECCOUNT( THIS.nSelect )
             GO THIS.nRecno IN ( THIS.nSelect )
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SaveRecno AS SaveUsedArea
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SaveOrder AS SaveUsedArea
@@ -3565,7 +3565,7 @@ DEFINE CLASS SaveOrder AS SaveUsedArea
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       DO CASE
@@ -3580,8 +3580,8 @@ DEFINE CLASS SaveOrder AS SaveUsedArea
             SET ORDER TO ( THIS.cOrder ) IN ( THIS.nSelect );
                          ASCENDING
       ENDCASE
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SaveOrder AS SaveUsedArea
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetOrder AS SaveOrder
@@ -3597,8 +3597,8 @@ DEFINE CLASS SetOrder AS SaveOrder
          OTHERWISE
             SET ORDER TO ( tuOrder ) IN ( THIS.nSelect )
       ENDCASE
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetOrder AS SaveOrder
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SaveFilter AS SaveUsedArea
@@ -3614,7 +3614,7 @@ DEFINE CLASS SaveFilter AS SaveUsedArea
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF DODEFAULT()
@@ -3627,8 +3627,8 @@ DEFINE CLASS SaveFilter AS SaveUsedArea
             SET FILTER TO &lcFilter  && macro alert
          ENDIF
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SaveFilter AS SaveUsedArea
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetFilter AS SaveFilter
@@ -3649,8 +3649,8 @@ DEFINE CLASS SetFilter AS SaveFilter
                SET FILTER TO &lcFilter  && macro alert
          ENDCASE
       ENDIF
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetFilter AS SaveFilter
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SaveRelation AS SaveUsedArea
@@ -3671,7 +3671,7 @@ DEFINE CLASS SaveRelation AS SaveUsedArea
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       IF DODEFAULT()
@@ -3689,8 +3689,8 @@ DEFINE CLASS SaveRelation AS SaveUsedArea
             ENDIF
          ENDIF
       ENDIF
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SaveRelation AS SaveUsedArea
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SetRelation AS SaveRelation
@@ -3707,8 +3707,8 @@ DEFINE CLASS SetRelation AS SaveRelation
             ENDIF
          ENDIF
       ENDIF
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetRelation AS SaveRelation
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SaveTable AS SaveUsedArea
@@ -3736,7 +3736,7 @@ DEFINE CLASS SaveTable AS SaveUsedArea
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
    * Override parent class which checks for an open table.
@@ -3762,8 +3762,8 @@ DEFINE CLASS SaveTable AS SaveUsedArea
             ENDCASE
          ENDIF
       ENDIF  && NOT ALIAS() == THIS.cAlias
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SaveTable AS SaveUsedArea
+   ENDPROC
+ENDDEFINE
 
 
 DEFINE CLASS SaveAllTables AS Custom
@@ -3800,8 +3800,8 @@ DEFINE CLASS SaveAllTables AS Custom
       ELSE
          RETURN .F.
       ENDIF
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SaveAllTables AS Custom
+   ENDPROC
+ENDDEFINE
 
 
 *************************************************************
@@ -3832,11 +3832,11 @@ DEFINE CLASS SaveProperty AS Custom
          THIS.cProperty = ALLTRIM( tcProperty )
       ENDIF
       THIS.Update()
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       THIS.Revert()
-   ENDPROC  && Destroy
+   ENDPROC
 
    PROCEDURE Update
       LOCAL lnCounter, ;
@@ -3873,15 +3873,15 @@ DEFINE CLASS SaveProperty AS Custom
          ENDIF
       ENDFOR
    ENDPROC  && Revert
-ENDDEFINE  && CLASS SaveProperty AS Custom
+ENDDEFINE
 
 
 DEFINE CLASS SetProperty AS SaveProperty
    PROTECTED PROCEDURE Init( toObject, tcProperty, tuValue )
       DODEFAULT( toObject, tcProperty )
       STORE tuValue TO ( "THIS.oObject." + THIS.cProperty )
-   ENDPROC  && Init
-ENDDEFINE  && CLASS SetProperty AS SaveProperty
+   ENDPROC
+ENDDEFINE
 
 
 *************************************************************
@@ -3900,12 +3900,12 @@ DEFINE CLASS SetSysVar AS Custom
       THIS.cSysVar = tcSysVar
       THIS.uValue  = EVALUATE( tcSysVar )
       STORE tuValue TO ( tcSysVar )
-   ENDPROC  && Init
+   ENDPROC
 
    PROTECTED PROCEDURE Destroy
       STORE THIS.uValue TO ( THIS.cSysVar )
-   ENDPROC  && Destroy
-ENDDEFINE  && CLASS SetSysVar AS Custom
+   ENDPROC
+ENDDEFINE
 
 
 *************************************************************
@@ -3959,7 +3959,7 @@ DEFINE CLASS MessageTimer AS Timer
          THIS.Timer()
       ENDIF
    ENDPROC
-ENDDEFINE  && CLASS MessageTimer AS Timer
+ENDDEFINE
 
 
 *************************************************************
