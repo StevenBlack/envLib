@@ -1101,6 +1101,37 @@ DEFINE CLASS SetDebug AS SetOnOff
    ENDPROC
 ENDDEFINE
 
+*------------------------------------------------------------------------------
+DEFINE CLASS SetDebugout AS Set
+*------------------------------------------------------------------------------
+   uDefault = ""
+
+   PROTECTED PROCEDURE Init( tcValue, tcOption, tlNoReset )
+      IF tlNoReset
+         This.lNoReset = .T.
+      ENDIF
+      IF DODEFAULT( "Debugout", tcValue )
+         LOCAL lcTemp
+         lcTemp = This.uNewSet
+         IF ( NOT EMPTY( tcOption )) AND;
+            ( UPPER( ALLTRIM( tcOption ))="ADDITIVE" )
+            SET Debugout TO &lcTemp ADDITIVE
+         ELSE
+            SET Debugout TO &lcTemp
+         ENDIF
+      ELSE
+         RETURN .F.
+      ENDIF
+   ENDPROC
+
+   PROTECTED PROCEDURE Destroy
+      IF NOT This.lNoReset
+         LOCAL lcTemp
+         lcTemp = This.uOldSet
+         SET Debugout TO &lcTemp
+      ENDIF
+   ENDPROC
+ENDDEFINE
 
 *------------------------------------------------------------------------------
 DEFINE CLASS SetDecimals AS Set
