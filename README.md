@@ -19,6 +19,32 @@ To include Envlib in your application, simply call `SET PROCEDURE ... ADDITIVE` 
     SET PROCEDURE TO <path>\EnvLib ADDITIVE
 
 
+## Example -- saving the current path
+In **standard Visual FoxPro**, saving and setting `SET PATH` looks something like this:
+
+    LOCAL lcAPath
+    lcPath= SET( "path" )
+    SET PATH TO newPath  && or SET PATH TO newPath ADDITIVE
+
+    * Lots of code here
+
+    * Now restore the previously selected work area
+    SET PATH TO &lcPath   && Do this everywhere you might exit
+    RETURN
+
+With **Envlib**, you do this:
+
+    LOCAL loAlias  
+    loAlias= CREATEOBJECT( "SetPath", "newPath" )
+	* or loAlias= CREATEOBJECT( "SetPath", "newPath", "Additive" )
+
+    * Lots of code here
+
+    RETURN
+
+
+Note you don't need to cover every exit point because when `lcPath` goes out of lexical scope, `SET PATH` is reset upon its destroy.
+
 
 ## Example -- saving the current work area
 In **standard Visual FoxPro**, saving the current work area looks something like this:
