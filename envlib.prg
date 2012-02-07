@@ -2543,6 +2543,17 @@ DEFINE CLASS SetRefresh AS SetTwo
       IF tlNoReset
          This.lNoReset = .T.
       ENDIF
+      
+      *-- Bounds for the first parameter is 0...3600 
+      IF VARTYPE( tnEditSeconds ) <> "N"
+      	tnEditSeconds= This.uDefault
+      ENDIF
+      tnEditSeconds= MIN( MAX( tnEditSeconds, 0 ), 3600 )
+      
+			IF VARTYPE( tnBufferSeconds ) <> "N"
+      	tnEditSeconds= this.uDefaultTwo
+      ENDIF
+      tnEditSeconds= MIN( MAX( tnEditSeconds, -1 ), 3600 )
 
       DO CASE
          CASE NOT DODEFAULT( "REFRESH", tnEditSeconds, ;
