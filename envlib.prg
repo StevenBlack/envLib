@@ -3316,6 +3316,38 @@ ENDDEFINE
 
 
 *------------------------------------------------------------------------------
+DEFINE CLASS SetVarcharMapping AS SetOnOff
+*------------------------------------------------------------------------------
+   uDefault = "ON"
+
+   PROTECTED PROCEDURE Init( tcValue, tlNoReset )
+      IF tlNoReset
+         This.lNoReset = .T.
+      ENDIF
+      DO CASE
+         CASE NOT DODEFAULT( "VarcharMapping", tcValue )
+            RETURN .F.  && early exit
+         CASE This.uNewSet == "ON"
+            SET VarcharMapping ON
+         OTHERWISE
+            SET VarcharMapping OFF
+      ENDCASE
+   ENDPROC
+
+   PROTECTED PROCEDURE Destroy
+      DO CASE
+         CASE This.lNoReset
+            * Do nothing.
+         CASE This.uOldSet == "ON"
+            SET VarcharMapping ON
+         OTHERWISE
+            SET VarcharMapping OFF
+      ENDCASE
+   ENDPROC
+ENDDEFINE
+
+
+*------------------------------------------------------------------------------
 DEFINE CLASS SetView AS SetOnOff
 *------------------------------------------------------------------------------
 * Does not handle SET VIEW TO.
