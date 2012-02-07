@@ -6,7 +6,7 @@ The original version of EnvLib for Visual FoxPro was created by **Tom Rettig** i
 
 
 # Features #
-* Lightweight classes, one for each aspect of the Visual FoxPro environment.
+* Over 120 lightweight classes, one for each aspect of the Visual FoxPro environment.
 * Objects save, and optionally set, aspects of the VFP environment upon `init()`.
 * Objects restore their aspect of the VFP environment upon `destroy()`.
 * **Therefore** facets of the VFP environment are automatically reset when objects go out of scope.
