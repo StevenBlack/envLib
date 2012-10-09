@@ -2387,6 +2387,9 @@ DEFINE CLASS SetPath AS Set
       IF tlNoReset
          This.lNoReset = .T.
       ENDIF
+      IF TYPE( "tcValue" ) = "L"
+        tcValue= SET( "Path" )
+      ENDIF
       IF DODEFAULT( "PATH", tcValue )
          IF ( NOT EMPTY( tcOption )) AND UPPER( ALLTRIM( tcOption )) == "ADDITIVE"
             SET PATH TO ( This.uNewSet ) ADDITIVE
@@ -2574,13 +2577,13 @@ DEFINE CLASS SetRefresh AS SetTwo
       IF tlNoReset
          This.lNoReset = .T.
       ENDIF
-      
-      *-- Bounds for the first parameter is 0...3600 
+
+      *-- Bounds for the first parameter is 0...3600
       IF VARTYPE( tnEditSeconds ) <> "N"
       	tnEditSeconds= This.uDefault
       ENDIF
       tnEditSeconds= MIN( MAX( tnEditSeconds, 0 ), 3600 )
-      
+
 			IF VARTYPE( tnBufferSeconds ) <> "N"
       	tnEditSeconds= this.uDefaultTwo
       ENDIF
