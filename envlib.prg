@@ -3776,7 +3776,10 @@ DEFINE CLASS SaveBuffering AS SaveUsedArea
 
    PROTECTED PROCEDURE Destroy
       IF DODEFAULT()
-         =CURSORSETPROP( "Buffering", This.nBuffering, This.nSelect )
+         * This test prevents crashing when we're in a Transaction and no buffering change has been made.
+      	 IF CURSORGETPROP( "Buffering", This.nSelect ) <> This.nBuffering
+            CURSORSETPROP( "Buffering", This.nBuffering, This.nSelect )
+         ENDIF
       ENDIF
    ENDPROC
 ENDDEFINE
