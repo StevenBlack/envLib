@@ -3602,8 +3602,10 @@ DEFINE CLASS SaveRecno AS SaveUsedArea
          CASE ISNULL( This.nRecno )  && EOF()
             This.AddObject( "SetSelect", "SetSelect", This.nSelect )
             LOCATE FOR .F.  && EOF()
-         CASE This.nRecno <= RECCOUNT( This.nSelect )
+         CASE This.nRecno > 0 AND This.nRecno <= RECCOUNT( This.nSelect )
             GO This.nRecno IN ( This.nSelect )
+         OTHERWISE
+         	*? For now, do nothing
       ENDCASE
 ENDDEFINE
 
