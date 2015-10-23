@@ -244,7 +244,4 @@ These classes save, set, and restore various other things.
 	<tr><td>MessageTimer</td><td>Timer</td><td></td></tr>
 	<tr><td>SetLockScreen</td><td>Custom</td><td>Saves and sets <code>form.lockScreen</code>, resetting it when the instance goes out of scope.</td></tr>
 	<tr><td>ScopeTimer</td><td>Custom</td><td>Upon <code>destroy()</code> debugout the object's scope lifetime in seconds..</td></tr>
-	
-	
-	
 </table>
