@@ -3880,13 +3880,28 @@ DEFINE CLASS OpenAliasCheckpoint AS CUSTOM
 * open at object creation time.
 *------------------------------------------------------------------------------
 	DIMENSION aUsedAreas[1]
-	aUsedAreas[1]=""
+	aUsedAreas[1] = ""
 
 	*******************
 	FUNCTION Init()
 	*******************
 	AUSED( This.aUsedAreas )  && Saving all the used workareas coming in.
 	RETURN
+
+	*******************
+	FUNCTION AddAlias( tcAlias )
+	* Add an area to the array of used areas
+	*******************
+	LOCAL lnIndex
+	lnIndex = 0
+	IF VARTYPE( tcAlias ) = "C"
+		lnIndex = ALEN( This.aUsedAreas, 1) + 1
+		DIMENSION This.aUsedAreas( lnIndex, 2 )
+		This.aUsedAreas[ lnIndex, 1 ] = UPPER( tcAlias )
+		This.aUsedAreas[ lnIndex, 2 ] = SELECT( tcAlias )
+	ENDIF
+	RETURN LnIndex
+
 
 	*******************
 	FUNCTION Destroy()
