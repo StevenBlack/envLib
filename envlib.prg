@@ -4097,5 +4097,38 @@ DEFINE CLASS SetLockScreen AS CUSTOM
 ENDDEFINE
 
 
+*------------------------------------------------------------------------------
+DEFINE CLASS ScopeTimer AS CUSTOM
+*-- Time a scope's lifetime
+*------------------------------------------------------------------------------
+lnStartSecs = 0
+id          = ""
+
+************************
+FUNCTION Init( id )
+************************
+This.lnStartSecs = SECONDS()
+IF ! EMPTY( id )
+   this.id = id
+ENDIF
+
+************************
+FUNCTION Split( tcLbl )
+************************
+IF EMPTY( tcLbl )
+   tcLbl = "Split: "
+ENDIF
+DEBUGOUT this.id, tcLbl, SECONDS() - this.lnStartSecs
+RETURN
+
+************************
+FUNCTION Destroy
+************************
+DEBUGOUT this.id, SECONDS() - this.lnStartSecs
+RETURN
+
+ENDDEFINE
+
+
 *** EnvLib.prg **********************************************
 
