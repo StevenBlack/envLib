@@ -20,7 +20,7 @@
 *        : - Technical support is not officially provided.  The
 *        : author and maintainers are interested in hearing about problems
 *        : or enhancement requests you have, and will try to be
-*        : helpful within reasonable limits.  
+*        : helpful within reasonable limits.
 *        : - Warranty Disclaimer: NO WARRANTY!!!
 *        : THE AUTHOR RELEASES TO THE PUBLIC DOMAIN ALL CLAIMS TO ANY
 *        : RIGHTS IN THIS PROGRAM AND FREELY PROVIDES IT "AS IS" WITHOUT
@@ -4129,6 +4129,27 @@ RETURN
 
 ENDDEFINE
 
+*------------------------------------------------------------------------------
+DEFINE CLASS SQLStringConnect AS Custom
+* Very basic SQLStringConnect state handler
+*------------------------------------------------------------------------------
+handle = -1
+
+************************
+FUNCTION Init( connstr )
+************************
+this.handle = SQLSTRINGCONNECT(connstr)
+RETURN this
+
+************************
+FUNCTION Destroy
+************************
+IF this.handle > 0
+  SQLDISCONNECT(this.handle)
+ENDIF
+RETURN
+
+ENDDEFINE
 
 *** EnvLib.prg **********************************************
 
